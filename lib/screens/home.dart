@@ -23,8 +23,12 @@ class _TabScaffolState extends State<HomePage> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.search_circle_fill),
-            label: 'Explore',
+            icon: Icon(CupertinoIcons.chat_bubble_2),
+            label: 'Chat',
+          ),
+           BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.clock),
+            label: 'Historial',
           ),
         ],
       ),
