@@ -1,18 +1,19 @@
-
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:gestionresidencial/localstore/sharepreference.dart';
 
-
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key});
 
   static const String nombre = 'home';
   
   @override
-  State<HomePage> createState() => _TabScaffolState();
+  State<HomePage> createState() => _TabScaffoldState();
 }
-class _TabScaffolState extends State<HomePage> {
-   final prefs = PrefernciaUsuario();
+
+class _TabScaffoldState extends State<HomePage> {
+   //final prefs = PreferenciaUsuario();
+
   @override
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
@@ -26,7 +27,7 @@ class _TabScaffolState extends State<HomePage> {
             icon: Icon(CupertinoIcons.chat_bubble_2),
             label: 'Chat',
           ),
-           BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.clock),
             label: 'Historial',
           ),
@@ -35,36 +36,95 @@ class _TabScaffolState extends State<HomePage> {
       tabBuilder: (BuildContext context, int index) {
         return CupertinoTabView(
           builder: (BuildContext context) {
-            return CupertinoPageScaffold(
-              navigationBar: CupertinoNavigationBar(
-                middle: Text('Page 1 of tab $index'),
-              ),
-              child: Center(
-                child: CupertinoButton(
-                  child: const Text('Next page'),
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      CupertinoPageRoute<void>(
-                        builder: (BuildContext context) {
-                          return CupertinoPageScaffold(
-                            navigationBar: CupertinoNavigationBar(
-                              middle: Text('Page 2 of tab $index'),
-                            ),
-                            child: Center(
-                              child: CupertinoButton(
-                                child: const Text('Back'),
+            if (index == 0) {
+              return CupertinoPageScaffold(
+                navigationBar: CupertinoNavigationBar(
+                  middle: Text('Home'),
+                  leading: GestureDetector(
+                    onTap: () {
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (context) {
+                          return CupertinoActionSheet(
+                            title: Text('Menú'),
+                            actions: [
+                              CupertinoActionSheetAction(
+                                child: Text('Perfil'),
                                 onPressed: () {
-                                  Navigator.of(context).pop();
+                                  // Manejar la acción de la opción 1
+                                  Navigator.pop(context);
                                 },
                               ),
-                            ),
+                              CupertinoActionSheetAction(
+                                child: Text('Configuracion'),
+                                onPressed: () {
+                                  // Manejar la acción de la opción 2
+                                  Navigator.pop(context);
+                                },
+                              ),
+                              CupertinoActionSheetAction(
+                                child: Text('Cerrar sesion'),
+                                onPressed: () {
+                                  // Manejar la acción de la opción 2
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ],
                           );
                         },
+                      );
+                    },
+                    child: Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            width: 30,
+                            height: 2,
+                            color: Colors.black,
+                          ),
+                          SizedBox(height: 4),
+                          Container(
+                            width: 30,
+                            height: 2,
+                            color: Colors.black,
+                          ),
+                          SizedBox(height: 4),
+                          Container(
+                            width: 30,
+                            height: 2,
+                            color: Colors.black,
+                          ),
+                        ],
                       ),
-                    );
-                  },
+                    ),
+                  ),
                 ),
-              ),
+                child: Center(
+                  child: Text('Home'),
+                ),
+              );
+            } else if (index == 1) {
+              return CupertinoPageScaffold(
+                navigationBar: CupertinoNavigationBar(
+                  middle: Text('Chats'),
+                ),
+                child: Center(
+                  child: Text("Chat"),
+                ),
+              );
+            } else if (index == 2) {
+              return CupertinoPageScaffold(
+                navigationBar: CupertinoNavigationBar(
+                  middle: Text('Historial'),
+                ),
+                child: Center(
+                  child: Text("historial"),
+                ),
+              );
+            }
+            return Center(
+              child: Text('Pestaña no reconocida'),
             );
           },
         );
