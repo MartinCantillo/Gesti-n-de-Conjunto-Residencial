@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
+
+import 'package:flutter/cupertino.dart';
 import 'package:gestionresidencial/localstore/sharepreference.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -8,65 +9,62 @@ class HomePage extends StatefulWidget {
   static const String nombre = 'home';
   
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomePage> createState() => _TabScaffolState();
 }
-
-class _HomePageState extends State<HomePage> {
-  
-  final prefs = PrefernciaUsuario();
-  int _currentIndex = 0;
-
-  final screens = [
-    const Center(child: Text('Favorites Screen', style: TextStyle(fontSize: 45))),
-    const Center(child: Text('Search Screen', style: TextStyle(fontSize: 45))),
-    const Center(child: Text('Profile Screen', style: TextStyle(fontSize: 45))),
-  ];
-  final colors = [
-    Colors.blue,
-    Colors.purple,
-    Colors.green,
-    
-  ];
-
+class _TabScaffolState extends State<HomePage> {
+   final prefs = PrefernciaUsuario();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('MyApp',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
-        centerTitle: true,
-        backgroundColor: colors[_currentIndex],
+    return CupertinoTabScaffold(
+      tabBar: CupertinoTabBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.search_circle_fill),
+            label: 'Explore',
+          ),
+        ],
       ),
-      body: screens[_currentIndex],
-      bottomNavigationBar: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        margin: const EdgeInsets.only(bottom: 20),
-        child: GNav(
-          color: colors[_currentIndex],
-          tabBackgroundColor: colors[_currentIndex],
-          selectedIndex: _currentIndex,
-          tabBorderRadius: 10,
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-          onTabChange: (index) => {setState(() => _currentIndex = index)},
-          tabs: const [
-            GButton(
-              icon: Icons.home,
-              iconActiveColor: Colors.white,
-              textColor: Colors.white,
-            ),
-            GButton(
-              icon: Icons.explore,
-              iconActiveColor: Colors.white,
-              textColor: Colors.white,
-            ),
-            GButton(
-              icon: Icons.settings,
-              iconActiveColor: Colors.white,
-              textColor: Colors.white,
-            ),
-          ],
-        ),
-      ),
+      tabBuilder: (BuildContext context, int index) {
+        return CupertinoTabView(
+          builder: (BuildContext context) {
+            return CupertinoPageScaffold(
+              navigationBar: CupertinoNavigationBar(
+                middle: Text('Page 1 of tab $index'),
+              ),
+              child: Center(
+                child: CupertinoButton(
+                  child: const Text('Next page'),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      CupertinoPageRoute<void>(
+                        builder: (BuildContext context) {
+                          return CupertinoPageScaffold(
+                            navigationBar: CupertinoNavigationBar(
+                              middle: Text('Page 2 of tab $index'),
+                            ),
+                            child: Center(
+                              child: CupertinoButton(
+                                child: const Text('Back'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  },
+                ),
+              ),
+            );
+          },
+        );
+      },
     );
   }
 }
