@@ -5,7 +5,6 @@ class HomePage extends StatefulWidget {
   const HomePage({Key? key});
 
   static const String nombre = 'home';
-  
 
   @override
   State<HomePage> createState() => _TabScaffoldState();
@@ -27,8 +26,10 @@ class _TabScaffoldState extends State<HomePage> {
       backgroundColor: prefs.colosecundario ? Colors.black : Colors.white,
       appBar: AppBar(
         title: const Text('Bienvenido',
-            textAlign: TextAlign.center, 
-            style: TextStyle(color: Colors.white,)),
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.white,
+            )),
         centerTitle: true,
         backgroundColor: Colors.blue,
       ),
@@ -41,42 +42,66 @@ class _TabScaffoldState extends State<HomePage> {
               accountName: const Text('Usuario'),
               accountEmail: const Text('usuario@example.com'),
               currentAccountPicture: CircleAvatar(
-                child: const Icon(Icons.person, size: 68.0, color: Colors.black,),
+                child: const Icon(
+                  Icons.person,
+                  size: 68.0,
+                  color: Colors.black,
+                ),
                 backgroundColor: Colors.white,
               ),
               decoration: const BoxDecoration(
-                color: Colors.blue, 
+                color: Colors.blue,
               ),
             ),
-            
+
             ListTile(
-              title: Text('Home', style: TextStyle(color: prefs.colosecundario ? Colors.white : Colors.black),),
+              leading: Icon(Icons.home, color:Colors.blue), 
+              title: Text('Home',
+                  style: TextStyle(
+                      color:
+                          prefs.colosecundario ? Colors.white : Colors.black)),
               onTap: () {
-                // Acciones cuando se toca el primer elemento del cajón de navegación.
+                // Acciones cuando se toca el elemento "Home" del cajón de navegación.
               },
             ),
             ListTile(
-              title: Text('Explorar', style: TextStyle(color: prefs.colosecundario ? Colors.white : Colors.black),),
+              leading: Icon(Icons.explore, color:Colors.blue), 
+              title: Text('Explorar',
+                  style: TextStyle(
+                      color:
+                          prefs.colosecundario ? Colors.white : Colors.black)),
               onTap: () {
-                // Acciones cuando se toca el segundo elemento del cajón de navegación.
+                // Acciones cuando se toca el elemento "Explorar" del cajón de navegación.
               },
             ),
             ListTile(
-              title: Text('Chat', style: TextStyle(color: prefs.colosecundario ? Colors.white : Colors.black),),
+              leading: Icon(Icons.chat, color:Colors.blue), 
+              title: Text('Chat',
+                  style: TextStyle(
+                      color:
+                          prefs.colosecundario ? Colors.white : Colors.black)),
               onTap: () {
-                // Acciones cuando se toca el segundo elemento del cajón de navegación.
+                // Acciones cuando se toca el elemento "Chat" del cajón de navegación.
               },
             ),
             ListTile(
-              title: Text('Historal', style: TextStyle(color: prefs.colosecundario ? Colors.white : Colors.black),),
+              leading: Icon(Icons.history, color:Colors.blue), 
+              title: Text('Historial',
+                  style: TextStyle(
+                      color:
+                          prefs.colosecundario ? Colors.white : Colors.black)),
               onTap: () {
-                // Acciones cuando se toca el segundo elemento del cajón de navegación.
+                // Acciones cuando se toca el elemento "Historial" del cajón de navegación.
               },
             ),
             ListTile(
-              title: Text('Configuracion', style: TextStyle(color: prefs.colosecundario ? Colors.white : Colors.black),),
+              leading: Icon(Icons.settings, color:Colors.blue), 
+              title: Text('Configuración',
+                  style: TextStyle(
+                      color:
+                          prefs.colosecundario ? Colors.white : Colors.black)),
               onTap: () {
-                // Acciones cuando se toca el segundo elemento del cajón de navegación.
+                // Acciones cuando se toca el elemento "Configuración" del cajón de navegación.
               },
             ),
             const Divider(
@@ -88,7 +113,12 @@ class _TabScaffoldState extends State<HomePage> {
             ),
             SwitchListTile(
                 value: _colorsecundario,
-                title: Text('Tema oscuro', style: TextStyle(color: prefs.colosecundario ? Colors.white : Colors.black),),
+                title: Text(
+                  'Tema oscuro',
+                  style: TextStyle(
+                      color:
+                          prefs.colosecundario ? Colors.white : Colors.black),
+                ),
                 onChanged: (value) {
                   setState(() {
                     _colorsecundario = value;
@@ -98,8 +128,12 @@ class _TabScaffoldState extends State<HomePage> {
           ],
         ),
       ),
-      body:  Center(
-        child: Text('Contenido de la página principal', style: TextStyle(color:prefs.colosecundario ? Colors.white : Colors.black),),
+      body: Center(
+        child: Text(
+          'Contenido de la página principal',
+          style: TextStyle(
+              color: prefs.colosecundario ? Colors.white : Colors.black),
+        ),
       ),
     );
   }
