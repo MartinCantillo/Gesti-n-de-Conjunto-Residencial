@@ -14,28 +14,52 @@ class _TabScaffoldState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My App'), // Título de la aplicación
+        title: Text('Bienvenido',
+            textAlign: TextAlign.center, style: TextStyle(color: Colors.white)),
+        centerTitle: true,
       ),
       drawer: Drawer(
+        //backgroundColor: Colors.amber,
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
             UserAccountsDrawerHeader(
-              accountName: Text('Nombre de usuario'),
+              accountName: Text('Usuario'),
               accountEmail: Text('usuario@example.com'),
-              
               currentAccountPicture: CircleAvatar(
-              //  backgroundImage: AssetImage('assets/avatar.jpg'), // Ruta de la imagen de avatar
+                  //  backgroundImage: AssetImage('assets/avatar.jpg'), // Ruta de la imagen de avatar
+                  ),
+              decoration: BoxDecoration(
+                color: Colors
+                    .blue, // Cambia el color de fondo a azul
               ),
             ),
             ListTile(
-              title: Text('Item 1'),
+              title: Text('Home'),
               onTap: () {
                 // Acciones cuando se toca el primer elemento del cajón de navegación.
               },
             ),
             ListTile(
-              title: Text('Item 2'),
+              title: Text('Explorar'),
+              onTap: () {
+                // Acciones cuando se toca el segundo elemento del cajón de navegación.
+              },
+            ),
+            ListTile(
+              title: Text('Chat'),
+              onTap: () {
+                // Acciones cuando se toca el segundo elemento del cajón de navegación.
+              },
+            ),
+            ListTile(
+              title: Text('Historal'),
+              onTap: () {
+                // Acciones cuando se toca el segundo elemento del cajón de navegación.
+              },
+            ),
+            ListTile(
+              title: Text('Configuracion'),
               onTap: () {
                 // Acciones cuando se toca el segundo elemento del cajón de navegación.
               },
