@@ -38,4 +38,12 @@ class PrefernciaUsuario {
   set ultimapagina(String value){
      _prefs.setString('ultimapagina', value);
   }
+
+  bool get colosecundario{
+    return _prefs.getBool('colosecundario') ?? false;
+  }
+
+  set colosecundario(bool value){
+     _prefs.setBool('colosecundario', value);
+  }
 }
