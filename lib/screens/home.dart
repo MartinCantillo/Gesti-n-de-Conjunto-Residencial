@@ -26,9 +26,9 @@ class _TabScaffoldState extends State<HomePage> {
     return Scaffold(
       backgroundColor: prefs.colosecundario ? Colors.black : Colors.white,
       appBar: AppBar(
-        title: Text('Bienvenido',
+        title: const Text('Bienvenido',
             textAlign: TextAlign.center, 
-            style: TextStyle(color: prefs.colosecundario ? Colors.white : Colors.black)),
+            style: TextStyle(color: Colors.white,)),
         centerTitle: true,
         backgroundColor: Colors.blue,
       ),
@@ -37,17 +37,18 @@ class _TabScaffoldState extends State<HomePage> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            const UserAccountsDrawerHeader(
-              accountName: Text('Usuario'),
-              accountEmail: Text('usuario@example.com'),
+            UserAccountsDrawerHeader(
+              accountName: const Text('Usuario'),
+              accountEmail: const Text('usuario@example.com'),
               currentAccountPicture: CircleAvatar(
-                  //  backgroundImage: AssetImage('assets/avatar.jpg'), // Ruta de la imagen de avatar
-                  ),
-              decoration: BoxDecoration(
-                color: Colors
-                    .blue, // Cambia el color de fondo a azul
+                child: const Icon(Icons.person, size: 68.0, color: Colors.black,),
+                backgroundColor: Colors.white,
+              ),
+              decoration: const BoxDecoration(
+                color: Colors.blue, 
               ),
             ),
+            
             ListTile(
               title: Text('Home', style: TextStyle(color: prefs.colosecundario ? Colors.white : Colors.black),),
               onTap: () {
@@ -78,7 +79,13 @@ class _TabScaffoldState extends State<HomePage> {
                 // Acciones cuando se toca el segundo elemento del cajón de navegación.
               },
             ),
-            const Divider(),
+            const Divider(
+              height: 3,
+              thickness: 0,
+              indent: 3,
+              endIndent: 3,
+              color: Colors.grey,
+            ),
             SwitchListTile(
                 value: _colorsecundario,
                 title: Text('Tema oscuro', style: TextStyle(color: prefs.colosecundario ? Colors.white : Colors.black),),
