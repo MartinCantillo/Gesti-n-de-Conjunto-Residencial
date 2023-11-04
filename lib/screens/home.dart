@@ -65,6 +65,16 @@ class _TabScaffoldState extends State<HomePage> {
               },
             ),
             ListTile(
+              leading: Icon(Icons.history, color:Colors.blue), 
+              title: Text('Historial',
+                  style: TextStyle(
+                      color:
+                          prefs.colosecundario ? Colors.white : Colors.black)),
+              onTap: () {
+                // Acciones cuando se toca el elemento "Historial" del cajón de navegación.
+              },
+            ),
+            ListTile(
               leading: Icon(Icons.explore, color:Colors.blue), 
               title: Text('Explorar',
                   style: TextStyle(
@@ -84,26 +94,8 @@ class _TabScaffoldState extends State<HomePage> {
                 // Acciones cuando se toca el elemento "Chat" del cajón de navegación.
               },
             ),
-            ListTile(
-              leading: Icon(Icons.history, color:Colors.blue), 
-              title: Text('Historial',
-                  style: TextStyle(
-                      color:
-                          prefs.colosecundario ? Colors.white : Colors.black)),
-              onTap: () {
-                // Acciones cuando se toca el elemento "Historial" del cajón de navegación.
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.settings, color:Colors.blue), 
-              title: Text('Configuración',
-                  style: TextStyle(
-                      color:
-                          prefs.colosecundario ? Colors.white : Colors.black)),
-              onTap: () {
-                // Acciones cuando se toca el elemento "Configuración" del cajón de navegación.
-              },
-            ),
+            
+            
             const Divider(
               height: 3,
               thickness: 0,
@@ -124,7 +116,18 @@ class _TabScaffoldState extends State<HomePage> {
                     _colorsecundario = value;
                     prefs.colosecundario = value;
                   });
-                }),
+                }
+            ),
+            ListTile(
+              leading: Icon(Icons.settings, color:Colors.blue), 
+              title: Text('Configuración',
+                  style: TextStyle(
+                      color:
+                          prefs.colosecundario ? Colors.white : Colors.black)),
+              onTap: () {
+                // Acciones cuando se toca el elemento "Configuración" del cajón de navegación.
+              },
+            ),
           ],
         ),
       ),
