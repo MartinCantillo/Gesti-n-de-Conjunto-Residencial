@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:gestionresidencial/Views/Widgets/drawer.dart';
 import 'package:gestionresidencial/localstore/sharepreference.dart';
 
@@ -23,7 +24,7 @@ class _Home2State extends State<Home2> {
 
   @override
   Widget build(BuildContext context) {
-   return Scaffold(
+   return  Scaffold(
   backgroundColor: prefs.colosecundario ? Colors.black : Colors.white,
   appBar: AppBar(
     shape: RoundedRectangleBorder(
@@ -35,15 +36,94 @@ class _Home2State extends State<Home2> {
     backgroundColor: Colors.blue,
   ),
   drawer: CustomDrawer(),
-  body: Center(
-    child: Text(
-      'Contenido de la página principal home ',
-      style: TextStyle(
-        color: prefs.colosecundario ? Colors.white : Colors.black,
+  body: Column(
+    children: <Widget>[
+      Padding(
+        padding: const EdgeInsets.all(10.0), // Puedes ajustar el espaciado según tus preferencias
+        child: Text(
+          "Bienvenido User",
+          style: TextStyle(
+            fontSize: 24, // Ajusta el tamaño de la fuente
+            fontWeight: FontWeight.bold, // Otras propiedades de estilo de texto
+          ),
+        ),
+      ),
+      Expanded(
+        child: GridView.count(
+          crossAxisSpacing: 2,
+          mainAxisSpacing: 2,
+          crossAxisCount: 2,
+          children: <Widget>[
+            Container(
+  width: 20, // Ajusta el ancho de la Card
+  height: 15, // Ajusta la altura de la Card
+  child: Card(
+    color: Colors.blue,
+    child: Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text("Home1"),
+        ],
       ),
     ),
   ),
+), 
+ Container(
+  width: 20, // Ajusta el ancho de la Card
+  height: 15, // Ajusta la altura de la Card
+  child: Card(
+    color: Colors.blue,
+    child: Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text("Home2"),
+        ],
+      ),
+    ),
+  ),
+), 
+ Container(
+  width: 20, // Ajusta el ancho de la Card
+  height: 15, // Ajusta la altura de la Card
+  child: Card(
+    color: Colors.blue,
+    child: Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text("Home3"),
+        ],
+      ),
+    ),
+  ),
+), 
+ Container(
+  width: 20, // Ajusta el ancho de la Card
+  height: 15, // Ajusta la altura de la Card
+  child: Card(
+    color: Colors.blue,
+    child: Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text("Home4"),
+        ],
+      ),
+    ),
+  ),
+), 
+
+
+
+          ],
+        ),
+      ),
+    ],
+  ),
 );
+
 
   }
 }
