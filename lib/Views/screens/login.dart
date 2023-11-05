@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:gestionresidencial/Views/screens/myHomePage.dart';
 import 'package:gestionresidencial/components/mybutton.dart';
 import 'package:gestionresidencial/components/mytextfield.dart';
 import 'package:gestionresidencial/components/squaretile.dart';
 import 'package:gestionresidencial/localstore/sharepreference.dart';
-import 'package:gestionresidencial/screens/home.dart';
+
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
@@ -19,7 +20,7 @@ class LoginPage extends StatelessWidget {
     prefs.usuario = usernameController.text;
     prefs.contrasena = passwordController.text;
     print (prefs.usuario);
-    Navigator.of(context).pushNamed(HomePage.nombre);
+    Navigator.of(context).pushNamed(myHomePage.nombre);
   }
 
   @override
