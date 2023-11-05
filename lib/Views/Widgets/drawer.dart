@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:gestionresidencial/Views/screens/home.dart';
 import 'package:gestionresidencial/Views/screens/myHomePage.dart';
 import 'package:gestionresidencial/localstore/sharepreference.dart';
 
@@ -53,6 +54,8 @@ class _DrawerState extends State<CustomDrawer> {
                       color:
                           prefs.colosecundario ? Colors.white : Colors.black)),
               onTap: () {
+                Navigator.pop(context);
+                   Navigator.pushReplacementNamed(context, Home2.nombre);
                 // Acciones cuando se toca el elemento "Home" del cajón de navegación.
               },
             ),

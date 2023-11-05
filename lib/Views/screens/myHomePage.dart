@@ -30,14 +30,20 @@ class myHomePageState extends State<myHomePage> {
     return Scaffold(
       backgroundColor: prefs.colosecundario ? Colors.black : Colors.white,
       appBar: AppBar(
-        title: const Text('Bienvenido',
+         title: const Text('Bienvenido',
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.white,
             )),
         centerTitle: true,
         backgroundColor: Colors.blue,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(
+        bottom: Radius.circular(30),
       ),
+    ),
+    
+  ),
       drawer:  CustomDrawer(),
       body: Center(
         
@@ -52,3 +58,7 @@ class myHomePageState extends State<myHomePage> {
   }
   
 }
+
+
+
+

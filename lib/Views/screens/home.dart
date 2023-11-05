@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:gestionresidencial/Views/Widgets/drawer.dart';
 import 'package:gestionresidencial/localstore/sharepreference.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key});
+class Home2 extends StatefulWidget {
+  const Home2({Key? key});
 
-  static const String nombre = 'home';
+  static const String nombre = 'home2';
 
   @override
-  State<HomePage> createState() => _TabScaffoldState();
+  State<Home2> createState() => _Home2State();
 }
 
-class _TabScaffoldState extends State<HomePage> {
+class _Home2State extends State<Home2> {
   bool _colorsecundario = false;
   final prefs = PrefernciaUsuario();
 
@@ -22,15 +23,27 @@ class _TabScaffoldState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: prefs.colosecundario ? Colors.black : Colors.white,
-      body: Center(
-        child: Text(
-          'Contenido de la página principal',
-          style: TextStyle(
-              color: prefs.colosecundario ? Colors.white : Colors.black),
-        ),
+   return Scaffold(
+  backgroundColor: prefs.colosecundario ? Colors.black : Colors.white,
+  appBar: AppBar(
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(
+        bottom: Radius.circular(30),
       ),
-    );
+    ),
+    centerTitle: true,
+    backgroundColor: Colors.blue,
+  ),
+  drawer: CustomDrawer(),
+  body: Center(
+    child: Text(
+      'Contenido de la página principal home ',
+      style: TextStyle(
+        color: prefs.colosecundario ? Colors.white : Colors.black,
+      ),
+    ),
+  ),
+);
+
   }
 }
