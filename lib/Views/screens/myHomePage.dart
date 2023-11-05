@@ -4,21 +4,25 @@ import 'package:gestionresidencial/localstore/sharepreference.dart';
 
 class myHomePage extends StatefulWidget {
   const myHomePage({Key? key});
-
+ 
   static const String nombre = 'myHomePage';
+  
 
   @override
-  State<myHomePage> createState() => _myHomePageState();
+  State<myHomePage> createState() => myHomePageState();
 }
 
-class _myHomePageState extends State<myHomePage> {
+class myHomePageState extends State<myHomePage> {
+  static bool  onColorChange=false ;
+
   //bool _colorsecundario = false;
   final prefs = PrefernciaUsuario();
-
+ 
   @override
   void initState() {
     super.initState();
-   // _colorsecundario = prefs.colosecundario;
+
+   print(prefs.colosecundario);
   }
 
   @override
@@ -34,14 +38,17 @@ class _myHomePageState extends State<myHomePage> {
         centerTitle: true,
         backgroundColor: Colors.blue,
       ),
-      drawer: const CustomDrawer(),
+      drawer:  CustomDrawer(),
       body: Center(
+        
         child: Text(
           'Contenido de la página principal',
           style: TextStyle(
+            
               color: prefs.colosecundario ? Colors.white : Colors.black),
         ),
       ),
     );
   }
+  
 }

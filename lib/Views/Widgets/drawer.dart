@@ -1,16 +1,19 @@
+
 import 'package:flutter/material.dart';
+import 'package:gestionresidencial/Views/screens/myHomePage.dart';
 import 'package:gestionresidencial/localstore/sharepreference.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({Key? key});
 
-  //static const String nombre = 'drawer';
+  static const String nombre = 'drawer';
 
   @override
   State<CustomDrawer> createState() => _DrawerState();
 }
 
 class _DrawerState extends State<CustomDrawer> {
+  
   bool _colorsecundario = false;
   final prefs = PrefernciaUsuario();
 
@@ -104,6 +107,8 @@ class _DrawerState extends State<CustomDrawer> {
                   setState(() {
                     _colorsecundario = value;
                     prefs.colosecundario = value;
+                   Navigator.pop(context);
+                   Navigator.pushReplacementNamed(context, myHomePage.nombre);
                   });
                 }
             ),

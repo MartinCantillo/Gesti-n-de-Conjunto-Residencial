@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:gestionresidencial/Views/Widgets/drawer.dart';
+import 'package:gestionresidencial/Views/screens/login.dart';
 import 'package:gestionresidencial/Views/screens/myHomePage.dart';
 import 'package:gestionresidencial/localstore/sharepreference.dart';
 
-import 'package:gestionresidencial/Views/login.dart';
 
 Future<void> main() async {
   final prefs = PrefernciaUsuario();
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
       routes: {
         LoginPage.nombre:(context) => LoginPage(),
         myHomePage.nombre:(context) => myHomePage(),
+      //  CustomDrawer.nombre:(context) => CustomDrawer(),
       },
     );
   }
