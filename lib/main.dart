@@ -3,6 +3,7 @@ import 'package:gestionresidencial/Views/Widgets/drawer.dart';
 import 'package:gestionresidencial/Views/screens/home.dart';
 import 'package:gestionresidencial/Views/screens/login.dart';
 import 'package:gestionresidencial/Views/screens/myHomePage.dart';
+import 'package:gestionresidencial/Views/screens/register.dart';
 import 'package:gestionresidencial/localstore/sharepreference.dart';
 
 
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
       initialRoute: LoginPage.nombre,
       routes: {
         LoginPage.nombre:(context) => LoginPage(),
+        Register.nombre:(context) => Register(),
         myHomePage.nombre:(context) => myHomePage(),
        CustomDrawer.nombre:(context) => CustomDrawer(),
         Home2.nombre:(context) => Home2(),
