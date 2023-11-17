@@ -4,7 +4,7 @@ import 'package:gestionresidencial/Views/Components/mybutton3.dart';
 import 'package:gestionresidencial/Views/Components/mytextfield.dart';
 import 'package:gestionresidencial/Views/Components/squaretile.dart';
 import 'package:gestionresidencial/localstore/sharepreference.dart';
-import 'package:gestionresidencial/Views/screens/login.dart';
+import 'package:gestionresidencial/Views/screens/loginPage_screen.dart';
 
 
 

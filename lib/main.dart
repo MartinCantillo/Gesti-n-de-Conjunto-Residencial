@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:gestionresidencial/Views/Widgets/drawer.dart';
-import 'package:gestionresidencial/Views/screens/home.dart';
-import 'package:gestionresidencial/Views/screens/login.dart';
-import 'package:gestionresidencial/Views/screens/myHomePage.dart';
-import 'package:gestionresidencial/Views/screens/register.dart';
+import 'package:gestionresidencial/Views/Widgets/drawer_widget.dart';
+import 'package:gestionresidencial/Views/screens/chatPage_screen.dart';
+import 'package:gestionresidencial/Views/screens/historialPage_screen.dart';
+import 'package:gestionresidencial/Views/screens/loginPage_screen.dart';
+import 'package:gestionresidencial/Views/screens/myHomePage_screen.dart';
+import 'package:gestionresidencial/Views/screens/registerPage_screen.dart';
+import 'package:gestionresidencial/config/themes/app_themes.dart';
 import 'package:gestionresidencial/localstore/sharepreference.dart';
 
 
@@ -16,20 +18,20 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Material App',
-      theme: ThemeData(useMaterial3: true, brightness: Brightness.dark),
+      title: 'Conjunto Residencial App',
+      theme: AppTheme(selectedColor: 1).theme(),
       initialRoute: LoginPage.nombre,
       routes: {
         LoginPage.nombre:(context) => LoginPage(),
-        Register.nombre:(context) => Register(),
-        myHomePage.nombre:(context) => myHomePage(),
-       CustomDrawer.nombre:(context) => CustomDrawer(),
-        Home2.nombre:(context) => Home2(),
+        Register.nombre:(context) => const Register(),
+        myHomePage.nombre:(context) => const myHomePage(),
+        CustomDrawer.nombre:(context) => const CustomDrawer(),
+        Historial.nombre:(context) => const Historial(),
+        chatPage.nombre:(context) => const chatPage()
       },
     );
   }

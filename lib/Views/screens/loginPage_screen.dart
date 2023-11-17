@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gestionresidencial/Views/Components/mybutton.dart';
 import 'package:gestionresidencial/Views/Components/mytextfield.dart';
 import 'package:gestionresidencial/Views/Components/squaretile.dart';
-import 'package:gestionresidencial/Views/screens/myHomePage.dart';
-import 'package:gestionresidencial/Views/screens/register.dart';
+import 'package:gestionresidencial/Views/screens/myHomePage_screen.dart';
+import 'package:gestionresidencial/Views/screens/registerPage_screen.dart';
 
 import 'package:gestionresidencial/localstore/sharepreference.dart';
 
