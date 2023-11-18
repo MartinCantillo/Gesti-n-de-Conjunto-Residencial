@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'dart:io';
+
 import 'package:gestionresidencial/Views/Components/mybutton_component.dart';
 import 'package:gestionresidencial/Views/Components/mytextfield_component.dart';
 import 'package:gestionresidencial/Views/screens/historial_screen.dart';
-import 'detailsReport_screen.dart';
-import 'dart:io';
+
 import 'package:gestionresidencial/localstore/sharepreference.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -40,6 +41,7 @@ class _reporteState extends State<reporte> {
   final subjectController = TextEditingController();
   final descriptionController = TextEditingController();
   final List<File> _evidences = [];
+  
   Future<void> _pickImage() async {
     final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
 
@@ -49,7 +51,7 @@ class _reporteState extends State<reporte> {
       });
     }
   }
-  //bool _colorsecundario = false;
+  
   final prefs = PrefernciaUsuario();
   
   @override
@@ -80,14 +82,17 @@ class _reporteState extends State<reporte> {
   
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: prefs.colosecundario ? Colors.black : Colors.white,
       appBar: AppBar(
-         title: const Text('Reporte',
+         title: const Text(
+            'Formulario Reporte',
             textAlign: TextAlign.center,
-            ),
+          ),
         centerTitle: true,
-
-    
+        leading: IconButton(
+          onPressed: () {
+          }, 
+          icon: const Icon(Icons.arrow_back_outlined),
+        ),
   ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -113,7 +118,7 @@ class _reporteState extends State<reporte> {
                 controller: descriptionController,
                 hintText: 'Descripcion',
                 obscureText: false,
-                maxLines: 3,
+                maxLines: 5,
             ),
             const SizedBox(height: 16.0),
             Container(
@@ -126,10 +131,9 @@ class _reporteState extends State<reporte> {
                 child: ElevatedButton(
                   onPressed: _pickImage,
                   style: ElevatedButton.styleFrom(
-                  textStyle: const TextStyle( 
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
+                    textStyle: const TextStyle( 
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
                     ),
                   ),
                   child: const Text('Subir Evidencias'),
@@ -150,10 +154,10 @@ class _reporteState extends State<reporte> {
               ),
             ),
             const SizedBox(height: 16.0),
-            MyButton(onTap: _submitReport,
-             
-            title: "Enviar Reporte")
-
+            MyButton(
+              onTap: _submitReport,
+              title: "Enviar Reporte"
+            ),
           ],
         ),
       ),
