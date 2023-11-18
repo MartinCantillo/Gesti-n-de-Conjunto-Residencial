@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:gestionresidencial/Views/Widgets/listTileDrawer_widget.dart';
-import 'package:gestionresidencial/Views/screens/chat_screen.dart';
-import 'package:gestionresidencial/Views/screens/historial_screen.dart';
-import 'package:gestionresidencial/Views/screens/myHomePage_screen.dart';
-import 'package:gestionresidencial/Views/screens/settings_screen.dart';
+import 'package:gestionresidencial/Views/screens/Chat/chat_screen.dart';
+import 'package:gestionresidencial/Views/screens/Historial/historial_screen.dart';
+import 'package:gestionresidencial/Views/screens/Home/myHomePage_screen.dart';
+import 'package:gestionresidencial/Views/screens/Config/settings_screen.dart';
 
 import 'package:gestionresidencial/localstore/sharepreference.dart';
 

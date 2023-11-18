@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
-import 'package:gestionresidencial/Views/screens/report_screen.dart';
+
+import 'package:gestionresidencial/Views/screens/Report/report_screen.dart';
 
 class ReportDetalles extends StatelessWidget {
   final Report report;

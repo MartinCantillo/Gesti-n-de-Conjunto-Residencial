@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gestionresidencial/Views/Components/mybutton_component.dart';
 import 'package:gestionresidencial/Views/Components/mybutton2_component.dart';
 import 'package:gestionresidencial/Views/Components/mytextfield_component.dart';
-import 'package:gestionresidencial/Views/screens/login_screen.dart';
+import 'package:gestionresidencial/Views/screens/Login/login_screen.dart';
 
 import 'package:gestionresidencial/localstore/sharepreference.dart';
 

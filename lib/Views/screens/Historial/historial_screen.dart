@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gestionresidencial/Views/screens/report_screen.dart';
-import 'package:gestionresidencial/Views/screens/detailsReport_screen.dart';
+
+import 'package:gestionresidencial/Views/screens/Report/report_screen.dart';
+import 'package:gestionresidencial/Views/screens/Report/detailsReport_screen.dart';
+
 import 'package:gestionresidencial/localstore/sharepreference.dart';
 
 

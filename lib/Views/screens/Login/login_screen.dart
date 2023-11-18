@@ -4,8 +4,8 @@ import 'package:gestionresidencial/Views/Components/mybutton_component.dart';
 import 'package:gestionresidencial/Views/Components/mybutton2_component.dart';
 import 'package:gestionresidencial/Views/Components/mytextfield_component.dart';
 import 'package:gestionresidencial/Views/Components/squaretile_component.dart';
-import 'package:gestionresidencial/Views/screens/myHomePage_screen.dart';
-import 'package:gestionresidencial/Views/screens/register_screen.dart';
+import 'package:gestionresidencial/Views/screens/Home/myHomePage_screen.dart';
+import 'package:gestionresidencial/Views/screens/Login/register_screen.dart';
 
 import 'package:gestionresidencial/localstore/sharepreference.dart';
 

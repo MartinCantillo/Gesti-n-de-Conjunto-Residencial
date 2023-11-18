@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:gestionresidencial/Views/Components/mybutton_component.dart';
 import 'package:gestionresidencial/Views/Components/mytextfield_component.dart';
-import 'package:gestionresidencial/Views/screens/historial_screen.dart';
+import 'package:gestionresidencial/Views/screens/Historial/historial_screen.dart';
 
 import 'package:gestionresidencial/localstore/sharepreference.dart';
 import 'package:image_picker/image_picker.dart';
