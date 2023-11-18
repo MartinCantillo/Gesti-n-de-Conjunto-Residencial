@@ -19,13 +19,17 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final prefs = PrefernciaUsuario();
-  final usernameController = TextEditingController();
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+  final numberController = TextEditingController();
+  final numberApartmentController = TextEditingController();
+
 
   // sign user in method
   void signUp(BuildContext context) {
-    prefs.usuario = usernameController.text;
+    prefs.usuario = emailController.text;
     prefs.contrasena = passwordController.text;
     Navigator.of(context).pushNamed(LoginPage.nombre);
   }
@@ -63,10 +67,17 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
 
               const SizedBox(height: 25),
+              MyTextField(
+                controller: nameController,
+                hintText: 'Full name',
+                obscureText: false,
+                maxLines: 1,
+              ),
+              const SizedBox(height: 10),
 
               MyTextField(
-                controller: usernameController,
-                hintText: 'Username',
+                controller: emailController,
+                hintText: 'Email',
                 obscureText: false,
                 maxLines: 1,
               ),
@@ -90,6 +101,21 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
 
               const SizedBox(height: 10),
+
+              MyTextField(
+                controller: numberApartmentController,
+                hintText: 'Apartment number',
+                obscureText: false,
+                maxLines: 1,
+              ),
+              const SizedBox(height: 10),
+
+              MyTextField(
+                controller: numberController,
+                hintText: 'Phone number',
+                obscureText: false,
+                maxLines: 1,
+              ),
 
               // forgot password?
               const Padding(
