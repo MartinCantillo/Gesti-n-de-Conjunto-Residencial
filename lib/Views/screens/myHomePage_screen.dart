@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
+
 import 'package:gestionresidencial/Views/Widgets/drawer_widget.dart';
-import 'package:gestionresidencial/Views/screens/chatPage_screen.dart';
-import 'package:gestionresidencial/Views/screens/historialPage_screen.dart';
+import 'package:gestionresidencial/Views/screens/chat_screen.dart';
+import 'package:gestionresidencial/Views/screens/historial_screen.dart';
+import 'package:gestionresidencial/Views/screens/settings_screen.dart';
+
 import 'package:gestionresidencial/localstore/sharepreference.dart';
 
-class myHomePage extends StatefulWidget {
-  const myHomePage({Key? key});
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key}) : super(key: key);
 
   static const String nombre = 'myHomePage';
 
   @override
-  State<myHomePage> createState() => _myHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _myHomePageState extends State<myHomePage> {
+// ignore: camel_case_types
+class _MyHomePageState extends State<MyHomePage> {
   final prefs = PrefernciaUsuario();
 
   @override
@@ -25,6 +29,13 @@ class _myHomePageState extends State<myHomePage> {
           textAlign: TextAlign.center,
         ),
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).popAndPushNamed(settingsPage.nombre);
+            },
+             icon: const Icon(Icons.settings))
+        ],
       ),
       drawer: const CustomDrawer(),
       body: Center(
@@ -44,7 +55,10 @@ class _myHomePageState extends State<myHomePage> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).popAndPushNamed(Historial.nombre);
+                    Navigator.popAndPushNamed(
+                      context,
+                       HistorialPage.nombre
+                    );
                   },
                   child: const Text('Ir'),
                 ),
@@ -61,7 +75,7 @@ class _myHomePageState extends State<myHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).popAndPushNamed(chatPage.nombre);
+          Navigator.of(context).popAndPushNamed(ChatPage.nombre);
         },
         child: const Icon(Icons.chat),
       ),

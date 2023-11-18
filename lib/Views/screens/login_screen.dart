@@ -1,44 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:gestionresidencial/Views/Components/mybutton2.dart';
-import 'package:gestionresidencial/Views/Components/mybutton3.dart';
-import 'package:gestionresidencial/Views/Components/mytextfield.dart';
-import 'package:gestionresidencial/Views/Components/squaretile.dart';
+
+import 'package:gestionresidencial/Views/Components/mybutton_component.dart';
+import 'package:gestionresidencial/Views/Components/mybutton2_component.dart';
+import 'package:gestionresidencial/Views/Components/mytextfield_component.dart';
+import 'package:gestionresidencial/Views/Components/squaretile_component.dart';
+import 'package:gestionresidencial/Views/screens/myHomePage_screen.dart';
+import 'package:gestionresidencial/Views/screens/register_screen.dart';
+
 import 'package:gestionresidencial/localstore/sharepreference.dart';
-import 'package:gestionresidencial/Views/screens/loginPage_screen.dart';
 
+class LoginPage extends StatelessWidget {
+  LoginPage({Key? key}) : super(key: key);
 
+  static const String nombre = 'login';
+  final prefs = PrefernciaUsuario();
 
-class Register extends StatefulWidget {
-  const Register({super.key});
-
-  static const String nombre = 'Register';
-
-  @override
-  State<Register> createState() => _RegisterState();
-}
-
-class _RegisterState extends State<Register> {
-final prefs = PrefernciaUsuario();
-final usernameController = TextEditingController();
-final passwordController = TextEditingController();
-final confirmPasswordController = TextEditingController();
-
-
+  // text editing controllers
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
 
   // sign user in method
-  void signUp(BuildContext context) {
+  void signUserIn(BuildContext context) {
     prefs.usuario = usernameController.text;
     prefs.contrasena = passwordController.text;
-    print (prefs.usuario);
-    Navigator.of(context).pushNamed(LoginPage.nombre);
+    Navigator.of(context).pushNamed(MyHomePage.nombre);
   }
-  void Loginow(BuildContext context) {
-    print (prefs.usuario);
-    Navigator.of(context).pushNamed(LoginPage.nombre);
+
+  void Registernow(BuildContext context) {
+    Navigator.of(context).pushNamed(RegisterPage.nombre);
   }
-  
+
   @override
   Widget build(BuildContext context) {
+    prefs.ultimapagina = LoginPage.nombre;
     return Scaffold(
       backgroundColor: Colors.grey[300],
       body: SafeArea(
@@ -50,7 +44,7 @@ final confirmPasswordController = TextEditingController();
 
               // logo
               const Icon(
-                Icons.lock,
+                Icons.person,
                 size: 100,
                 color: Colors.black,
               ),
@@ -59,7 +53,7 @@ final confirmPasswordController = TextEditingController();
 
               // welcome back
               Text(
-                'Welcome to create an account!',
+                'Welcome!',
                 style: TextStyle(
                   color: Colors.grey[700],
                   fontSize: 16,
@@ -86,41 +80,31 @@ final confirmPasswordController = TextEditingController();
 
               const SizedBox(height: 10),
 
-               // confirm password textfield
-              MyTextField(
-                controller: confirmPasswordController,
-                hintText: 'Confirm Password',
-                obscureText: true,
-              ),
-
-              const SizedBox(height: 10),
-
               // forgot password?
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      'Forgot Password?',
+                      style: TextStyle(color: Colors.grey[600]),
+                    ),
+                  ],
                 ),
               ),
 
-              const SizedBox(height: 20),
+              const SizedBox(height: 15),
 
-              Row(
-                children: [
-                  MyButton2(
-                    onTap: () {
-                      signUp(context); // Pasa el contexto
-                    },
-                  ),
-                  // sign up button
-                  MyButton3(
-                    onTap: () {
-                      signUp(context); // Pasa el contexto
-                    },
-                  ),
-                  const SizedBox(height: 20),
-                ],
+              // sign in button
+              MyButton(
+                title: 'Sign In',
+                onTap: () {
+                  signUserIn(context);
+                },
               ),
+
+              const SizedBox(height: 20),
 
               // or continue with
               Padding(
@@ -133,9 +117,6 @@ final confirmPasswordController = TextEditingController();
                         color: Colors.grey[400],
                       ),
                     ),
-                    const SizedBox(
-                      height: 60
-                      ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10.0),
                       child: Text(
@@ -156,9 +137,9 @@ final confirmPasswordController = TextEditingController();
               const SizedBox(height: 20),
 
               // google + apple sign in buttons
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   // google button
                   SquareTile(imagePath: 'assets/images/google.png'),
 
@@ -176,21 +157,15 @@ final confirmPasswordController = TextEditingController();
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Already have an account?',
+                    'Not a member?',
                     style: TextStyle(color: Colors.grey[700]),
                   ),
                   const SizedBox(width: 4),
-                  GestureDetector(
-                    onTap: (){
-                      Loginow(context);
-                      },
-                    child: const Text(
-                      'Login now',
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                  MyButton2(
+                    title: 'Register',
+                    onTap: () {
+                      Registernow(context);
+                    },
                   ),
                 ],
               )

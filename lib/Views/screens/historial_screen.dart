@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:gestionresidencial/Views/Widgets/drawer_widget.dart';
+
 import 'package:gestionresidencial/localstore/sharepreference.dart';
 
-class Historial extends StatefulWidget {
-  const Historial({Key? key});
+class HistorialPage extends StatefulWidget {
+  const HistorialPage({Key? key}) : super(key: key);
 
   static const String nombre = 'historialPage';
 
   @override
-  State<Historial> createState() => _HistorialState();
+  State<HistorialPage> createState() => _HistorialPageState();
 }
 
-class _HistorialState extends State<Historial> {
+class _HistorialPageState extends State<HistorialPage> {
   final prefs = PrefernciaUsuario();
 
   @override
@@ -30,7 +30,6 @@ class _HistorialState extends State<Historial> {
         ),
         centerTitle: true,
       ),
-      drawer: const CustomDrawer(),
       body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

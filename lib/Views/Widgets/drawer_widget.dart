@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:gestionresidencial/Views/Widgets/ListTileDrawer_widget.dart';
-import 'package:gestionresidencial/Views/screens/historialPage_screen.dart';
+
+import 'package:gestionresidencial/Views/Widgets/listTileDrawer_widget.dart';
+import 'package:gestionresidencial/Views/screens/historial_screen.dart';
 import 'package:gestionresidencial/Views/screens/myHomePage_screen.dart';
+import 'package:gestionresidencial/Views/screens/settings_screen.dart';
+
 import 'package:gestionresidencial/localstore/sharepreference.dart';
 
 class CustomDrawer extends StatefulWidget {
-  const CustomDrawer({Key? key});
+  const CustomDrawer({Key? key}) : super(key: key);
 
   static const String nombre = 'drawer';
 
@@ -29,7 +32,7 @@ class _DrawerState extends State<CustomDrawer> {
         decoration: const BoxDecoration(
           border: Border(
             right: BorderSide(
-              color: Colors.grey, 
+              color: Colors.grey,
             ),
           ),
         ),
@@ -56,7 +59,7 @@ class _DrawerState extends State<CustomDrawer> {
               title: 'Home',
               icon: Icons.home,
               onTap: () {
-                Navigator.of(context).popAndPushNamed(myHomePage.nombre);
+                Navigator.of(context).popAndPushNamed(MyHomePage.nombre);
               },
             ),
             ListTileDrawer(
@@ -64,7 +67,7 @@ class _DrawerState extends State<CustomDrawer> {
               title: 'Historial',
               icon: Icons.history,
               onTap: () {
-                Navigator.of(context).popAndPushNamed(Historial.nombre);
+                Navigator.of(context).popAndPushNamed(HistorialPage.nombre);
               },
             ),
             ListTileDrawer(
@@ -73,6 +76,7 @@ class _DrawerState extends State<CustomDrawer> {
               icon: Icons.chat,
               onTap: () {
                 //Navigator.of(context).popAndPushNamed(Home2.nombre);
+                //haz la ruta para entrar en la pagina del chat
               },
             ),
             ListTileDrawer(
@@ -86,20 +90,19 @@ class _DrawerState extends State<CustomDrawer> {
             const Divider(),
             SwitchListTile(
                 value: _colorsecundario,
-                title: const Text(
-                  'Tema oscuro'
-                ),
+                title: const Text('Tema oscuro'),
                 onChanged: (value) {
-                  setState(() {
-                   
-                  });
+                  setState(() {});
                 }),
             ListTileDrawer(
               prefs: prefs,
               title: 'Configuración',
               icon: Icons.settings,
               onTap: () {
-                //Navigator.of(context).popAndPushNamed(Home2.nombre);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const settingsPage()),
+                );
               },
             ),
           ],

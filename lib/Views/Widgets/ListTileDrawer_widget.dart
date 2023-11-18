@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:gestionresidencial/localstore/sharepreference.dart';
 
 class ListTileDrawer extends StatelessWidget {
@@ -21,9 +22,7 @@ class ListTileDrawer extends StatelessWidget {
     return ListTile(
       leading: Icon(icon, color: Colors.teal,), 
       title: Text(title),
-      onTap: () {
-        onTap;
-      },
+      onTap: onTap
     );
   }
 }

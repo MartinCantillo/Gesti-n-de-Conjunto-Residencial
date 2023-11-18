@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+
 import 'package:gestionresidencial/Views/Widgets/drawer_widget.dart';
-import 'package:gestionresidencial/Views/screens/chatPage_screen.dart';
-import 'package:gestionresidencial/Views/screens/historialPage_screen.dart';
-import 'package:gestionresidencial/Views/screens/loginPage_screen.dart';
+import 'package:gestionresidencial/Views/screens/chat_screen.dart';
+import 'package:gestionresidencial/Views/screens/historial_screen.dart';
+import 'package:gestionresidencial/Views/screens/login_screen.dart';
 import 'package:gestionresidencial/Views/screens/myHomePage_screen.dart';
-import 'package:gestionresidencial/Views/screens/registerPage_screen.dart';
+import 'package:gestionresidencial/Views/screens/register_screen.dart';
+import 'package:gestionresidencial/Views/screens/settings_screen.dart';
+
 import 'package:gestionresidencial/config/themes/app_themes.dart';
+
 import 'package:gestionresidencial/localstore/sharepreference.dart';
 
 
@@ -27,11 +31,12 @@ class MyApp extends StatelessWidget {
       initialRoute: LoginPage.nombre,
       routes: {
         LoginPage.nombre:(context) => LoginPage(),
-        Register.nombre:(context) => const Register(),
-        myHomePage.nombre:(context) => const myHomePage(),
+        RegisterPage.nombre:(context) => const RegisterPage(),
+        MyHomePage.nombre:(context) => const MyHomePage(),
         CustomDrawer.nombre:(context) => const CustomDrawer(),
-        Historial.nombre:(context) => const Historial(),
-        chatPage.nombre:(context) => const chatPage()
+        HistorialPage.nombre:(context) => const HistorialPage(),
+        ChatPage.nombre:(context) => const ChatPage(),
+        settingsPage.nombre:(context) => const settingsPage()
       },
     );
   }
