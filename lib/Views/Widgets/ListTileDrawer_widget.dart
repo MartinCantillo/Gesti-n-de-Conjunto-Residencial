@@ -7,6 +7,7 @@ class ListTileDrawer extends StatelessWidget {
   final IconData icon;
   final GestureTapCallback? onTap;
   
+    
   const ListTileDrawer({
     super.key,
     required this.prefs,
@@ -19,8 +20,11 @@ class ListTileDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final colors = Theme.of(context).colorScheme;
+
     return ListTile(
-      leading: Icon(icon, color: Colors.teal,), 
+      leading: Icon(icon, color: colors.primary,), 
       title: Text(title),
       onTap: onTap
     );

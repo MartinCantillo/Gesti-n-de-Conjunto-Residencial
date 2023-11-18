@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:gestionresidencial/Views/Widgets/listTileDrawer_widget.dart';
+import 'package:gestionresidencial/Views/screens/chat_screen.dart';
 import 'package:gestionresidencial/Views/screens/historial_screen.dart';
 import 'package:gestionresidencial/Views/screens/myHomePage_screen.dart';
 import 'package:gestionresidencial/Views/screens/settings_screen.dart';
@@ -23,10 +24,12 @@ class _DrawerState extends State<CustomDrawer> {
   @override
   void initState() {
     super.initState();
+    _colorsecundario = prefs.colosecundario;
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Drawer(
       child: Container(
         decoration: const BoxDecoration(
@@ -50,9 +53,6 @@ class _DrawerState extends State<CustomDrawer> {
                   color: Colors.black,
                 ),
               ),
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
             ),
             ListTileDrawer(
               prefs: prefs,
@@ -75,34 +75,28 @@ class _DrawerState extends State<CustomDrawer> {
               title: 'Chat',
               icon: Icons.chat,
               onTap: () {
-                //Navigator.of(context).popAndPushNamed(Home2.nombre);
+                Navigator.of(context).popAndPushNamed(ChatPage.nombre);
                 //haz la ruta para entrar en la pagina del chat
               },
             ),
-            ListTileDrawer(
-              prefs: prefs,
-              title: 'Explorar',
-              icon: Icons.explore,
-              onTap: () {
-                //Navigator.of(context).popAndPushNamed(Home2.nombre);
-              },
-            ),
+
             const Divider(),
+
             SwitchListTile(
                 value: _colorsecundario,
                 title: const Text('Tema oscuro'),
                 onChanged: (value) {
-                  setState(() {});
+                  setState(() {
+                    _colorsecundario = value;
+                    prefs.colosecundario = value;
+                  });
                 }),
             ListTileDrawer(
               prefs: prefs,
               title: 'Configuración',
               icon: Icons.settings,
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const settingsPage()),
-                );
+                Navigator.of(context).popAndPushNamed(settingsPage.nombre);
               },
             ),
           ],
@@ -111,3 +105,4 @@ class _DrawerState extends State<CustomDrawer> {
     );
   }
 }
+

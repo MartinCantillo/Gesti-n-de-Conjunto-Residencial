@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Conjunto Residencial App',
-      theme: AppTheme(selectedColor: 1).theme(),
+      theme: AppTheme(selectedColor: 0).theme(),
       initialRoute: LoginPage.nombre,
       routes: {
         LoginPage.nombre:(context) => LoginPage(),

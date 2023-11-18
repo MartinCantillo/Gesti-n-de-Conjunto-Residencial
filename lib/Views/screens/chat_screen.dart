@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'package:gestionresidencial/Views/Components/messageField_component.dart';
+import 'package:gestionresidencial/Views/Widgets/chat/myMessage_widget.dart';
+import 'package:gestionresidencial/Views/Widgets/chat/youMessage_widget.dart';
+
 class ChatPage extends StatelessWidget {
   const ChatPage({super.key});
 
@@ -30,11 +34,15 @@ class _NewChat extends StatelessWidget {
               child: ListView.builder(
                 itemCount: 100,
                 itemBuilder: (context, index) {
-                  return Text('Indice : $index');
+                  return (index % 2 == 0)
+                    ? const MyMessageBubble()
+                    : const YouMessageBubble();
+                  
                 },
               ),
             ),
           ),
+          const MessageFieldBox(),
         ],
       ),
     );
