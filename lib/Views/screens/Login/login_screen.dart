@@ -26,7 +26,7 @@ class LoginPage extends StatelessWidget {
     Navigator.of(context).pushNamed(MyHomePage.nombre);
   }
 
-  void Registernow(BuildContext context) {
+  void registerNow(BuildContext context) {
     Navigator.of(context).pushNamed(RegisterPage.nombre);
   }
 
@@ -166,7 +166,7 @@ class LoginPage extends StatelessWidget {
                   MyButton2(
                     title: 'Register',
                     onTap: () {
-                      Registernow(context);
+                      registerNow(context);
                     },
                   ),
                 ],

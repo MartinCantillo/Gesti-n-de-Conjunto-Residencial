@@ -30,7 +30,7 @@ class _RegisterPageState extends State<RegisterPage> {
     Navigator.of(context).pushNamed(LoginPage.nombre);
   }
 
-  void Loginow(BuildContext context) {
+  void logiNow(BuildContext context) {
     Navigator.of(context).pushNamed(LoginPage.nombre);
   }
 
@@ -122,7 +122,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   MyButton2(
                     title: 'Sign In',
                     onTap: () {
-                      Loginow(context);
+                      logiNow(context);
                     },
                   ),
                 ],
