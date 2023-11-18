@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gestionresidencial/Views/Widgets/drawer_widget.dart';
 import 'package:gestionresidencial/Views/screens/chat_screen.dart';
 import 'package:gestionresidencial/Views/screens/historial_screen.dart';
+import 'package:gestionresidencial/Views/screens/report_screen.dart';
 import 'package:gestionresidencial/Views/screens/settings_screen.dart';
 
 import 'package:gestionresidencial/localstore/sharepreference.dart';
@@ -69,8 +70,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 const SizedBox(width: 20),
                 ElevatedButton(
-                  onPressed: () {},
-                  child: const Text('Cancelar'),
+                  onPressed: () {
+                    Navigator.of(context).popAndPushNamed(reporte.nombre);
+                    },
+                  child: const Text('Reporte'),
                 ),
               ],
             ),

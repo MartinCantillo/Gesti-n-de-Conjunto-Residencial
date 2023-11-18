@@ -6,6 +6,7 @@ import 'package:gestionresidencial/Views/screens/historial_screen.dart';
 import 'package:gestionresidencial/Views/screens/login_screen.dart';
 import 'package:gestionresidencial/Views/screens/myHomePage_screen.dart';
 import 'package:gestionresidencial/Views/screens/register_screen.dart';
+import 'package:gestionresidencial/Views/screens/report_screen.dart';
 import 'package:gestionresidencial/Views/screens/settings_screen.dart';
 
 import 'package:gestionresidencial/config/themes/app_themes.dart';
@@ -27,16 +28,18 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Conjunto Residencial App',
-      theme: AppTheme(selectedColor: 0).theme(),
+      theme: AppTheme(selectedColor: 5).theme(),
       initialRoute: LoginPage.nombre,
       routes: {
         LoginPage.nombre:(context) => LoginPage(),
         RegisterPage.nombre:(context) => const RegisterPage(),
         MyHomePage.nombre:(context) => const MyHomePage(),
         CustomDrawer.nombre:(context) => const CustomDrawer(),
-        HistorialPage.nombre:(context) => const HistorialPage(),
+        HistorialPage.nombre:(context) => const HistorialPage(reports: []),
         ChatPage.nombre:(context) => const ChatPage(),
-        settingsPage.nombre:(context) => const settingsPage()
+        settingsPage.nombre:(context) => const settingsPage(),
+        reporte.nombre:(context) => const reporte()
+        
       },
     );
   }

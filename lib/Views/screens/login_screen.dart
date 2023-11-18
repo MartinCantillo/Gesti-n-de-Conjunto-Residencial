@@ -67,6 +67,7 @@ class LoginPage extends StatelessWidget {
                 controller: usernameController,
                 hintText: 'Username',
                 obscureText: false,
+                maxLines: 1,
               ),
 
               const SizedBox(height: 10),
@@ -76,6 +77,7 @@ class LoginPage extends StatelessWidget {
                 controller: passwordController,
                 hintText: 'Password',
                 obscureText: true,
+                maxLines: 1,
               ),
 
               const SizedBox(height: 10),

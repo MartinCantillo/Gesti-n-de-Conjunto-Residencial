@@ -4,12 +4,14 @@ class MyTextField extends StatelessWidget {
   final controller;
   final String hintText;
   final bool obscureText;
+  final int maxLines;
 
   const MyTextField({
     super.key,
     required this.controller,
     required this.hintText,
-    required this.obscureText,
+    required this.obscureText, 
+    required this.maxLines,
   });
 
   @override
@@ -19,6 +21,7 @@ class MyTextField extends StatelessWidget {
       child: TextField(
         controller: controller,
         obscureText: obscureText,
+        maxLines: maxLines,
         decoration: InputDecoration(
             enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.white),
