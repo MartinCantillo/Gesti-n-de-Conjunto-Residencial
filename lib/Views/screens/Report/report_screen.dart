@@ -22,6 +22,10 @@ class Report {
     required this.evidences,
   });
 }
+class AppState {
+  List<Report> reports = [];
+}
+final appState = AppState();
 
 // ignore: camel_case_types
 class reporte extends StatefulWidget {
@@ -74,7 +78,8 @@ class _reporteState extends State<reporte> {
       ),
     ];
 
-    Navigator.pushReplacementNamed(context, MyHomePage.nombre, arguments: reports);
+    appState.reports.addAll(reports);
+    Navigator.of(context).popAndPushNamed(MyHomePage.nombre);
   }
   @override
   

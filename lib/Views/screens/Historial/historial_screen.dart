@@ -41,17 +41,17 @@ class _HistorialPageState extends State<HistorialPage> {
         ),
         centerTitle: true,
       ),
-      body: widget.reports.isEmpty
+      body: appState.reports.isEmpty
           ? const Center(
               child: Text('No hay reportes'),
             )
           : ListView.builder(
-              itemCount: widget.reports.length,
+              itemCount: appState.reports.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  title: Text('Tipo: ${widget.reports[index].type}'),
-                  subtitle: Text('Asunto: ${widget.reports[index].subject}'),
-                  onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => ReportDetalles(report: widget.reports[index])),);
+                  title: Text('Tipo: ${appState.reports[index].type}'),
+                  subtitle: Text('Asunto: ${appState.reports[index].subject}'),
+                  onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => ReportDetalles(report: appState.reports[index])),);
                   },
                 );
               },
