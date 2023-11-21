@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gestionresidencial/Views/screens/Home/myHomePage_screen.dart';
 
 import 'package:gestionresidencial/Views/screens/Report/report_screen.dart';
 import 'package:gestionresidencial/Views/screens/Report/detailsReport_screen.dart';
@@ -32,6 +33,11 @@ class _HistorialPageState extends State<HistorialPage> {
         title: const Text(
             'Historial',
             textAlign: TextAlign.center,            
+        ),
+        leading: IconButton(
+          onPressed: () {Navigator.of(context).popAndPushNamed(MyHomePage.nombre);
+          }, 
+          icon: const Icon(Icons.arrow_back_outlined),
         ),
         centerTitle: true,
       ),

@@ -9,6 +9,7 @@ import 'package:gestionresidencial/Views/screens/Config/settings_screen.dart';
 import 'package:gestionresidencial/localstore/sharepreference.dart';
 
 class MyHomePage extends StatefulWidget {
+
   const MyHomePage({Key? key}) : super(key: key);
 
   static const String nombre = 'myHomePage';
@@ -61,10 +62,8 @@ class _MyHomePageState extends State<MyHomePage> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.popAndPushNamed(
-                      context,
-                       HistorialPage.nombre
-                    );
+                    final List<Report> reports = ModalRoute.of(context)!.settings.arguments as List<Report>;
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HistorialPage(reports: reports)));
                   },
                   child: const Text('Ir'),
                 ),

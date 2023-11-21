@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:gestionresidencial/Views/Components/mybutton_component.dart';
 import 'package:gestionresidencial/Views/Components/mytextfield_component.dart';
 import 'package:gestionresidencial/Views/screens/Historial/historial_screen.dart';
+import 'package:gestionresidencial/Views/screens/Home/myHomePage_screen.dart';
 
 import 'package:gestionresidencial/localstore/sharepreference.dart';
 import 'package:image_picker/image_picker.dart';
@@ -73,10 +74,7 @@ class _reporteState extends State<reporte> {
       ),
     ];
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => HistorialPage(reports: reports)),
-    );
+    Navigator.pushReplacementNamed(context, MyHomePage.nombre, arguments: reports);
   }
   @override
   
@@ -89,7 +87,7 @@ class _reporteState extends State<reporte> {
           ),
         centerTitle: true,
         leading: IconButton(
-          onPressed: () {
+          onPressed: () {Navigator.of(context).popAndPushNamed(MyHomePage.nombre);
           }, 
           icon: const Icon(Icons.arrow_back_outlined),
         ),
