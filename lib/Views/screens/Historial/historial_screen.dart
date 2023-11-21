@@ -7,9 +7,9 @@ import 'package:gestionresidencial/localstore/sharepreference.dart';
 
 
 class HistorialPage extends StatefulWidget {
-  const HistorialPage({Key? key, required this.reports}) : super(key: key);
-
   final List<Report> reports ;
+  const HistorialPage({Key? key, required this.reports}) : super(key: key);
+  
   static const String nombre = 'historialPage';
 
   @override
@@ -18,7 +18,6 @@ class HistorialPage extends StatefulWidget {
 
 class _HistorialPageState extends State<HistorialPage> { 
   final prefs = PrefernciaUsuario();
-  List<Report> reports = [];
   
   @override
   void initState() {
@@ -36,17 +35,17 @@ class _HistorialPageState extends State<HistorialPage> {
         ),
         centerTitle: true,
       ),
-      body: reports.isEmpty
+      body: widget.reports.isEmpty
           ? const Center(
               child: Text('No hay reportes'),
             )
           : ListView.builder(
-              itemCount: reports.length,
+              itemCount: widget.reports.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  title: Text('Tipo: ${reports[index].type}'),
-                  subtitle: Text('Asunto: ${reports[index].subject}'),
-                  onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => ReportDetalles(report: reports[index])),);
+                  title: Text('Tipo: ${widget.reports[index].type}'),
+                  subtitle: Text('Asunto: ${widget.reports[index].subject}'),
+                  onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => ReportDetalles(report: widget.reports[index])),);
                   },
                 );
               },
