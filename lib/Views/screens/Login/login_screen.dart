@@ -43,10 +43,10 @@ class LoginPage extends StatelessWidget {
               const SizedBox(height: 0),
 
               // logo
-              const Icon(
-                Icons.person,
-                size: 100,
-                color: Colors.black,
+              CircleAvatar(
+                radius: 100.0,
+                backgroundColor: Colors.grey,
+                backgroundImage: AssetImage('images/edificio.jpg'),
               ),
 
               const SizedBox(height: 20),

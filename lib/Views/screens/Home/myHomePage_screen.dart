@@ -62,7 +62,8 @@ class _MyHomePageState extends State<MyHomePage> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, HistorialPage.nombre);
+                     final List<Report> reports = ModalRoute.of(context)!.settings.arguments as List<Report>;
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HistorialPage(reports: reports)));
                   },
                   child: const Text('Ir'),
                 ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gestionresidencial/Models/Anomalia.dart';
 import 'dart:io';
-
 import 'package:gestionresidencial/Views/Components/mybutton_component.dart';
 import 'package:gestionresidencial/Views/Components/mytextfield_component.dart';
 import 'package:gestionresidencial/Views/screens/Historial/historial_screen.dart';
@@ -14,14 +14,18 @@ class Report {
   final String subject;
   final String description;
   final List<File> evidences;
+  final String anomaly;
 
   Report({
     required this.type,
     required this.subject,
     required this.description,
     required this.evidences,
+    required this.anomaly,
   });
+
 }
+
 class AppState {
   List<Report> reports = [];
 }
@@ -46,7 +50,8 @@ class _reporteState extends State<reporte> {
   final subjectController = TextEditingController();
   final descriptionController = TextEditingController();
   final List<File> _evidences = [];
-  
+  final TypeAnomaly =["Infrastructura", "Seguridad", "Incidente medico","Servicios publicos", "Otros"];
+  String selectedval = "";
   Future<void> _pickImage() async {
     final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
 
@@ -62,7 +67,7 @@ class _reporteState extends State<reporte> {
   @override
   void initState() {
     super.initState();
-
+    selectedval = TypeAnomaly[0];
   }
   void _submitReport() {
     // Aquí podemos manejar la lógica para enviar el reporte
@@ -75,12 +80,14 @@ class _reporteState extends State<reporte> {
         subject: subjectController.text,
         description: descriptionController.text,
         evidences: _evidences,
+        anomaly: selectedval,
       ),
     ];
 
-    appState.reports.addAll(reports);
-    Navigator.of(context).popAndPushNamed(MyHomePage.nombre);
+    Navigator.pushReplacementNamed(context, MyHomePage.nombre, arguments: reports);
+    
   }
+ 
   @override
   
   Widget build(BuildContext context) {
@@ -103,12 +110,29 @@ class _reporteState extends State<reporte> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const SizedBox(height: 20.0),
-            MyTextField(
-                controller: typeController,
-                hintText: 'Tipo',
-                obscureText: false,
-                maxLines: 1,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              child: DropdownButtonFormField(
+                value: selectedval,
+                items:TypeAnomaly.map(
+                (e) => DropdownMenuItem(value: e,child: Text(e),)).toList(),
+                onChanged: (val){
+                  setState(() {
+                    selectedval= val as String;
+                  });
+                },
+                decoration: InputDecoration(
+              enabledBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.white),
               ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey.shade400),
+              ),
+              fillColor: Colors.grey.shade200,
+              filled: true,
+              )
+                ),
+            ),
             const SizedBox(height: 16.0),
             MyTextField(
                 controller: subjectController,
@@ -157,9 +181,23 @@ class _reporteState extends State<reporte> {
               ),
             ),
             const SizedBox(height: 16.0),
-            MyButton(
-              onTap: _submitReport,
-              title: "Enviar Reporte"
+            Container(
+              height: 100,
+              padding: const EdgeInsets.all(20),
+              margin: const EdgeInsets.symmetric(horizontal: 10.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8)
+              ),
+                child: ElevatedButton(
+                  onPressed: _submitReport,
+                  style: ElevatedButton.styleFrom(
+                    textStyle: const TextStyle( 
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                  child: const Text('Enviar Reporte'),
+                ),
             ),
           ],
         ),

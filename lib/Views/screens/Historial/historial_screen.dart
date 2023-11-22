@@ -41,18 +41,31 @@ class _HistorialPageState extends State<HistorialPage> {
         ),
         centerTitle: true,
       ),
-      body: appState.reports.isEmpty
+      body: widget.reports.isEmpty
           ? const Center(
               child: Text('No hay reportes'),
             )
           : ListView.builder(
-              itemCount: appState.reports.length,
+              itemCount: widget.reports.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text('Tipo: ${appState.reports[index].type}'),
-                  subtitle: Text('Asunto: ${appState.reports[index].subject}'),
-                  onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => ReportDetalles(report: appState.reports[index])),);
-                  },
+                return Container(
+                  padding: const EdgeInsetsDirectional.all(8),
+                  margin: const EdgeInsetsDirectional.all(8.0),
+                  decoration: BoxDecoration(
+                    color:Colors.grey[200], 
+                  ),
+                  child: ListTile(
+                    title: Text('Tipo: ${widget.reports[index].anomaly}'),
+                    subtitle: Text('Asunto: ${widget.reports[index].subject}'),
+                    trailing:const Column(
+                      children: [
+                        Text('Estado: En espera',
+                        style: TextStyle(color: Colors.red)),
+                      ],
+                    ),
+                    onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => ReportDetalles(report: widget.reports[index])),);
+                    },
+                  ),
                 );
               },
             ),
