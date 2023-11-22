@@ -57,7 +57,15 @@ class _HistorialPageState extends State<HistorialPage> {
                 padding: const EdgeInsetsDirectional.all(8),
                 margin: const EdgeInsetsDirectional.all(8.0),
                 decoration: BoxDecoration(
-                  color:Colors.grey[200], 
+                  boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 3,
+                        offset: Offset(2, 4),
+                      ),
+                    ],
+                  color:Colors.grey[100], 
                 ),
                 child: ListTile(
                   title: Text('Tipo: ${appState.reports[index].anomaly}'),
@@ -65,7 +73,8 @@ class _HistorialPageState extends State<HistorialPage> {
                   trailing:const Column(
                     children: [
                       Text('Estado: En espera',
-                      style: TextStyle(color: Colors.red)),
+                      style: TextStyle(color: Colors.red,
+                      fontWeight: FontWeight.bold)),
                     ],
                   ),
                   onTap: () {
