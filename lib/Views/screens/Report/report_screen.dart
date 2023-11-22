@@ -84,7 +84,8 @@ class _reporteState extends State<reporte> {
       ),
     ];
 
-    Navigator.pushReplacementNamed(context, MyHomePage.nombre, arguments: reports);
+    appState.reports.addAll(reports);
+    Navigator.of(context).popAndPushNamed(MyHomePage.nombre);
     
   }
  
