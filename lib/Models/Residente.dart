@@ -1,4 +1,3 @@
-import 'package:gestionresidencial/Models/Anomalia.dart';
 import 'package:gestionresidencial/Models/Persona.dart';
 
 class Residente extends Persona {
@@ -39,24 +38,5 @@ class Residente extends Persona {
       throw ("por favor revisar");
     }
     _detalleContacto = nuevoDetalleContacto;
-  }
-
-  //Polimorfismo
-  @override
-  void Registrar() {
-    print("${getNombre + getDetalleContacto} exitoso");
-  }
-
-  //Metodos propios
-  void RegistrarAnomalia(Anomalia anomalia) {
-    print(" Registro  de anomalia Rexitoso ");
-  }
-
-  void VerEstado(Anomalia anomalia) {
-    print("Consulta exitosa");
-  }
-
-  void VerInforme() {
-    print(" Informe Visto");
   }
 }

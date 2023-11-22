@@ -51,10 +51,4 @@ class Persona {
   }
 
   int get getCodigo => _codigo;
-
-  //Metodo
-
-  void Registrar() {
-    print("Registro exitoso");
-  }
 }

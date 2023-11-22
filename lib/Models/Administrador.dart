@@ -1,4 +1,3 @@
-import 'package:gestionresidencial/Models/Anomalia.dart';
 import 'package:gestionresidencial/Models/Persona.dart';
 
 class Administrador extends Persona {
@@ -25,20 +24,5 @@ class Administrador extends Persona {
       throw ("por favor revisar");
     }
     _horario = horario;
-  }
-
-  //Polimorfismo
-  @override
-  void registrar() {
-    print("${getNombre + getHorario} exitoso");
-  }
-
-  //Metodos propios
-  void asignarPrioridad() {
-    print("Prioridad Asignada");
-  }
-
-  void asignarEstado(Anomalia anomalia) {
-    print("Estado asignado");
   }
 }
