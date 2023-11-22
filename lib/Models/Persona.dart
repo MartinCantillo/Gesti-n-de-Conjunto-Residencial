@@ -54,7 +54,7 @@ class Persona {
 
   //Metodo
 
-  void Registrar(){
+  void Registrar() {
     print("Registro exitoso");
   }
 }

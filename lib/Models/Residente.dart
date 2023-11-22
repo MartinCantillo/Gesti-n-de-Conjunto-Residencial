@@ -1,3 +1,4 @@
+import 'package:gestionresidencial/Models/Anomalia.dart';
 import 'package:gestionresidencial/Models/Persona.dart';
 
 class Residente extends Persona {
@@ -11,7 +12,9 @@ class Residente extends Persona {
     required int codigo,
     required int numApartamento,
     required String detalleContacto,
-  })  : _numApartamento = numApartamento,
+  })  
+  //Inicializacion de datos
+  : _numApartamento = numApartamento,
         _detalleContacto = detalleContacto,
         super(
           nombre: nombre,
@@ -23,18 +26,37 @@ class Residente extends Persona {
   int get numApartamento => _numApartamento;
 
   set numApartamento(int nuevoNumApartamento) {
-       if(nuevoNumApartamento<=0){
-      throw("por favor revisar");
+    if (nuevoNumApartamento <= 0) {
+      throw ("por favor revisar");
     }
     _numApartamento = nuevoNumApartamento;
   }
 
-  String get detalleContacto => _detalleContacto;
+  String get getDetalleContacto => _detalleContacto;
 
-  set detalleContacto(String nuevoDetalleContacto) {
-    if(nuevoDetalleContacto==""){
-      throw("por favor revisar");
+  set setDetalleContacto(String nuevoDetalleContacto) {
+    if (nuevoDetalleContacto == "") {
+      throw ("por favor revisar");
     }
     _detalleContacto = nuevoDetalleContacto;
+  }
+
+  //Polimorfismo
+  @override
+  void Registrar() {
+    print("${getNombre + getDetalleContacto} exitoso");
+  }
+
+  //Metodos propios
+  void RegistrarAnomalia(Anomalia anomalia) {
+    print(" Registro  de anomalia Rexitoso ");
+  }
+
+  void VerEstado(Anomalia anomalia) {
+    print("Consulta exitosa");
+  }
+
+  void VerInforme() {
+    print(" Informe Visto");
   }
 }
