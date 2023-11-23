@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:gestionresidencial/Views/Widgets/WidgetsAdmin/NavbarAdmin.dart';
 
 import 'package:gestionresidencial/Views/Widgets/drawer_widget.dart';
 import 'package:gestionresidencial/Views/screens/Chat/chat_screen.dart';
 import 'package:gestionresidencial/Views/screens/Historial/historial_screen.dart';
 import 'package:gestionresidencial/Views/screens/Home/HomeAdmin/HomeA.dart';
-
 
 import 'package:gestionresidencial/Views/screens/Login/login_screen.dart';
 import 'package:gestionresidencial/Views/screens/Login/register_screen.dart';
@@ -32,7 +30,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Conjunto Residencial App',
       theme: AppTheme(selectedColor: 5).theme(),
-      initialRoute: LoginPage.nombre,
+      initialRoute: HomeAdmin.nombre,
       routes: {
         LoginPage.nombre: (context) => LoginPage(),
         RegisterPage.nombre: (context) => const RegisterPage(),

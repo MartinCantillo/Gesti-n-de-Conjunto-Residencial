@@ -22,7 +22,6 @@ class ChatPage extends StatelessWidget {
 }
 
 class _NewChat extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -35,9 +34,8 @@ class _NewChat extends StatelessWidget {
                 itemCount: 100,
                 itemBuilder: (context, index) {
                   return (index % 2 == 0)
-                    ? const YouMessageBubble()
-                    : const MyMessageBubble();
-                  
+                      ? const YouMessageBubble()
+                      : const MyMessageBubble();
                 },
               ),
             ),
