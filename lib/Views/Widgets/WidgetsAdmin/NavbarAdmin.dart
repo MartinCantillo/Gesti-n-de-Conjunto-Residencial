@@ -10,7 +10,7 @@ class NavbarAdmin extends StatefulWidget {
 
 class _NavbarAdminState extends State<NavbarAdmin> {
   int currentPageIndex = 0;
-  Report report = Report(
+  ReportPage report = ReportPage(
     type: "hola3",
     subject: "Subjetc3",
     description: "desc3",

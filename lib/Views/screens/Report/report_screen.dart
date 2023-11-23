@@ -96,7 +96,7 @@ class _reporteState extends State<reporte> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Formulario Reporte',
+          'Informe',
           textAlign: TextAlign.center,
         ),
         centerTitle: true,
@@ -112,7 +112,21 @@ class _reporteState extends State<reporte> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const SizedBox(height: 20.0),
+            const SizedBox(height: 25),
+            const Text("Registro Reporte",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              shadows: [
+                Shadow(
+                  blurRadius: 0.5
+                ),
+              ],
+              fontSize: 25
+            ),
+            ),
+            const SizedBox(height: 25),
+            Divider(),
+            const SizedBox(height: 25.0),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: DropdownButtonFormField(
@@ -125,6 +139,7 @@ class _reporteState extends State<reporte> {
                   });
                 },
                 decoration: InputDecoration(
+                  labelText: "Tipo",
               enabledBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.white),
               ),
