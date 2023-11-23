@@ -20,12 +20,7 @@ class ReportPage {
     required this.evidences,
     required this.anomaly,
   });
-  Report.empty()
-      : type = '',
-        subject = '',
-        description = '',
-        evidences = [],
-        anomaly = '';
+
 }
 
 class AppState {
