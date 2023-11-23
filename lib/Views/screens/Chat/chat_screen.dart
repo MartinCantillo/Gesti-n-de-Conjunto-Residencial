@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gestionresidencial/Views/Components/messageField_component.dart';
 import 'package:gestionresidencial/Views/Widgets/chat/myMessage_widget.dart';
 import 'package:gestionresidencial/Views/Widgets/chat/youMessage_widget.dart';
+import 'package:gestionresidencial/Views/screens/Home/myHomePage_screen.dart';
 
 class ChatPage extends StatelessWidget {
   const ChatPage({super.key});
@@ -13,7 +14,13 @@ class ChatPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.blue,
         title: const Text('Admin'),
+        leading: IconButton(
+          onPressed: () {Navigator.of(context).popAndPushNamed(MyHomePage.nombre);
+          }, 
+          icon: const Icon(Icons.arrow_back_outlined),
+        ),
         centerTitle: false,
       ),
       body: _NewChat(),
@@ -34,8 +41,8 @@ class _NewChat extends StatelessWidget {
                 itemCount: 100,
                 itemBuilder: (context, index) {
                   return (index % 2 == 0)
-                      ? const YouMessageBubble()
-                      : const MyMessageBubble();
+                      ? const MyMessageBubble()
+                      : const YouMessageBubble();
                 },
               ),
             ),

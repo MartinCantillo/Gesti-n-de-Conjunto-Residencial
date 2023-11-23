@@ -31,6 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.blue,
         title: const Text(
           'Home',
           textAlign: TextAlign.center,
@@ -64,14 +65,21 @@ class _MyHomePageState extends State<MyHomePage> {
                   onPressed: () {
                      Navigator.pushReplacementNamed(context, HistorialPage.nombre);
                   },
-                  child: const Text('Ir'),
+                  child: const Text('Historial',
+                  style: TextStyle(
+                    fontSize: 25,fontWeight: FontWeight.w600
+                    
+                  )),
                 ),
                 const SizedBox(width: 20),
                 ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).popAndPushNamed(reporte.nombre);
                     },
-                  child: const Text('Reporte'),
+                  child: const Text('Reporte',
+                  style: TextStyle(
+                    fontSize: 25,fontWeight: FontWeight.w600
+                  )),
                 ),
               ],
             ),

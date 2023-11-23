@@ -30,6 +30,7 @@ class _HistorialPageState extends State<HistorialPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.blue,
         title: const Text(
             'Historial',
             textAlign: TextAlign.center,            

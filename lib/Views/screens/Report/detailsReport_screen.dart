@@ -11,6 +11,7 @@ class DetailsReportPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.blue,
         title: const Text('Detalles del Reporte'),
       ),
       body: Padding(
