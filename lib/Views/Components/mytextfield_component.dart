@@ -5,6 +5,7 @@ class MyTextField extends StatelessWidget {
   final String hintText;
   final bool obscureText;
   final int maxLines;
+  final String labelText;
 
   const MyTextField({
     super.key,
@@ -12,6 +13,7 @@ class MyTextField extends StatelessWidget {
     required this.hintText,
     required this.obscureText, 
     required this.maxLines,
+    required this.labelText,
   });
 
   @override
@@ -23,12 +25,15 @@ class MyTextField extends StatelessWidget {
         obscureText: obscureText,
         maxLines: maxLines,
         decoration: InputDecoration(
-            enabledBorder: const OutlineInputBorder(
+            labelText: labelText,
+            enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.white),
+              borderRadius: BorderRadius.circular(5)
             ),
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.grey.shade400),
             ),
+            contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
             fillColor: Colors.grey.shade200,
             filled: true,
             hintText: hintText,

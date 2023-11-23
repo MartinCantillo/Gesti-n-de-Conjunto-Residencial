@@ -118,6 +118,7 @@ class _reporteState extends State<reporte> {
                 hintText: 'Asunto',
                 obscureText: false,
                 maxLines: 1,
+                labelText: "Asunto"
             ),
             const SizedBox(height: 16.0),
             MyTextField(
@@ -125,6 +126,7 @@ class _reporteState extends State<reporte> {
                 hintText: 'Descripcion',
                 obscureText: false,
                 maxLines: 5,
+                labelText: "Descripcion"
             ),
             const SizedBox(height: 16.0),
             EvidencesContainer(),
@@ -207,6 +209,7 @@ class _reporteState extends State<reporte> {
                 });
               },
               decoration: InputDecoration(
+                labelText: "Tipo",
               enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.white),
             ),

@@ -72,6 +72,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 hintText: 'Full name',
                 obscureText: false,
                 maxLines: 1,
+                labelText: "Full name"
               ),
               const SizedBox(height: 10),
 
@@ -80,6 +81,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 hintText: 'Email',
                 obscureText: false,
                 maxLines: 1,
+                labelText: "Email"
               ),
 
               const SizedBox(height: 10),
@@ -89,6 +91,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 hintText: 'Password',
                 obscureText: true,
                 maxLines: 1,
+                labelText: "Password"
               ),
 
               const SizedBox(height: 10),
@@ -98,15 +101,17 @@ class _RegisterPageState extends State<RegisterPage> {
                 hintText: 'Confirm Password',
                 obscureText: true,
                 maxLines: 1,
+                labelText: "Confirm Password"
               ),
 
               const SizedBox(height: 10),
 
               MyTextField(
                 controller: numberApartmentController,
-                hintText: 'Apartment number',
+                hintText: 'Apartment Number',
                 obscureText: false,
                 maxLines: 1,
+                labelText: "Apartment Number"
               ),
               const SizedBox(height: 10),
 
@@ -115,6 +120,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 hintText: 'Phone number',
                 obscureText: false,
                 maxLines: 1,
+                labelText: "Phone number"
               ),
 
               // forgot password?
