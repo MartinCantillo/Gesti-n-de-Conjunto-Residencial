@@ -8,7 +8,7 @@ import 'package:gestionresidencial/localstore/sharepreference.dart';
 
 
 class HistorialPage extends StatefulWidget {
-  final List<Report> reports ;
+  final List<ReportPage> reports ;
   const HistorialPage({Key? key, required this.reports}) : super(key: key);
   
   static const String nombre = 'historialPage';
@@ -45,30 +45,47 @@ class _HistorialPageState extends State<HistorialPage> {
           ? const Center(
               child: Text('No hay reportes'),
             )
-          : ListView.builder(
-              itemCount: appState.reports.length,
-              itemBuilder: (context, index) {
-                return Container(
-                  padding: const EdgeInsetsDirectional.all(8),
-                  margin: const EdgeInsetsDirectional.all(8.0),
-                  decoration: BoxDecoration(
-                    color:Colors.grey[200], 
-                  ),
-                  child: ListTile(
-                    title: Text('Tipo: ${appState.reports[index].anomaly}'),
-                    subtitle: Text('Asunto: ${appState.reports[index].subject}'),
-                    trailing:const Column(
-                      children: [
-                        Text('Estado: En espera',
-                        style: TextStyle(color: Colors.red)),
-                      ],
-                    ),
-                    onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => ReportDetalles(report: appState.reports[index])),);
-                    },
-                  ),
-                );
-              },
-            ),
+          : ListReports(),
     );
+  }
+
+  ListView ListReports() {
+    return ListView.builder(
+            itemCount: appState.reports.length,
+            itemBuilder: (context, index) {
+              return Container(
+                padding: const EdgeInsetsDirectional.all(8),
+                margin: const EdgeInsetsDirectional.all(8.0),
+                decoration: BoxDecoration(
+                  boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 3,
+                        offset: Offset(2, 4),
+                      ),
+                    ],
+                  color:Colors.grey[100], 
+                ),
+                child: ListTile(
+                  title: Text('Tipo: ${appState.reports[index].anomaly}'),
+                  subtitle: Text('Asunto: ${appState.reports[index].subject}'),
+                  trailing:const Column(
+                    children: [
+                      Text('Estado: En espera',
+                      style: TextStyle(color: Colors.red,
+                      fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => DetailsReportPage(report: appState.reports[index])),
+                    );
+                  },
+                ),
+              );
+            },
+          );
   }
 }

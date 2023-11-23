@@ -68,6 +68,7 @@ class LoginPage extends StatelessWidget {
                 hintText: 'Username',
                 obscureText: false,
                 maxLines: 1,
+                labelText: "Username"
               ),
 
               const SizedBox(height: 10),
@@ -78,6 +79,7 @@ class LoginPage extends StatelessWidget {
                 hintText: 'Password',
                 obscureText: true,
                 maxLines: 1,
+                labelText: "Password"
               ),
 
               const SizedBox(height: 10),

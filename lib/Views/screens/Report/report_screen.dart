@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:gestionresidencial/Models/Anomalia.dart';
 import 'dart:io';
-import 'package:gestionresidencial/Views/Components/mybutton_component.dart';
 import 'package:gestionresidencial/Views/Components/mytextfield_component.dart';
-import 'package:gestionresidencial/Views/screens/Historial/historial_screen.dart';
 import 'package:gestionresidencial/Views/screens/Home/myHomePage_screen.dart';
 
 import 'package:gestionresidencial/localstore/sharepreference.dart';
 import 'package:image_picker/image_picker.dart';
 
-class Report {
+class ReportPage {
   final String type;
   final String subject;
   final String description;
   final List<File> evidences;
   final String anomaly;
 
-  Report({
+  ReportPage({
     required this.type,
     required this.subject,
     required this.description,
@@ -32,7 +29,7 @@ class Report {
 }
 
 class AppState {
-  List<Report> reports = [];
+  List<ReportPage> reports = [];
 }
 
 final appState = AppState();
@@ -85,8 +82,8 @@ class _reporteState extends State<reporte> {
     // Podemos acceder a los valores a través de typeController.text, subjectController.text, descriptionController.text
     // y las imágenes en _evidences
 
-    List<Report> reports = [
-      Report(
+    List<ReportPage> reports = [
+      ReportPage(
         type: typeController.text,
         subject: subjectController.text,
         description: descriptionController.text,
@@ -124,57 +121,58 @@ class _reporteState extends State<reporte> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: DropdownButtonFormField(
-                  value: selectedval,
-                  items: TypeAnomaly.map((e) => DropdownMenuItem(
-                        value: e,
-                        child: Text(e),
-                      )).toList(),
-                  onChanged: (val) {
-                    setState(() {
-                      selectedval = val as String;
-                    });
-                  },
-                  decoration: InputDecoration(
-                    enabledBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey.shade400),
-                    ),
-                    fillColor: Colors.grey.shade200,
-                    filled: true,
-                  )),
+                value: selectedval,
+                items:TypeAnomaly.map(
+                (e) => DropdownMenuItem(value: e,child: Text(e),)).toList(),
+                onChanged: (val){
+                  setState(() {
+                    selectedval= val as String;
+                  });
+                },
+                decoration: InputDecoration(
+              enabledBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.white),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey.shade400),
+              ),
+              fillColor: Colors.grey.shade200,
+              filled: true,
+              )
+                ),
             ),
             const SizedBox(height: 16.0),
             MyTextField(
-              controller: subjectController,
-              hintText: 'Asunto',
-              obscureText: false,
-              maxLines: 1,
+                controller: subjectController,
+                hintText: 'Asunto',
+                obscureText: false,
+                maxLines: 1,
             ),
             const SizedBox(height: 16.0),
             MyTextField(
-              controller: descriptionController,
-              hintText: 'Descripcion',
-              obscureText: false,
-              maxLines: 5,
+                controller: descriptionController,
+                hintText: 'Descripcion',
+                obscureText: false,
+                maxLines: 5,
             ),
             const SizedBox(height: 16.0),
             Container(
               height: 100,
               padding: const EdgeInsets.all(20),
               margin: const EdgeInsets.symmetric(horizontal: 10.0),
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
-              child: ElevatedButton(
-                onPressed: _pickImage,
-                style: ElevatedButton.styleFrom(
-                  textStyle: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
-                child: const Text('Subir Evidencias'),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8)
               ),
+                child: ElevatedButton(
+                  onPressed: _pickImage,
+                  style: ElevatedButton.styleFrom(
+                    textStyle: const TextStyle( 
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                  child: const Text('Subir Evidencias'),
+                ),
             ),
             const SizedBox(height: 16.0),
             SizedBox(
@@ -195,17 +193,19 @@ class _reporteState extends State<reporte> {
               height: 100,
               padding: const EdgeInsets.all(20),
               margin: const EdgeInsets.symmetric(horizontal: 10.0),
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
-              child: ElevatedButton(
-                onPressed: _submitReport,
-                style: ElevatedButton.styleFrom(
-                  textStyle: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
-                child: const Text('Enviar Reporte'),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8)
               ),
+                child: ElevatedButton(
+                  onPressed: _submitReport,
+                  style: ElevatedButton.styleFrom(
+                    textStyle: const TextStyle( 
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                  child: const Text('Enviar Reporte'),
+                ),
             ),
           ],
         ),

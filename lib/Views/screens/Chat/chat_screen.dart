@@ -35,8 +35,8 @@ class _NewChat extends StatelessWidget {
                 itemCount: 100,
                 itemBuilder: (context, index) {
                   return (index % 2 == 0)
-                    ? const MyMessageBubble()
-                    : const YouMessageBubble();
+                    ? const YouMessageBubble()
+                    : const MyMessageBubble();
                   
                 },
               ),
