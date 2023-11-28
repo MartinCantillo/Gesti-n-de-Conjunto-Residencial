@@ -6,6 +6,7 @@ class MyTextField extends StatelessWidget {
   final bool obscureText;
   final int maxLines;
   final String labelText;
+  final FormFieldValidator<String>? validator;
 
   const MyTextField({
     super.key,
@@ -14,16 +15,18 @@ class MyTextField extends StatelessWidget {
     required this.obscureText, 
     required this.maxLines,
     required this.labelText,
+    this.validator
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25.0),
-      child: TextField(
+      child: TextFormField(
         controller: controller,
         obscureText: obscureText,
         maxLines: maxLines,
+        validator: validator,
         decoration: InputDecoration(
             labelText: labelText,
             enabledBorder: OutlineInputBorder(
