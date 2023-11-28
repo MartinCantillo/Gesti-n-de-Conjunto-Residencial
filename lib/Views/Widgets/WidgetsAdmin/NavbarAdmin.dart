@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gestionresidencial/Views/screens/Report/report_screen.dart';
+import 'package:gestionresidencial/Views/Widgets/WidgetsAdmin/AdminWidget.dart';
+
+
 
 class NavbarAdmin extends StatefulWidget {
   const NavbarAdmin({super.key});
@@ -10,13 +12,6 @@ class NavbarAdmin extends StatefulWidget {
 
 class _NavbarAdminState extends State<NavbarAdmin> {
   int currentPageIndex = 0;
-  ReportPage report = ReportPage(
-    type: "hola3",
-    subject: "Subjetc3",
-    description: "desc3",
-    evidences: List.empty(),
-    anomaly: "hola3",
-  );
 
   @override
   Widget build(BuildContext context) {
@@ -41,14 +36,12 @@ class _NavbarAdminState extends State<NavbarAdmin> {
             icon: Badge(child: Icon(Icons.chat_bubble_rounded)),
             label: 'Chat',
           ),
-          
           NavigationDestination(
             icon: Badge(
               child: Icon(Icons.account_circle_rounded),
             ),
             label: 'Configuracion',
           ),
-          
         ],
       ),
       body: <Widget>[
@@ -66,7 +59,7 @@ class _NavbarAdminState extends State<NavbarAdmin> {
               ),
               Card(
                 child: ListTile(
-                 leading: Icon(Icons.star_rate),
+                  leading: Icon(Icons.star_rate),
                   trailing: Icon(Icons.add_chart),
                   title: Text('fuga de agua'),
                   subtitle: Text('Teno una anomalia en mi departamento '),
@@ -74,7 +67,7 @@ class _NavbarAdminState extends State<NavbarAdmin> {
               ),
               Card(
                 child: ListTile(
-                 leading: Icon(Icons.star_rate),
+                  leading: Icon(Icons.star_rate),
                   trailing: Icon(Icons.add_chart),
                   title: Text('ascensor averiado'),
                   subtitle: Text('Cuando me vienen a arreglar eso  '),
@@ -82,16 +75,14 @@ class _NavbarAdminState extends State<NavbarAdmin> {
               ),
               Card(
                 child: ListTile(
-                 leading: Icon(Icons.star_border_outlined),
+                  leading: Icon(Icons.star_border_outlined),
                   trailing: Icon(Icons.add_chart),
                   title: Text('Fuga de gas'),
                   subtitle: Text('Fuga de gas en la cocina '),
                 ),
               ),
-              
             ],
           ),
-          
         ),
 
         // Resto de las páginas
@@ -102,7 +93,7 @@ class _NavbarAdminState extends State<NavbarAdmin> {
               Card(
                 child: ListTile(
                   leading: Icon(Icons.messenger_rounded),
-                 //    trailing: Icon(Icons.add_chart),
+                  //    trailing: Icon(Icons.add_chart),
                   title: Text('Martin Cantillo'),
                   subtitle: Text('Todo bien que '),
                 ),
@@ -110,7 +101,7 @@ class _NavbarAdminState extends State<NavbarAdmin> {
               Card(
                 child: ListTile(
                   leading: Icon(Icons.messenger_rounded),
-               //   trailing: Icon(Icons.add_chart),
+                  //   trailing: Icon(Icons.add_chart),
                   title: Text('Jorge Araujo'),
                   subtitle: Text('Teno una anomalia en mi departamento '),
                 ),
@@ -118,7 +109,7 @@ class _NavbarAdminState extends State<NavbarAdmin> {
               Card(
                 child: ListTile(
                   leading: Icon(Icons.messenger_rounded),
-                   //  trailing: Icon(Icons.add_chart),
+                  //  trailing: Icon(Icons.add_chart),
                   title: Text('Omar'),
                   subtitle: Text('Cuando me vienen a arreglar eso  '),
                 ),
@@ -128,16 +119,13 @@ class _NavbarAdminState extends State<NavbarAdmin> {
                   leading: Icon(Icons.messenger_rounded),
                   //   trailing: Icon(Icons.add_chart),
                   title: Text('Delka'),
-                  subtitle: Text('Puro DBA en la via   '),
+                  subtitle: Text('Puro kuervo en la via   '),
                 ),
               ),
-              
             ],
           ),
-          
         ),
-        Text("Configuracion")
-        
+       AdminW()
       ][currentPageIndex],
     );
   }

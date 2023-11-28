@@ -69,7 +69,7 @@ class _HistorialPageState extends State<HistorialPage> {
                   color:Colors.grey[100], 
                 ),
                 child: ListTile(
-                  title: Text('Tipo: ${appState.reports[index].anomaly}'),
+                  title: Text('Tipo: ${appState.reports[index].type}'),
                   subtitle: Text('Asunto: ${appState.reports[index].subject}'),
                   trailing:const Column(
                     children: [
