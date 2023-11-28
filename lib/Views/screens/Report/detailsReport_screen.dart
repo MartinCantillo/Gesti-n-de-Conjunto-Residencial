@@ -52,7 +52,7 @@ class DetailsReportPage extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              'Tipo: ${report.anomaly}',
+              'Tipo: ${report.type}',
               style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 15.0),

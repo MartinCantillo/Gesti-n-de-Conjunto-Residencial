@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Conjunto Residencial App',
       theme: AppTheme(selectedColor: 0).theme(),
-      initialRoute: LoginPage.nombre,
+      initialRoute: HomeAdmin.nombre,
       routes: {
         LoginPage.nombre: (context) => LoginPage(),
         RegisterPage.nombre: (context) => const RegisterPage(),
