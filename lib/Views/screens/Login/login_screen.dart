@@ -4,7 +4,7 @@ import 'package:gestionresidencial/Views/Components/mybutton_component.dart';
 import 'package:gestionresidencial/Views/Components/mybutton2_component.dart';
 import 'package:gestionresidencial/Views/Components/mytextfield_component.dart';
 import 'package:gestionresidencial/Views/Components/squaretile_component.dart';
-import 'package:gestionresidencial/Views/screens/Home/myHomePage_screen.dart';
+import 'package:gestionresidencial/Views/Widgets/hiddenDrawer/hiddenDrawer.dart';
 import 'package:gestionresidencial/Views/screens/Login/register_screen.dart';
 
 import 'package:gestionresidencial/localstore/sharepreference.dart';
@@ -31,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
   void signUserIn(BuildContext context) {
     prefs.usuario = usernameController.text;
     prefs.contrasena = passwordController.text;
-    Navigator.of(context).pushNamed(MyHomePage.nombre);
+    Navigator.of(context).pushNamed(HiddenDrawer.nombre);
   }
 
   void registerNow(BuildContext context) {
@@ -53,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 0),
           
                 // logo
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 100.0,
                   backgroundColor: Colors.grey,
                   backgroundImage: AssetImage('images/edificio.jpg'),
@@ -75,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                 // username textfield
                 MyTextField(
                   controller: usernameController,
-                  hintText: 'Username',
+                  //hintText: 'Username',
                   obscureText: false,
                   maxLines: 1,
                   labelText: "Username",
@@ -92,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                 // password textfield
                 MyTextField(
                   controller: passwordController,
-                  hintText: 'Password',
+                  //hintText: 'Password',
                   obscureText: true,
                   maxLines: 1,
                   labelText: "Password",

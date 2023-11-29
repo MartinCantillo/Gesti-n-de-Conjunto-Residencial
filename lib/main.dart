@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:gestionresidencial/Views/Widgets/drawer_widget.dart';
+import 'package:gestionresidencial/Views/Widgets/hiddenDrawer/hiddenDrawer.dart';
 import 'package:gestionresidencial/Views/screens/Chat/chat_screen.dart';
 import 'package:gestionresidencial/Views/screens/Historial/historial_screen.dart';
 import 'package:gestionresidencial/Views/screens/Home/HomeAdmin/HomeA.dart';
@@ -29,18 +29,18 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Conjunto Residencial App',
-      theme: AppTheme(selectedColor: 0).theme(),
-      initialRoute: HomeAdmin.nombre,
+      theme: AppTheme(selectedColor: 1).theme(),
+      initialRoute: LoginPage.nombre,
       routes: {
         LoginPage.nombre: (context) => LoginPage(),
         RegisterPage.nombre: (context) => const RegisterPage(),
         MyHomePage.nombre: (context) => const MyHomePage(),
-        CustomDrawer.nombre: (context) => const CustomDrawer(),
         HistorialPage.nombre: (context) => const HistorialPage(reports: []),
         ChatPage.nombre: (context) => const ChatPage(),
         settingsPage.nombre: (context) => const settingsPage(),
         reporte.nombre: (context) => const reporte(),
-        HomeAdmin.nombre: (context) => const HomeAdmin()
+        HomeAdmin.nombre: (context) => const HomeAdmin(),
+        HiddenDrawer.nombre: (context) => const HiddenDrawer()
       },
     );
   }

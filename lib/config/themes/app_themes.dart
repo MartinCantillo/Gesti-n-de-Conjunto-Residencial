@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 const List<Color> _colorThemes = [
+  Colors.deepPurple,
   Colors.blue,
   Colors.teal,
   Colors.green,
@@ -14,7 +15,7 @@ class AppTheme {
 
   AppTheme({this.selectedColor = 0})
       : assert(selectedColor >= 0 && selectedColor < _colorThemes.length,
-            'Los colores van de 0 a ${_colorThemes.length}');
+            'Los colores van de 0 a ${_colorThemes.length-1}');
 
   ThemeData theme() {
     return ThemeData(

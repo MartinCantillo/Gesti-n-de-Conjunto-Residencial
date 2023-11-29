@@ -39,6 +39,7 @@ dependencies:
   icon_forest:
   google_nav_bar: ^5.0.6
   image_picker: ^1.0.4
+  hidden_drawer_menu: ^3.0.1
   
 dev_dependencies:
   flutter_test:

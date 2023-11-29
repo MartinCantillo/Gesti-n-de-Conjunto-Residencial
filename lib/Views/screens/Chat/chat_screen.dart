@@ -13,16 +13,6 @@ class ChatPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blue,
-        title: const Text('Admin'),
-        leading: IconButton(
-          onPressed: () {Navigator.of(context).popAndPushNamed(MyHomePage.nombre);
-          }, 
-          icon: const Icon(Icons.arrow_back_outlined),
-        ),
-        centerTitle: false,
-      ),
       body: _NewChat(),
     );
   }

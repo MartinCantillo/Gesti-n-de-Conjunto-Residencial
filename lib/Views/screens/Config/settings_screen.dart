@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gestionresidencial/Views/screens/Home/myHomePage_screen.dart';
 
 // ignore: camel_case_types
 class settingsPage extends StatelessWidget {
@@ -10,18 +9,6 @@ class settingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Configuración'),
-        leading: IconButton(
-          
-          onPressed: () {
-            Navigator.of(context).popAndPushNamed(MyHomePage.nombre);
-          },
-          
-          icon: const Icon(Icons.arrow_back_outlined,),
-          
-        ),
-      ),
       body: Center(
         child: Container(
           decoration: const BoxDecoration(

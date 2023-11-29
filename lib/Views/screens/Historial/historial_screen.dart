@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gestionresidencial/Views/screens/Home/myHomePage_screen.dart';
+import 'package:gestionresidencial/Views/Widgets/hiddenDrawer/hiddenDrawer.dart';
 
 import 'package:gestionresidencial/Views/screens/Report/report_screen.dart';
 import 'package:gestionresidencial/Views/screens/Report/detailsReport_screen.dart';
@@ -30,27 +30,23 @@ class _HistorialPageState extends State<HistorialPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue,
-        title: const Text(
-            'Historial',
-            textAlign: TextAlign.center,            
-        ),
+        centerTitle: true,
         leading: IconButton(
-          onPressed: () {Navigator.of(context).popAndPushNamed(MyHomePage.nombre);
-          }, 
+          onPressed: () {
+            Navigator.of(context).popAndPushNamed(HiddenDrawer.nombre);
+          },
           icon: const Icon(Icons.arrow_back_outlined),
         ),
-        centerTitle: true,
       ),
       body: appState.reports.isEmpty
           ? const Center(
               child: Text('No hay reportes'),
             )
-          : ListReports(),
+          : _ListReports(),
     );
   }
 
-  ListView ListReports() {
+  ListView _ListReports() {
     return ListView.builder(
             itemCount: appState.reports.length,
             itemBuilder: (context, index) {

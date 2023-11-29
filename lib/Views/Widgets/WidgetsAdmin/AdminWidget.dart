@@ -53,7 +53,7 @@ class _RegisterPageState extends State<AdminW> {
           Icons.person,
           TextFormField(
             controller: nameCtrl,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelText: 'Nombre',
             ),
           ),
@@ -62,7 +62,7 @@ class _RegisterPageState extends State<AdminW> {
           Icons.phone,
           TextFormField(
             controller: mobileCtrl,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelText: 'Numero de telefono',
             ),
             keyboardType: TextInputType.phone,

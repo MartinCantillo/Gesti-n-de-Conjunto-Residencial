@@ -72,7 +72,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SizedBox(height: 25),
                 MyTextField(
                   controller: nameController,
-                  hintText: 'Full name',
+                  
+                  //hintText: 'Full name',
                   obscureText: false,
                   maxLines: 1,
                   labelText: "Full name",
@@ -87,7 +88,7 @@ class _RegisterPageState extends State<RegisterPage> {
           
                 MyTextField(
                   controller: emailController,
-                  hintText: 'Email',
+                  //hintText: 'Email',
                   obscureText: false,
                   maxLines: 1,
                   labelText: "Email",
@@ -103,7 +104,7 @@ class _RegisterPageState extends State<RegisterPage> {
           
                 MyTextField(
                   controller: passwordController,
-                  hintText: 'Password',
+                  //hintText: 'Password',
                   obscureText: true,
                   maxLines: 1,
                   labelText: "Password",
@@ -119,7 +120,7 @@ class _RegisterPageState extends State<RegisterPage> {
           
                 MyTextField(
                   controller: confirmPasswordController,
-                  hintText: 'Confirm Password',
+                  //hintText: 'Confirm Password',
                   obscureText: true,
                   maxLines: 1,
                   labelText: "Confirm Password",
@@ -135,7 +136,7 @@ class _RegisterPageState extends State<RegisterPage> {
           
                 MyTextField(
                   controller: numberApartmentController,
-                  hintText: 'Apartment Number',
+                  //hintText: 'Apartment Number',
                   obscureText: false,
                   maxLines: 1,
                   labelText: "Apartment Number",
@@ -150,7 +151,7 @@ class _RegisterPageState extends State<RegisterPage> {
           
                 MyTextField(
                   controller: numberController,
-                  hintText: 'Phone number',
+                  //hintText: 'Phone number',
                   obscureText: false,
                   maxLines: 1,
                   labelText: "Phone number",
@@ -175,8 +176,9 @@ class _RegisterPageState extends State<RegisterPage> {
                 MyButton(
                   title: 'Register',
                   onTap: () {
-                    if(_formkey.currentState!.validate())
-                    signUp(context);
+                    if(_formkey.currentState!.validate()) {
+                      signUp(context);
+                    }
                   },
                 ),
           

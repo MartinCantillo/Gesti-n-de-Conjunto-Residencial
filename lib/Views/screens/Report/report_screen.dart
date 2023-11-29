@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:gestionresidencial/Views/Components/mytextfield_component.dart';
-import 'package:gestionresidencial/Views/screens/Home/myHomePage_screen.dart';
+import 'package:gestionresidencial/Views/Widgets/hiddenDrawer/hiddenDrawer.dart';
 
 import 'package:gestionresidencial/localstore/sharepreference.dart';
 import 'package:image_picker/image_picker.dart';
@@ -47,14 +47,16 @@ class _reporteState extends State<reporte> {
   final subjectController = TextEditingController();
   final descriptionController = TextEditingController();
   final List<File> _evidences = [];
-  final TypeAnomaly = [
+
+  final typeAnomaly = [
     "Seleccionar",
     "Infrastructura",
     "Seguridad",
-    "Incidente medico",
-    "Servicios publicos",
+    "Incidente múdico",
+    "Servicios públicos",
     "Otros"
   ];
+  
   String selectedval = "";
   Future<void> _pickImage() async {
     final pickedFile =
@@ -72,7 +74,7 @@ class _reporteState extends State<reporte> {
   @override
   void initState() {
     super.initState();
-    selectedval = TypeAnomaly[0];
+    selectedval = typeAnomaly[0];
   }
 
   void _submitReport() {
@@ -91,7 +93,7 @@ class _reporteState extends State<reporte> {
     ];
     if(_formkey.currentState!.validate()){
       appState.reports.addAll(reports);
-      Navigator.of(context).popAndPushNamed(MyHomePage.nombre);
+      Navigator.of(context).popAndPushNamed(HiddenDrawer.nombre);
     }
     
   }
@@ -100,27 +102,21 @@ class _reporteState extends State<reporte> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue,
-        title: const Text(
-          'Informe',
-          textAlign: TextAlign.center,
-        ),
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).popAndPushNamed(MyHomePage.nombre);
+            Navigator.of(context).popAndPushNamed(HiddenDrawer.nombre);
           },
           icon: const Icon(Icons.arrow_back_outlined),
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(2.0),
         child: Form(
           key: _formkey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const SizedBox(height: 25),
               const Text("Registro Reporte",
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -133,13 +129,13 @@ class _reporteState extends State<reporte> {
               ),
               ),
               const SizedBox(height: 25),
-              Divider(),
+              const Divider(),
               const SizedBox(height: 25.0),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: DropdownButtonFormField(
                   value: selectedval,
-                  items:TypeAnomaly.map(
+                  items:typeAnomaly.map(
                   (e) => DropdownMenuItem(value: e,child: Text(e),)).toList(),
                   onChanged: (val){
                     setState(() {
@@ -158,7 +154,7 @@ class _reporteState extends State<reporte> {
                 filled: true,
                 ),
                 validator: (value){
-                    if (value == TypeAnomaly[0]) {
+                    if (value == typeAnomaly[0]) {
                       return("Debe seleccionar el tipo de anomalia");
                     }
                     return null;
@@ -168,7 +164,7 @@ class _reporteState extends State<reporte> {
               const SizedBox(height: 16.0),
               MyTextField(
                   controller: subjectController,
-                  hintText: 'Asunto',
+                  //hintText: 'Asunto',
                   obscureText: false,
                   maxLines: 1,
                   labelText: "Asunto",
@@ -181,7 +177,7 @@ class _reporteState extends State<reporte> {
               const SizedBox(height: 16.0),
               MyTextField(
                   controller: descriptionController,
-                  hintText: 'Descripcion',
+                  //hintText: 'Descripcion',
                   obscureText: false,
                   maxLines: 5,
                   labelText: "Descripcion",
