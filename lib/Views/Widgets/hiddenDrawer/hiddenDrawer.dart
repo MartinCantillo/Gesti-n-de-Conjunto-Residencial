@@ -62,9 +62,10 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return HiddenDrawerMenu(
       screens: _pages,
-      backgroundColorMenu: Colors.blue.shade400,
+      backgroundColorMenu: theme.primaryColor,
       initPositionSelected: 0,
       actionsAppBar: [
         Container(

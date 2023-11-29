@@ -16,8 +16,6 @@ class _NavbarAdminState extends State<NavbarAdmin> {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-
     return Scaffold(
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
@@ -120,7 +118,7 @@ class _NavbarAdminState extends State<NavbarAdmin> {
                   leading: Icon(Icons.messenger_rounded),
                   //   trailing: Icon(Icons.add_chart),
                   title: Text('Delka'),
-                  subtitle: Text('Puro kuervo en la via   '),
+                  subtitle: Text('Puro kuervo en la via'),
                 ),
               ),
             ],
