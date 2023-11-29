@@ -7,14 +7,12 @@ import 'package:gestionresidencial/localstore/sharepreference.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ReportPage {
-  final String type;
   final String subject;
   final String description;
   final List<File> evidences;
   final String anomaly;
 
   ReportPage({
-    required this.type,
     required this.subject,
     required this.description,
     required this.evidences,
@@ -43,7 +41,6 @@ class reporte extends StatefulWidget {
 // ignore: camel_case_types
 class _reporteState extends State<reporte> {
   final _formkey = GlobalKey<FormState>();
-  final typeController = TextEditingController();
   final subjectController = TextEditingController();
   final descriptionController = TextEditingController();
   final List<File> _evidences = [];
@@ -84,7 +81,6 @@ class _reporteState extends State<reporte> {
 
     List<ReportPage> reports = [
       ReportPage(
-        type: typeController.text,
         subject: subjectController.text,
         description: descriptionController.text,
         evidences: _evidences,
