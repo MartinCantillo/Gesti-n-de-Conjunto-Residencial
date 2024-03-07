@@ -1,30 +1,39 @@
+import 'dart:convert';
+
 import 'package:gestionresidencial/Models/Persona.dart';
 
-class Administrador extends Persona {
+class AdministradorModel {
+  String? apellidoAdmin;
+  String? detallesContactoAdmin;
+  String? idAdmin;
+  String? nombreAdmin;
+  AdministradorModel({
+    this.apellidoAdmin,
+    this.detallesContactoAdmin,
+    this.idAdmin,
+    this.nombreAdmin,
+  });
 
-  
-  String _horario;
-  Administrador(
-      {required String nombre,
-      required int telefono,
-      required String email,
-      required int codigo,
-      required String horario})
-      //Inicializacion de datos
-      : _horario = horario,
-        super(
-          nombre: nombre,
-          telefono: telefono,
-          email: email,
-          codigo: codigo,
-        );
-
-  //Set and gett
-  String get getHorario => _horario;
-  set setHorario(String horario) {
-    if (horario == "") {
-      throw ("por favor revisar");
-    }
-    _horario = horario;
+  Map<String, dynamic> toMap() {
+    return {
+      'apellidoAdmin': apellidoAdmin,
+      'detallesContactoAdmin': detallesContactoAdmin,
+      'idAdmin': idAdmin,
+      'nombreAdmin': nombreAdmin,
+    };
   }
+
+  factory AdministradorModel.fromMap(Map<String, dynamic> map) {
+    return AdministradorModel(
+      apellidoAdmin: map['apellidoAdmin'],
+      detallesContactoAdmin: map['detallesContactoAdmin'],
+      idAdmin: map['idAdmin'],
+      nombreAdmin: map['nombreAdmin'],
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory AdministradorModel.fromJson(String source) =>
+      AdministradorModel.fromMap(json.decode(source));
 }

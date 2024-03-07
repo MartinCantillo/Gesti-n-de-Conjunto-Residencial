@@ -10,6 +10,8 @@ class Persona {
     required int telefono,
     required String email,
     required int codigo,
+
+    
   })  : _nombre = nombre,
         _telefono = telefono,
         _email = email,
