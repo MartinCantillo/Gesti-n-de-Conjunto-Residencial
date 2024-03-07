@@ -22,7 +22,8 @@ class PrefernciaUsuario {
   set usuario(String value) {
     _prefs.setString('usuario', value);
   }
-    String get contrasena {
+
+  String get contrasena {
     return _prefs.getString('contrasena') ?? "contrasena incorrecta";
   }
 
@@ -30,20 +31,19 @@ class PrefernciaUsuario {
     _prefs.setString('contrasena', value);
   }
 
-
-  String get ultimapagina{
+  String get ultimapagina {
     return _prefs.getString('ultimapagina') ?? 'home';
   }
 
-  set ultimapagina(String value){
-     _prefs.setString('ultimapagina', value);
+  set ultimapagina(String value) {
+    _prefs.setString('ultimapagina', value);
   }
 
-  bool get colosecundario{
+  bool get colosecundario {
     return _prefs.getBool('colosecundario') ?? false;
   }
 
-  set colosecundario(bool value){
-     _prefs.setBool('colosecundario', value);
+  set colosecundario(bool value) {
+    _prefs.setBool('colosecundario', value);
   }
 }

@@ -1,6 +1,8 @@
 import 'package:gestionresidencial/Models/Persona.dart';
 
 class Administrador extends Persona {
+
+  
   String _horario;
   Administrador(
       {required String nombre,

@@ -4,7 +4,8 @@ class MyButton extends StatelessWidget {
   final GestureTapCallback? onTap;
   final String title;
 
-  const MyButton({super.key, 
+  const MyButton({
+    super.key,
     required this.onTap,
     required this.title,
   });
