@@ -1,6 +1,26 @@
 import 'dart:convert';
 
+class Administrador {
+  List<AdministradorModel> adminList = [];
 
+  Administrador.fromJsonList(json) {
+    if (json == null) {
+      return;
+    } else {
+      json.list.forEach((key, val) {
+        if (json is Map<String, dynamic>) {
+          try {
+            final value = AdministradorModel.fromJson(json as String);
+            value.idAdmin = key;
+            adminList.add(value);
+          } catch (e) {
+            throw Error();
+          }
+        }
+      });
+    }
+  }
+}
 
 class AdministradorModel {
   String? apellidoAdmin;
