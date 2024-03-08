@@ -27,6 +27,7 @@ import 'package:gestionresidencial/localstore/sharepreference.dart';
 Future<void> main() async {
   final prefs = PrefernciaUsuario();
   await prefs.initPrefs();
+
   runApp(const MyApp());
 }
 
@@ -60,12 +61,12 @@ class MyApp extends StatelessWidget {
 //Providers
 
 final administradorProvider =
-    StateNotifierProvider<AnomaliaProvider, List<AdministradorModel>>((ref) {
-  return AnomaliaProvider([]);
+    StateNotifierProvider<AdministradorProvider, List<AdministradorModel>>((ref) {
+  return AdministradorProvider([]);
 });
 final anomaliaProvider =
-    StateNotifierProvider<AdministradorProvider, List<AnomaliaModel>>((ref) {
-  return AdministradorProvider([]);
+    StateNotifierProvider<AnomaliaProvider, List<AnomaliaModel>>((ref) {
+  return AnomaliaProvider([]);
 });
 final estadoAnomaliaProvider =
     StateNotifierProvider<EstadoAnomaliaProvider, List<EstadoAnomaliaModel>>(

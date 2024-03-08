@@ -4,9 +4,9 @@ import 'package:gestionresidencial/Models/Administrador.dart';
 import 'package:http/http.dart' as http;
 import 'package:riverpod/riverpod.dart';
 
-class AnomaliaProvider extends StateNotifier<List<AdministradorModel>> {
+class AdministradorProvider extends StateNotifier<List<AdministradorModel>> {
   final String endpoint = "https://backendmovil2-default-rtdb.firebaseio.com/";
-  AnomaliaProvider(List<AdministradorModel> state) : super(state);
+  AdministradorProvider(List<AdministradorModel> state) : super(state);
 
   Future<String> save(AdministradorModel data) async {
     try {

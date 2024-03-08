@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gestionresidencial/Models/Anomalia.dart';
+import 'package:gestionresidencial/Provider/AdministradorModelProvider.dart';
+import 'package:gestionresidencial/Provider/AnomaliaProvider.dart';
 import 'dart:io';
 import 'package:gestionresidencial/Views/Components/mytextfield_component.dart';
 import 'package:gestionresidencial/Views/Widgets/hiddenDrawer/hiddenDrawer.dart';
 
 import 'package:gestionresidencial/localstore/sharepreference.dart';
+import 'package:gestionresidencial/main.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ReportPage {
@@ -28,18 +33,18 @@ class AppState {
 final appState = AppState();
 
 // ignore: camel_case_types
-class reporte extends StatefulWidget {
+class reporte extends ConsumerStatefulWidget {
   
   const reporte({super.key});
 
   static const String nombre = 'reporte';
 
   @override
-  State<reporte> createState() => _reporteState();
+  reporteState createState() => reporteState();
 }
 
 // ignore: camel_case_types
-class _reporteState extends State<reporte> {
+class reporteState extends ConsumerState<reporte> {
   final _formkey = GlobalKey<FormState>();
   final subjectController = TextEditingController();
   final descriptionController = TextEditingController();
@@ -74,11 +79,11 @@ class _reporteState extends State<reporte> {
     selectedval = typeAnomaly[0];
   }
 
-  void _submitReport() {
+  void _submitReport() async{
     // Aquí podemos manejar la lógica para enviar el reporte
     // Podemos acceder a los valores a través de typeController.text, subjectController.text, descriptionController.text
     // y las imágenes en _evidences
-
+   
     List<ReportPage> reports = [
       ReportPage(
         subject: subjectController.text,
@@ -87,10 +92,29 @@ class _reporteState extends State<reporte> {
         anomaly: selectedval,
       ),
     ];
+    
     if(_formkey.currentState!.validate()){
-      appState.reports.addAll(reports);
-      Navigator.of(context).popAndPushNamed(HiddenDrawer.nombre);
+      //appState.reports.addAll(reports);
     }
+      AnomaliaModel anomalia = AnomaliaModel(
+      descripcionAnomalia: descriptionController.text,
+      fechaReporteAnomalia: DateTime.now().toString(), // Puedes cambiar esto según tu lógica de fecha
+      fotoAnomalia: 'img', // Aquí puedes agregar la lógica para manejar las imágenes
+      // Asumí que estos campos no estaban en el formulario, puedes ajustarlo según tus necesidades
+      idAnomalia: '2344',
+      idEstadoAnomalia: 'pendiente',
+      idResidente: '45',
+    );
+    try {
+      String response = await ref.read(anomaliaProvider.notifier).save(anomalia);
+      print('Anomalía guardada con éxito: $response');
+      // Aquí puedes añadir la lógica para redirigir a una nueva pantalla o hacer alguna acción después de guardar la anomalía
+    } catch (e) {
+      print('Error al guardar la anomalía: $e');
+      // Aquí puedes manejar el error, mostrar un mensaje al usuario, etc.
+    }
+      Navigator.of(context).popAndPushNamed(HiddenDrawer.nombre);
+    
     
   }
 
