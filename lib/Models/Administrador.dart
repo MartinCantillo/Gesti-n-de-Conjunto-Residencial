@@ -1,26 +1,6 @@
 import 'dart:convert';
 
-class Anomalia {
-  List<AdministradorModel> anomaliaList = [];
 
-  Anomalia.fromJsonList(json) {
-    if (json == null) {
-      return;
-    } else {
-      json.list.forEach((key, val) {
-        if (json is Map<String, dynamic>) {
-          try {
-            final value = AdministradorModel.fromJson(json as String);
-            value.idAdmin = key;
-            anomaliaList.add(value);
-          } catch (e) {
-            throw Error();
-          }
-        }
-      });
-    }
-  }
-}
 
 class AdministradorModel {
   String? apellidoAdmin;

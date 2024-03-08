@@ -1,5 +1,27 @@
 import 'dart:convert';
 
+
+class Anomalia {
+  List<AnomaliaModel> anomaliaList = [];
+
+  Anomalia.fromJsonList(json) {
+    if (json == null) {
+      return;
+    } else {
+      json.list.forEach((key, val) {
+        if (json is Map<String, dynamic>) {
+          try {
+            final value = AnomaliaModel.fromJson(json as String);
+            value.idAnomalia = key;
+            anomaliaList.add(value);
+          } catch (e) {
+            throw Error();
+          }
+        }
+      });
+    }
+  }
+}
 class AnomaliaModel {
   String? descripcionAnomalia;
   String? fechaReporteAnomalia;
