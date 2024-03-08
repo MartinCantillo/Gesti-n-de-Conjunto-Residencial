@@ -10,7 +10,7 @@ class EstadoAnomaliaProvider extends StateNotifier<List<EstadoAnomaliaModel>> {
 
   Future<bool> save(EstadoAnomaliaModel data) async {
     try {
-      final url = "$endpoint/Anomalia.json";
+      final url = "$endpoint/EstadoAnomalia.json";
       final response = await http.post(Uri.parse(url), body: data.toJson());
       if (response.statusCode == 200) {
         state = [...state, data];
@@ -26,7 +26,7 @@ class EstadoAnomaliaProvider extends StateNotifier<List<EstadoAnomaliaModel>> {
 
   Future<List<EstadoAnomaliaModel>> getAll() async {
     try {
-      final url = "$endpoint/Anomalia.json";
+      final url = "$endpoint/EstadoAnomalia.json";
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         String body = utf8.decode(response.bodyBytes);
@@ -44,7 +44,7 @@ class EstadoAnomaliaProvider extends StateNotifier<List<EstadoAnomaliaModel>> {
 
   Future<int> delete(String id) async {
     try {
-      final url = '$endpoint/Anomalia/$id.json';
+      final url = '$endpoint/EstadoAnomalia/$id.json';
 
       final response = await http.delete(Uri.parse(url));
 
@@ -61,7 +61,7 @@ class EstadoAnomaliaProvider extends StateNotifier<List<EstadoAnomaliaModel>> {
 
   Future<bool> update(EstadoAnomaliaModel data) async {
     try {
-      final url = "$endpoint/Anomalia.json";
+      final url = "$endpoint/EstadoAnomalia.json";
       final response = await http.put(Uri.parse(url), body: data.toJson());
       if (response.statusCode == 200) {
         //final decodeData = jsonDecode(response.body);

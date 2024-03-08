@@ -10,7 +10,7 @@ class ResidenteProvider extends StateNotifier<List<ResidenteModel>> {
 
   Future<bool> save(ResidenteModel data) async {
     try {
-      final url = "$endpoint/Administrador.json";
+      final url = "$endpoint/Residente.json";
       final response = await http.post(Uri.parse(url), body: data.toJson());
       if (response.statusCode == 200) {
         state = [...state, data];
@@ -26,7 +26,7 @@ class ResidenteProvider extends StateNotifier<List<ResidenteModel>> {
 
   Future<List<ResidenteModel>> getAll() async {
     try {
-      final url = "$endpoint/Administrador.json";
+      final url = "$endpoint/Residente.json";
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         String body = utf8.decode(response.bodyBytes);
@@ -44,7 +44,7 @@ class ResidenteProvider extends StateNotifier<List<ResidenteModel>> {
 
   Future<int> delete(String id) async {
     try {
-      final url = '$endpoint/Administrador/$id.json';
+      final url = '$endpoint/Residente/$id.json';
 
       final response = await http.delete(Uri.parse(url));
 
@@ -61,7 +61,7 @@ class ResidenteProvider extends StateNotifier<List<ResidenteModel>> {
 
   Future<bool> update(ResidenteModel data) async {
     try {
-      final url = "$endpoint/Administrador.json";
+      final url = "$endpoint/Residente.json";
       final response = await http.put(Uri.parse(url), body: data.toJson());
       if (response.statusCode == 200) {
         //final decodeData = jsonDecode(response.body);
