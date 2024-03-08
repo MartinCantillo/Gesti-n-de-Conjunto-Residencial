@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-
 class Anomalia {
   List<AnomaliaModel> anomaliaList = [];
 
@@ -22,10 +21,13 @@ class Anomalia {
     }
   }
 }
+
 class AnomaliaModel {
   String? descripcionAnomalia;
   String? fechaReporteAnomalia;
   String? fotoAnomalia;
+  String? tipoAnomalia;
+  String? asuntoAnomalia;
   String? idAnomalia;
   String? idEstadoAnomalia;
   String? idResidente;
@@ -36,6 +38,8 @@ class AnomaliaModel {
     this.idAnomalia,
     this.idEstadoAnomalia,
     this.idResidente,
+    this.asuntoAnomalia,
+    this.tipoAnomalia,
   });
 
   Map<String, dynamic> toMap() {
@@ -46,6 +50,8 @@ class AnomaliaModel {
       'IDAnomalia': idAnomalia,
       'IDEstadoAnomalia': idEstadoAnomalia,
       'IDResidente': idResidente,
+      'tipoAnomalia': tipoAnomalia,
+      'asuntoAnomalia': asuntoAnomalia,
     };
   }
 
@@ -57,6 +63,8 @@ class AnomaliaModel {
       idAnomalia: map['IDAnomalia'],
       idEstadoAnomalia: map['IDEstadoAnomalia'],
       idResidente: map['IDResidente'],
+      tipoAnomalia:map['tipoAnomalia'],
+      asuntoAnomalia :map['asuntoAnomalia'], 
     );
   }
 
