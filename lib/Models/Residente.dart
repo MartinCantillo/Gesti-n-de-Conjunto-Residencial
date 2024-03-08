@@ -1,42 +1,37 @@
-import 'package:gestionresidencial/Models/Persona.dart';
+import 'dart:convert';
 
-class Residente extends Persona {
-  int _numApartamento;
-  String _detalleContacto;
-
+class Residente {
+  String? detallesContactoResidente;
+  String? idResidente;
+  String? nombreResidente;
+  String? numApartamento;
   Residente({
-    required String nombre,
-    required int telefono,
-    required String email,
-    required int codigo,
-    required int numApartamento,
-    required String detalleContacto,
-  })  
-  //Inicializacion de datos
-  : _numApartamento = numApartamento,
-        _detalleContacto = detalleContacto,
-        super(
-          nombre: nombre,
-          telefono: telefono,
-          email: email,
-          codigo: codigo,
-        );
+    this.detallesContactoResidente,
+    this.idResidente,
+    this.nombreResidente,
+    this.numApartamento,
+  });
 
-  int get numApartamento => _numApartamento;
-
-  set numApartamento(int nuevoNumApartamento) {
-    if (nuevoNumApartamento <= 0) {
-      throw ("por favor revisar");
-    }
-    _numApartamento = nuevoNumApartamento;
+  Map<String, dynamic> toMap() {
+    return {
+      'DetallesContactoResidente': detallesContactoResidente,
+      'IDResidente': idResidente,
+      'NombreResidente': nombreResidente,
+      'NumApartamento': numApartamento,
+    };
   }
 
-  String get getDetalleContacto => _detalleContacto;
-
-  set setDetalleContacto(String nuevoDetalleContacto) {
-    if (nuevoDetalleContacto == "") {
-      throw ("por favor revisar");
-    }
-    _detalleContacto = nuevoDetalleContacto;
+  factory Residente.fromMap(Map<String, dynamic> map) {
+    return Residente(
+      detallesContactoResidente: map['DetallesContactoResidente'],
+      idResidente: map['IDResidente'],
+      nombreResidente: map['NombreResidente'],
+      numApartamento: map['NumApartamento'],
+    );
   }
+
+  String toJson() => json.encode(toMap());
+
+  factory Residente.fromJson(String source) =>
+      Residente.fromMap(json.decode(source));
 }
