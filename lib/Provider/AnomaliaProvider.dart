@@ -1,17 +1,16 @@
 import 'dart:convert';
 
-import 'package:gestionresidencial/Models/Administrador.dart';
+import 'package:gestionresidencial/Models/Anomalia.dart';
 import 'package:http/http.dart' as http;
 import 'package:riverpod/riverpod.dart';
 
-class AnomaliaProvider
-    extends StateNotifier<List<AdministradorModel>> {
+class AdministradorProvider extends StateNotifier<List<AnomaliaModel>> {
   final String endpoint = "https://backendmovil2-default-rtdb.firebaseio.com/";
-  AnomaliaProvider(List<AdministradorModel> state) : super(state);
+  AdministradorProvider(List<AnomaliaModel> state) : super(state);
 
-  Future<bool> save(AdministradorModel data) async {
+  Future<bool> save(AnomaliaModel data) async {
     try {
-      final url = "$endpoint/Administrador.json";
+      final url = "$endpoint/Anomalia.json";
       final response = await http.post(Uri.parse(url), body: data.toJson());
       if (response.statusCode == 200) {
         state = [...state, data];
@@ -25,16 +24,16 @@ class AnomaliaProvider
     }
   }
 
-  Future<List<AdministradorModel>> getAll() async {
+  Future<List<AnomaliaModel>> getAll() async {
     try {
-      final url = "$endpoint/Administrador.json";
+      final url = "$endpoint/Anomalia.json";
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         String body = utf8.decode(response.bodyBytes);
         final jsonData = jsonDecode(body);
-        final listData = Administrador.fromJsonList(jsonData);
-        state = listData.adminList;
-        return listData.adminList;
+        final listData = Anomalia.fromJsonList(jsonData);
+        state = listData.anomaliaList;
+        return listData.anomaliaList;
       } else {
         throw Exception("Ocurrió algo ${response.statusCode}");
       }
@@ -45,12 +44,12 @@ class AnomaliaProvider
 
   Future<int> delete(String id) async {
     try {
-      final url = '$endpoint/Administrador/$id.json';
+      final url = '$endpoint/Anomalia/$id.json';
 
       final response = await http.delete(Uri.parse(url));
 
       if (response.statusCode == 200) {
-        state.removeWhere((admin) => admin.idAdmin == id);
+        state.removeWhere((anomalia) => anomalia.idAnomalia == id);
         return 1;
       } else {
         throw Exception("Error ${response.statusCode}");
@@ -60,14 +59,14 @@ class AnomaliaProvider
     }
   }
 
-  Future<bool> update(AdministradorModel data) async {
+  Future<bool> update(AnomaliaModel data) async {
     try {
-      final url = "$endpoint/Administrador.json";
+      final url = "$endpoint/Anomalia.json";
       final response = await http.put(Uri.parse(url), body: data.toJson());
       if (response.statusCode == 200) {
         //final decodeData = jsonDecode(response.body);
-        state[state.indexWhere((admin) => admin.idAdmin == data.idAdmin)] =
-            data;
+        state[state.indexWhere(
+            (anomalia) => anomalia.idAnomalia == data.idAnomalia)] = data;
         return true;
       } else {
         throw ("Error ${response.statusCode}");
@@ -80,7 +79,6 @@ class AnomaliaProvider
 
 //1 estado (StateNotifier), 2 tipo de estado(List<AdministradorModel>)
 final administradorProvider =
-    StateNotifierProvider<AnomaliaProvider, List<AdministradorModel>>(
-        (ref) {
-  return AnomaliaProvider([]);
+    StateNotifierProvider<AdministradorProvider, List<AnomaliaModel>>((ref) {
+  return AdministradorProvider([]);
 });
