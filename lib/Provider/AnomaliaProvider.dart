@@ -8,19 +8,19 @@ class AdministradorProvider extends StateNotifier<List<AnomaliaModel>> {
   final String endpoint = "https://backendmovil2-default-rtdb.firebaseio.com/";
   AdministradorProvider(List<AnomaliaModel> state) : super(state);
 
-  Future<bool> save(AnomaliaModel data) async {
+  Future<String> save(AnomaliaModel data) async {
     try {
       final url = "$endpoint/Anomalia.json";
       final response = await http.post(Uri.parse(url), body: data.toJson());
       if (response.statusCode == 200) {
+        final jsonData = jsonDecode(response.body);
         state = [...state, data];
-        return true;
+        return jsonData;
       } else {
-        return false;
+        throw Exception("Error ${response.statusCode}");
       }
     } catch (e) {
-      Exception(e);
-      return false;
+      throw Exception("Error $e");
     }
   }
 
@@ -76,9 +76,3 @@ class AdministradorProvider extends StateNotifier<List<AnomaliaModel>> {
     }
   }
 }
-
-//1 estado (StateNotifier), 2 tipo de estado(List<AdministradorModel>)
-final anomaliaProvider =
-    StateNotifierProvider<AdministradorProvider, List<AnomaliaModel>>((ref) {
-  return AdministradorProvider([]);
-});

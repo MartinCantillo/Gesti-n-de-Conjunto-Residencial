@@ -8,19 +8,20 @@ class ResidenteProvider extends StateNotifier<List<ResidenteModel>> {
   final String endpoint = "https://backendmovil2-default-rtdb.firebaseio.com/";
   ResidenteProvider(List<ResidenteModel> state) : super(state);
 
-  Future<bool> save(ResidenteModel data) async {
+  Future<String> save(ResidenteModel data) async {
     try {
       final url = "$endpoint/Residente.json";
       final response = await http.post(Uri.parse(url), body: data.toJson());
       if (response.statusCode == 200) {
+        String body = utf8.decode(response.bodyBytes);
+        final jsonData = jsonDecode(body);
         state = [...state, data];
-        return true;
+        return jsonData;
       } else {
-        return false;
+        throw ("Error ${response.statusCode}");
       }
     } catch (e) {
-      Exception(e);
-      return false;
+      throw Exception("Error $e");
     }
   }
 
@@ -77,8 +78,3 @@ class ResidenteProvider extends StateNotifier<List<ResidenteModel>> {
   }
 }
 
-//1 estado (StateNotifier), 2 tipo de estado(List<AdministradorModel>)
-final residenteProvider =
-    StateNotifierProvider<ResidenteProvider, List<ResidenteModel>>((ref) {
-  return ResidenteProvider([]);
-});
