@@ -49,7 +49,7 @@ class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
       final response = await http.delete(Uri.parse(url));
 
       if (response.statusCode == 200) {
-        state.removeWhere((anomalia) => anomalia.idAnomalia == id);
+        state.removeWhere((anomalia) => anomalia.id == id);
         return 1;
       } else {
         throw Exception("Error ${response.statusCode}");
@@ -66,7 +66,7 @@ class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
       if (response.statusCode == 200) {
         //final decodeData = jsonDecode(response.body);
         state[state.indexWhere(
-            (anomalia) => anomalia.idAnomalia == data.idAnomalia)] = data;
+            (anomalia) => anomalia.id == data.id)] = data;
         return true;
       } else {
         throw ("Error ${response.statusCode}");

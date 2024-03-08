@@ -101,7 +101,7 @@ class reporteState extends ConsumerState<reporte> {
       fechaReporteAnomalia: DateTime.now().toString(), // Puedes cambiar esto según tu lógica de fecha
       fotoAnomalia: 'img', // Aquí puedes agregar la lógica para manejar las imágenes
       // Asumí que estos campos no estaban en el formulario, puedes ajustarlo según tus necesidades
-      idAnomalia: '2344',
+    
       idEstadoAnomalia: 'pendiente',
       idResidente: '45',
     );

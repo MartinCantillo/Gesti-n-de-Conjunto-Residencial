@@ -11,7 +11,7 @@ class Administrador {
         if (json is Map<String, dynamic>) {
           try {
             final value = AdministradorModel.fromJson(json as String);
-            value.idAdmin = key;
+            value.id = key;
             adminList.add(value);
           } catch (e) {
             throw Error();
@@ -25,12 +25,12 @@ class Administrador {
 class AdministradorModel {
   String? apellidoAdmin;
   String? detallesContactoAdmin;
-  String? idAdmin;
+  String? id;
   String? nombreAdmin;
   AdministradorModel({
     this.apellidoAdmin,
     this.detallesContactoAdmin,
-    this.idAdmin,
+    this.id,
     this.nombreAdmin,
   });
 
@@ -38,7 +38,7 @@ class AdministradorModel {
     return {
       'ApellidoAdmin': apellidoAdmin,
       'DetallesContactoAdmin': detallesContactoAdmin,
-      'IDAdmin': idAdmin,
+      'id': id,
       'NombreAdmin': nombreAdmin,
     };
   }
@@ -47,7 +47,7 @@ class AdministradorModel {
     return AdministradorModel(
       apellidoAdmin: map['ApellidoAdmin'],
       detallesContactoAdmin: map['DetallesContactoAdmin'],
-      idAdmin: map['IDAdmin'],
+      id: map['id'],
       nombreAdmin: map['NombreAdmin'],
     );
   }

@@ -11,7 +11,7 @@ class Residente {
         if (json is Map<String, dynamic>) {
           try {
             final value = ResidenteModel.fromJson(json as String);
-            value.idResidente = key;
+            value.id = key;
             residenteList.add(value);
           } catch (e) {
             throw Error();
@@ -24,12 +24,12 @@ class Residente {
 
 class ResidenteModel {
   String? detallesContactoResidente;
-  String? idResidente;
+  String? id;
   String? nombreResidente;
   String? numApartamento;
   ResidenteModel({
     this.detallesContactoResidente,
-    this.idResidente,
+    this.id,
     this.nombreResidente,
     this.numApartamento,
   });
@@ -37,7 +37,7 @@ class ResidenteModel {
   Map<String, dynamic> toMap() {
     return {
       'DetallesContactoResidente': detallesContactoResidente,
-      'IDResidente': idResidente,
+      'id': id,
       'NombreResidente': nombreResidente,
       'NumApartamento': numApartamento,
     };
@@ -46,7 +46,7 @@ class ResidenteModel {
   factory ResidenteModel.fromMap(Map<String, dynamic> map) {
     return ResidenteModel(
       detallesContactoResidente: map['DetallesContactoResidente'],
-      idResidente: map['IDResidente'],
+      id: map['id'],
       nombreResidente: map['NombreResidente'],
       numApartamento: map['NumApartamento'],
     );

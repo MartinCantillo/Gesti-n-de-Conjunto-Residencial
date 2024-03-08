@@ -50,7 +50,7 @@ class UserProvider extends StateNotifier<List<UserModel>> {
       final response = await http.delete(Uri.parse(url));
 
       if (response.statusCode == 200) {
-        state.removeWhere((user) => user.idUsuario == id);
+        state.removeWhere((user) => user.id == id);
         return 1;
       } else {
         throw Exception("Error ${response.statusCode}");
@@ -66,7 +66,7 @@ class UserProvider extends StateNotifier<List<UserModel>> {
       final response = await http.put(Uri.parse(url), body: data.toJson());
       if (response.statusCode == 200) {
         //final decodeData = jsonDecode(response.body);
-        state[state.indexWhere((user) => user.idUsuario == data.idUsuario)] =
+        state[state.indexWhere((user) => user.id == data.id)] =
             data;
         return true;
       } else {

@@ -11,7 +11,7 @@ class User {
         if (json is Map<String, dynamic>) {
           try {
             final value = UserModel.fromJson(json as String);
-            value.idUsuario = key;
+            value.id = key;
             UserList.add(value);
           } catch (e) {
             throw Error();
@@ -23,18 +23,18 @@ class User {
 }
 
 class UserModel {
-  String? idUsuario;
+  String? id;
   String? username;
   String? password;
   UserModel({
-    this.idUsuario,
+    this.id,
     this.username,
     this.password,
   });
 
   Map<String, dynamic> toMap() {
     return {
-      'idUsuario': idUsuario,
+      'idUsuario': id,
       'Username"': username,
       'password': password,
     };
@@ -42,7 +42,7 @@ class UserModel {
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      idUsuario: map['idUsuario'],
+      id: map['id'],
       username: map['Username'],
       password: map['password'],
     );

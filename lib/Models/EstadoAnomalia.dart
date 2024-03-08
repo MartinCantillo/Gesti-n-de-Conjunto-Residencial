@@ -11,7 +11,7 @@ class EstadoAnomalia {
         if (json is Map<String, dynamic>) {
           try {
             final value = EstadoAnomaliaModel.fromJson(json as String);
-            value.idAdmin = key;
+            value.id = key;
             estadoanomaliaList.add(value);
           } catch (e) {
             throw Error();
@@ -24,18 +24,18 @@ class EstadoAnomalia {
 
 class EstadoAnomaliaModel {
   String? estado;
-  String? idAdmin;
+  String? id;
   String? idEstadoAnomalia;
   EstadoAnomaliaModel({
     this.estado,
-    this.idAdmin,
+    this.id,
     this.idEstadoAnomalia,
   });
 
   Map<String, dynamic> toMap() {
     return {
       'estado': estado,
-      'idAdmin': idAdmin,
+      'id': id,
       'idEstadoAnomalia': idEstadoAnomalia,
     };
   }
@@ -43,7 +43,7 @@ class EstadoAnomaliaModel {
   factory EstadoAnomaliaModel.fromMap(Map<String, dynamic> map) {
     return EstadoAnomaliaModel(
       estado: map['estado'],
-      idAdmin: map['idAdmin'],
+      id: map['id'],
       idEstadoAnomalia: map['idEstadoAnomalia'],
     );
   }

@@ -51,7 +51,7 @@ class AdministradorProvider extends StateNotifier<List<AdministradorModel>> {
       final response = await http.delete(Uri.parse(url));
 
       if (response.statusCode == 200) {
-        state.removeWhere((admin) => admin.idAdmin == id);
+        state.removeWhere((admin) => admin.id == id);
         return 1;
       } else {
         throw Exception("Error ${response.statusCode}");
@@ -67,7 +67,7 @@ class AdministradorProvider extends StateNotifier<List<AdministradorModel>> {
       final response = await http.put(Uri.parse(url), body: data.toJson());
       if (response.statusCode == 200) {
         //final decodeData = jsonDecode(response.body);
-        state[state.indexWhere((admin) => admin.idAdmin == data.idAdmin)] =
+        state[state.indexWhere((admin) => admin.id == data.id)] =
             data;
         return true;
       } else {

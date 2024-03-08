@@ -50,7 +50,7 @@ class ResidenteProvider extends StateNotifier<List<ResidenteModel>> {
       final response = await http.delete(Uri.parse(url));
 
       if (response.statusCode == 200) {
-        state.removeWhere((residente) => residente.idResidente == id);
+        state.removeWhere((residente) => residente.id == id);
         return 1;
       } else {
         throw Exception("Error ${response.statusCode}");
@@ -67,7 +67,7 @@ class ResidenteProvider extends StateNotifier<List<ResidenteModel>> {
       if (response.statusCode == 200) {
         //final decodeData = jsonDecode(response.body);
         state[state.indexWhere(
-            (residente) => residente.idResidente == data.idResidente)] = data;
+            (residente) => residente.id == data.id)] = data;
         return true;
       } else {
         throw ("Error ${response.statusCode}");

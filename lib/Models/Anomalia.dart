@@ -11,7 +11,7 @@ class Anomalia {
         if (json is Map<String, dynamic>) {
           try {
             final value = AnomaliaModel.fromJson(json as String);
-            value.idAnomalia = key;
+            value.id = key;
             anomaliaList.add(value);
           } catch (e) {
             throw Error();
@@ -28,14 +28,14 @@ class AnomaliaModel {
   String? fotoAnomalia;
   String? tipoAnomalia;
   String? asuntoAnomalia;
-  String? idAnomalia;
+  String? id;
   String? idEstadoAnomalia;
   String? idResidente;
   AnomaliaModel({
     this.descripcionAnomalia,
     this.fechaReporteAnomalia,
     this.fotoAnomalia,
-    this.idAnomalia,
+    this.id,
     this.idEstadoAnomalia,
     this.idResidente,
     this.asuntoAnomalia,
@@ -47,7 +47,7 @@ class AnomaliaModel {
       ' DescripcionAnomalia': descripcionAnomalia,
       'FechaReporteAnomalia': fechaReporteAnomalia,
       'FotoAnomalia': fotoAnomalia,
-      'IDAnomalia': idAnomalia,
+      'id': id,
       'IDEstadoAnomalia': idEstadoAnomalia,
       'IDResidente': idResidente,
       'tipoAnomalia': tipoAnomalia,
@@ -60,11 +60,11 @@ class AnomaliaModel {
       descripcionAnomalia: map['DescripcionAnomalia'],
       fechaReporteAnomalia: map['FechaReporteAnomalia'],
       fotoAnomalia: map['FotoAnomalia'],
-      idAnomalia: map['IDAnomalia'],
+      id: map['id'],
       idEstadoAnomalia: map['IDEstadoAnomalia'],
       idResidente: map['IDResidente'],
-      tipoAnomalia:map['tipoAnomalia'],
-      asuntoAnomalia :map['asuntoAnomalia'], 
+      tipoAnomalia: map['tipoAnomalia'],
+      asuntoAnomalia: map['asuntoAnomalia'],
     );
   }
 
