@@ -1,11 +1,33 @@
 import 'dart:convert';
 
 class Residente {
+  List<ResidenteModel> residenteList = [];
+
+  Residente.fromJsonList(json) {
+    if (json == null) {
+      return;
+    } else {
+      json.list.forEach((key, val) {
+        if (json is Map<String, dynamic>) {
+          try {
+            final value = ResidenteModel.fromJson(json as String);
+            value.idResidente = key;
+            residenteList.add(value);
+          } catch (e) {
+            throw Error();
+          }
+        }
+      });
+    }
+  }
+}
+
+class ResidenteModel {
   String? detallesContactoResidente;
   String? idResidente;
   String? nombreResidente;
   String? numApartamento;
-  Residente({
+  ResidenteModel({
     this.detallesContactoResidente,
     this.idResidente,
     this.nombreResidente,
@@ -21,8 +43,8 @@ class Residente {
     };
   }
 
-  factory Residente.fromMap(Map<String, dynamic> map) {
-    return Residente(
+  factory ResidenteModel.fromMap(Map<String, dynamic> map) {
+    return ResidenteModel(
       detallesContactoResidente: map['DetallesContactoResidente'],
       idResidente: map['IDResidente'],
       nombreResidente: map['NombreResidente'],
@@ -32,6 +54,6 @@ class Residente {
 
   String toJson() => json.encode(toMap());
 
-  factory Residente.fromJson(String source) =>
-      Residente.fromMap(json.decode(source));
+  factory ResidenteModel.fromJson(String source) =>
+      ResidenteModel.fromMap(json.decode(source));
 }
