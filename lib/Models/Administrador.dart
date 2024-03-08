@@ -1,6 +1,26 @@
 import 'dart:convert';
 
-import 'package:gestionresidencial/Models/Persona.dart';
+class Anomalia {
+  List<AdministradorModel> anomaliaList = [];
+
+  Anomalia.fromJsonList(json) {
+    if (json == null) {
+      return;
+    } else {
+      json.list.forEach((key, val) {
+        if (json is Map<String, dynamic>) {
+          try {
+            final value = AdministradorModel.fromJson(json as String);
+            value.idAdmin = key;
+            anomaliaList.add(value);
+          } catch (e) {
+            throw Error();
+          }
+        }
+      });
+    }
+  }
+}
 
 class AdministradorModel {
   String? apellidoAdmin;
@@ -16,19 +36,19 @@ class AdministradorModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'apellidoAdmin': apellidoAdmin,
-      'detallesContactoAdmin': detallesContactoAdmin,
-      'idAdmin': idAdmin,
-      'nombreAdmin': nombreAdmin,
+      'ApellidoAdmin': apellidoAdmin,
+      'DetallesContactoAdmin': detallesContactoAdmin,
+      'IDAdmin': idAdmin,
+      'NombreAdmin': nombreAdmin,
     };
   }
 
   factory AdministradorModel.fromMap(Map<String, dynamic> map) {
     return AdministradorModel(
-      apellidoAdmin: map['apellidoAdmin'],
-      detallesContactoAdmin: map['detallesContactoAdmin'],
-      idAdmin: map['idAdmin'],
-      nombreAdmin: map['nombreAdmin'],
+      apellidoAdmin: map['ApellidoAdmin'],
+      detallesContactoAdmin: map['DetallesContactoAdmin'],
+      idAdmin: map['IDAdmin'],
+      nombreAdmin: map['NombreAdmin'],
     );
   }
 
