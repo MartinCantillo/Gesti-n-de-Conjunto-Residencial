@@ -1,14 +1,14 @@
 import 'dart:convert';
 
-import 'package:gestionresidencial/Models/Anomalia.dart';
+import 'package:gestionresidencial/Models/EstadoAnomalia.dart';
 import 'package:http/http.dart' as http;
 import 'package:riverpod/riverpod.dart';
 
-class AdministradorProvider extends StateNotifier<List<AnomaliaModel>> {
+class EstadoAnomaliaProvider extends StateNotifier<List<EstadoAnomaliaModel>> {
   final String endpoint = "https://backendmovil2-default-rtdb.firebaseio.com/";
-  AdministradorProvider(List<AnomaliaModel> state) : super(state);
+  EstadoAnomaliaProvider(List<EstadoAnomaliaModel> state) : super(state);
 
-  Future<bool> save(AnomaliaModel data) async {
+  Future<bool> save(EstadoAnomaliaModel data) async {
     try {
       final url = "$endpoint/Anomalia.json";
       final response = await http.post(Uri.parse(url), body: data.toJson());
@@ -24,14 +24,14 @@ class AdministradorProvider extends StateNotifier<List<AnomaliaModel>> {
     }
   }
 
-  Future<List<AnomaliaModel>> getAll() async {
+  Future<List<EstadoAnomaliaModel>> getAll() async {
     try {
       final url = "$endpoint/Anomalia.json";
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         String body = utf8.decode(response.bodyBytes);
         final jsonData = jsonDecode(body);
-        final listData = Anomalia.fromJsonList(jsonData);
+        final listData = EstadoAnomalia.fromJsonList(jsonData);
         state = listData.anomaliaList;
         return listData.anomaliaList;
       } else {
@@ -49,7 +49,7 @@ class AdministradorProvider extends StateNotifier<List<AnomaliaModel>> {
       final response = await http.delete(Uri.parse(url));
 
       if (response.statusCode == 200) {
-        state.removeWhere((anomalia) => anomalia.idAnomalia == id);
+        state.removeWhere((anomaliaE) => anomaliaE.idEstadoAnomalia == id);
         return 1;
       } else {
         throw Exception("Error ${response.statusCode}");
@@ -59,14 +59,14 @@ class AdministradorProvider extends StateNotifier<List<AnomaliaModel>> {
     }
   }
 
-  Future<bool> update(AnomaliaModel data) async {
+  Future<bool> update(EstadoAnomaliaModel data) async {
     try {
       final url = "$endpoint/Anomalia.json";
       final response = await http.put(Uri.parse(url), body: data.toJson());
       if (response.statusCode == 200) {
         //final decodeData = jsonDecode(response.body);
-        state[state.indexWhere(
-            (anomalia) => anomalia.idAnomalia == data.idAnomalia)] = data;
+        state[state.indexWhere((anomaliaE) =>
+            anomaliaE.idEstadoAnomalia == data.idEstadoAnomalia)] = data;
         return true;
       } else {
         throw ("Error ${response.statusCode}");
@@ -78,7 +78,8 @@ class AdministradorProvider extends StateNotifier<List<AnomaliaModel>> {
 }
 
 //1 estado (StateNotifier), 2 tipo de estado(List<AdministradorModel>)
-final anomaliaProvider =
-    StateNotifierProvider<AdministradorProvider, List<AnomaliaModel>>((ref) {
-  return AdministradorProvider([]);
+final estadoAnomaliaProvider =
+    StateNotifierProvider<EstadoAnomaliaProvider, List<EstadoAnomaliaModel>>(
+        (ref) {
+  return EstadoAnomaliaProvider([]);
 });
