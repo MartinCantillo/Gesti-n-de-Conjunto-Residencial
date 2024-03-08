@@ -1,19 +1,20 @@
 import 'dart:convert';
 
-import 'package:gestionresidencial/Models/EstadoAnomalia.dart';
+import 'package:gestionresidencial/Models/User.dart';
 import 'package:http/http.dart' as http;
 import 'package:riverpod/riverpod.dart';
 
-class EstadoAnomaliaProvider extends StateNotifier<List<EstadoAnomaliaModel>> {
+class UserProvider extends StateNotifier<List<UserModel>> {
   final String endpoint = "https://backendmovil2-default-rtdb.firebaseio.com/";
-  EstadoAnomaliaProvider(List<EstadoAnomaliaModel> state) : super(state);
+  UserProvider(List<UserModel> state) : super(state);
 
-  Future<String> save(EstadoAnomaliaModel data) async {
+  Future<String> save(UserModel data) async {
     try {
-      final url = "$endpoint/EstadoAnomalia.json";
+      final url = "$endpoint/Usuario.json";
       final response = await http.post(Uri.parse(url), body: data.toJson());
       if (response.statusCode == 200) {
-        final jsonData = jsonDecode(response.body);
+        String body = utf8.decode(response.bodyBytes);
+        final jsonData = jsonDecode(body);
         state = [...state, data];
         return jsonData;
       } else {
@@ -24,16 +25,16 @@ class EstadoAnomaliaProvider extends StateNotifier<List<EstadoAnomaliaModel>> {
     }
   }
 
-  Future<List<EstadoAnomaliaModel>> getAll() async {
+  Future<List<UserModel>> getAll() async {
     try {
-      final url = "$endpoint/EstadoAnomalia.json";
+      final url = "$endpoint/Usuario.json";
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         String body = utf8.decode(response.bodyBytes);
         final jsonData = jsonDecode(body);
-        final listData = EstadoAnomalia.fromJsonList(jsonData);
-        state = listData.estadoanomaliaList;
-        return listData.estadoanomaliaList;
+        final listData = User.fromJsonList(jsonData);
+        state = listData.UserList;
+        return listData.UserList;
       } else {
         throw Exception("Ocurrió algo ${response.statusCode}");
       }
@@ -44,12 +45,12 @@ class EstadoAnomaliaProvider extends StateNotifier<List<EstadoAnomaliaModel>> {
 
   Future<int> delete(String id) async {
     try {
-      final url = '$endpoint/EstadoAnomalia/$id.json';
+      final url = '$endpoint/Usuario/$id.json';
 
       final response = await http.delete(Uri.parse(url));
 
       if (response.statusCode == 200) {
-        state.removeWhere((anomaliaE) => anomaliaE.idEstadoAnomalia == id);
+        state.removeWhere((user) => user.idUsuario == id);
         return 1;
       } else {
         throw Exception("Error ${response.statusCode}");
@@ -59,14 +60,14 @@ class EstadoAnomaliaProvider extends StateNotifier<List<EstadoAnomaliaModel>> {
     }
   }
 
-  Future<bool> update(EstadoAnomaliaModel data) async {
+  Future<bool> update(UserModel data) async {
     try {
-      final url = "$endpoint/EstadoAnomalia.json";
+      final url = "$endpoint/Usuario.json";
       final response = await http.put(Uri.parse(url), body: data.toJson());
       if (response.statusCode == 200) {
         //final decodeData = jsonDecode(response.body);
-        state[state.indexWhere((anomaliaE) =>
-            anomaliaE.idEstadoAnomalia == data.idEstadoAnomalia)] = data;
+        state[state.indexWhere((user) => user.idUsuario == data.idUsuario)] =
+            data;
         return true;
       } else {
         throw ("Error ${response.statusCode}");
@@ -76,4 +77,3 @@ class EstadoAnomaliaProvider extends StateNotifier<List<EstadoAnomaliaModel>> {
     }
   }
 }
-

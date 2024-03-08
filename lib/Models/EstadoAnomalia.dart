@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class EstadoAnomalia {
-  List<EstadoAnomaliaModel> anomaliaList = [];
+  List<EstadoAnomaliaModel> estadoanomaliaList = [];
 
   EstadoAnomalia.fromJsonList(json) {
     if (json == null) {
@@ -12,7 +12,7 @@ class EstadoAnomalia {
           try {
             final value = EstadoAnomaliaModel.fromJson(json as String);
             value.idAdmin = key;
-            anomaliaList.add(value);
+            estadoanomaliaList.add(value);
           } catch (e) {
             throw Error();
           }

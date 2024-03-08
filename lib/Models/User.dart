@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class User {
-  List<UserModel> adminList = [];
+  List<UserModel> UserList = [];
 
   User.fromJsonList(json) {
     if (json == null) {
@@ -12,7 +12,7 @@ class User {
           try {
             final value = UserModel.fromJson(json as String);
             value.idUsuario = key;
-            adminList.add(value);
+            UserList.add(value);
           } catch (e) {
             throw Error();
           }

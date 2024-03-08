@@ -76,8 +76,15 @@ final residenteProvider =
     StateNotifierProvider<ResidenteProvider, List<ResidenteModel>>((ref) {
   return ResidenteProvider([]);
 });
+final userProvider =
+    StateNotifierProvider<ResidenteProvider, List<ResidenteModel>>((ref) {
+  return ResidenteProvider([]);
+});
+
+
 
 final pkAdminProvider = StateProvider<String>((ref) => "");
 final pkAnomaliaProvider = StateProvider<String>((ref) => "");
 final pkEstadoAnomaliaProvider = StateProvider<String>((ref) => "");
 final pkResidenteProvider = StateProvider<String>((ref) => "");
+final pkUserProvider = StateProvider<String>((ref) => "");
