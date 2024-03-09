@@ -4,15 +4,18 @@ import 'package:gestionresidencial/Models/Administrador.dart';
 import 'package:gestionresidencial/Models/Anomalia.dart';
 import 'package:gestionresidencial/Models/EstadoAnomalia.dart';
 import 'package:gestionresidencial/Models/Residente.dart';
+import 'package:gestionresidencial/Models/User.dart';
 import 'package:gestionresidencial/Provider/AdministradorModelProvider.dart';
 import 'package:gestionresidencial/Provider/AnomaliaProvider.dart';
 import 'package:gestionresidencial/Provider/EstadoAnomaliaProvider.dart';
 import 'package:gestionresidencial/Provider/ResidenteProvider.dart';
+import 'package:gestionresidencial/Provider/UserProvider.dart';
 
 import 'package:gestionresidencial/Views/Widgets/hiddenDrawer/hiddenDrawer.dart';
 import 'package:gestionresidencial/Views/screens/Chat/chat_screen.dart';
 import 'package:gestionresidencial/Views/screens/Historial/historial_screen.dart';
 import 'package:gestionresidencial/Views/screens/Home/HomeAdmin/HomeA.dart';
+import 'package:gestionresidencial/Views/screens/Login/form_register_screen.dart';
 
 import 'package:gestionresidencial/Views/screens/Login/login_screen.dart';
 import 'package:gestionresidencial/Views/screens/Login/register_screen.dart';
@@ -52,6 +55,7 @@ class MyApp extends StatelessWidget {
           reporte.nombre: (context) => const reporte(),
           HomeAdmin.nombre: (context) => const HomeAdmin(),
           HiddenDrawer.nombre: (context) => const HiddenDrawer(),
+          FormRegisterPage.nombre:(context) => const FormRegisterPage()
         },
       ),
     );
@@ -78,8 +82,8 @@ final residenteProvider =
   return ResidenteProvider([]);
 });
 final userProvider =
-    StateNotifierProvider<ResidenteProvider, List<ResidenteModel>>((ref) {
-  return ResidenteProvider([]);
+    StateNotifierProvider<UserProvider, List<UserModel>>((ref) {
+  return UserProvider([]);
 });
 
 

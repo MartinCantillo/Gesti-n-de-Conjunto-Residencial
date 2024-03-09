@@ -15,7 +15,7 @@ class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
       if (response.statusCode == 200) {
         final jsonData = jsonDecode(response.body);
         state = [...state, data];
-        return jsonData;
+        return jsonData['name'];
       } else {
         throw Exception("Error ${response.statusCode}");
       }

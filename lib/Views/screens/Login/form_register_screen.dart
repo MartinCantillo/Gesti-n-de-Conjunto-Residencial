@@ -1,63 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gestionresidencial/Models/Residente.dart';
 import 'package:gestionresidencial/Models/User.dart';
-
 import 'package:gestionresidencial/Views/Components/mybutton_component.dart';
 import 'package:gestionresidencial/Views/Components/mybutton2_component.dart';
 import 'package:gestionresidencial/Views/Components/mytextfield_component.dart';
-import 'package:gestionresidencial/Views/screens/Login/form_register_screen.dart';
 import 'package:gestionresidencial/Views/screens/Login/login_screen.dart';
-
 import 'package:gestionresidencial/localstore/sharepreference.dart';
 import 'package:gestionresidencial/main.dart';
 
+class FormRegisterPage extends StatefulWidget {
+  const FormRegisterPage({Key? key}) : super(key: key);
 
-class RegisterPage extends ConsumerStatefulWidget {
-  const RegisterPage({Key? key}) : super(key: key);
-
-  static const String nombre = 'Register';
+  static const String nombre = 'Form Register';
 
   @override
-  ConsumerState<RegisterPage> createState() => _RegisterPageState();
+  _FormRegisterPageState createState() => _FormRegisterPageState();
 }
 
-class _RegisterPageState extends ConsumerState<RegisterPage> {
+class _FormRegisterPageState extends State<FormRegisterPage> {
   final _formkey = GlobalKey<FormState>();
-  final prefs = PrefernciaUsuario();
   final nameController = TextEditingController();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final confirmPasswordController = TextEditingController();
   final numberController = TextEditingController();
   final numberApartmentController = TextEditingController();
-
-
-  // sign user in method
-  void signUp(BuildContext context) async {
-  if (_formkey.currentState!.validate()) {
-    UserModel userModel = UserModel(
-      // Asignar los valores del usuario desde los controladores
-      username: emailController.text,
-      password: passwordController.text,
-    );
-    
-    try {
-      // Guardar el usuario usando UserProvider
-      String response = await ref.read(userProvider.notifier).save(userModel);
-      print('registro guardado con éxito: $response');
-      Navigator.of(context).pushNamed(FormRegisterPage.nombre);
-    } catch (e) {
-      print('Error al guardar el registro: $e');
-      // Aquí puedes manejar el error, mostrar un mensaje al usuario, etc.
-    
-    }
-  }
-}
-
-  void logiNow(BuildContext context) {
-    Navigator.of(context).pushNamed(LoginPage.nombre);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,16 +35,13 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 0),
-          
                 // logo
                 const Icon(
                   Icons.lock,
                   size: 100,
                   color: Colors.black,
                 ),
-          
                 const SizedBox(height: 20),
-                
                 Text(
                   'Welcome to create an account!',
                   style: TextStyle(
@@ -88,80 +49,55 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                     fontSize: 16,
                   ),
                 ),
-          
                 const SizedBox(height: 25),
-
-                const SizedBox(height: 10),
-          
                 MyTextField(
-                  controller: emailController,
-                  //hintText: 'Email',
+                  controller: nameController,
                   obscureText: false,
                   maxLines: 1,
-                  labelText: "Email",
+                  labelText: "Full name",
                   validator: (value){
-                    if (value == null||value.isEmpty) {
-                      return("El campo esta vacio");
+                    if (value == null || value.isEmpty) {
+                      return("El campo está vacío");
                     }
                     return null;
                   },
                 ),
-          
                 const SizedBox(height: 10),
-          
                 MyTextField(
-                  controller: passwordController,
-                  //hintText: 'Password',
-                  obscureText: true,
+                  controller: numberApartmentController,
+                  obscureText: false,
                   maxLines: 1,
-                  labelText: "Password",
+                  labelText: "Apartment Number",
                   validator: (value){
-                    if (value == null||value.isEmpty) {
-                      return("El campo esta vacio");
+                    if (value == null || value.isEmpty) {
+                      return("El campo está vacío");
                     }
                     return null;
                   },
                 ),
-          
                 const SizedBox(height: 10),
-          
                 MyTextField(
-                  controller: confirmPasswordController,
-                  //hintText: 'Confirm Password',
-                  obscureText: true,
+                  controller: numberController,
+                  obscureText: false,
                   maxLines: 1,
-                  labelText: "Confirm Password",
+                  labelText: "Phone number",
                   validator: (value){
-                    if (value == null||value.isEmpty) {
-                      return("El campo esta vacio");
+                    if (value == null || value.isEmpty) {
+                      return("El campo está vacío");
                     }
                     return null;
                   },
                 ),
-          
-                
-          
-                // forgot password?
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                  ),
-                ),
-          
                 const SizedBox(height: 20),
-          
                 MyButton(
                   title: 'Register',
                   onTap: () {
-                    if(_formkey.currentState!.validate()) {
-                      signUp(context);
+                    if (_formkey.currentState!.validate()) {
+                      // Aquí puedes manejar el registro
                     }
                   },
                 ),
-          
                 const SizedBox(height: 20),
-          
                 // are a member? Log In
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -174,7 +110,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                     MyButton2(
                       title: 'Sign In',
                       onTap: () {
-                        logiNow(context);
+                        Navigator.of(context).pushNamed(LoginPage.nombre);
                       },
                     ),
                   ],

@@ -114,8 +114,6 @@ class reporteState extends ConsumerState<reporte> {
       // Aquí puedes manejar el error, mostrar un mensaje al usuario, etc.
     }
       Navigator.of(context).popAndPushNamed(HiddenDrawer.nombre);
-    
-    
   }
 
   @override
