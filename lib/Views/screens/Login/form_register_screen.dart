@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gestionresidencial/Models/Residente.dart';
 import 'package:gestionresidencial/Models/User.dart';
 import 'package:gestionresidencial/Views/Components/mybutton_component.dart';
 import 'package:gestionresidencial/Views/Components/mybutton2_component.dart';
@@ -8,7 +9,7 @@ import 'package:gestionresidencial/Views/screens/Login/login_screen.dart';
 import 'package:gestionresidencial/localstore/sharepreference.dart';
 import 'package:gestionresidencial/main.dart';
 
-class FormRegisterPage extends StatefulWidget {
+class FormRegisterPage extends ConsumerStatefulWidget {
   const FormRegisterPage({Key? key}) : super(key: key);
 
   static const String nombre = 'Form Register';
@@ -17,12 +18,33 @@ class FormRegisterPage extends StatefulWidget {
   _FormRegisterPageState createState() => _FormRegisterPageState();
 }
 
-class _FormRegisterPageState extends State<FormRegisterPage> {
+class _FormRegisterPageState extends ConsumerState<FormRegisterPage> {
   final _formkey = GlobalKey<FormState>();
   final nameController = TextEditingController();
   final numberController = TextEditingController();
   final numberApartmentController = TextEditingController();
 
+void signUp(BuildContext context) async {
+  if (_formkey.currentState!.validate()) {
+    ResidenteModel residenteModel = ResidenteModel(
+      // Asignar los valores del usuario desde los controladores
+      nombreResidente: nameController.text,
+      numApartamento: numberApartmentController.text,
+      numTelefono: numberController.text
+    );
+    
+    try {
+      // Guardar el usuario usando UserProvider
+      String response = await ref.read(residenteProvider.notifier).save(residenteModel);
+      print('registro guardado con éxito: $response');
+      Navigator.of(context).pushNamed(LoginPage.nombre);
+    } catch (e) {
+      print('Error al guardar el registro: $e');
+      // Aquí puedes manejar el error, mostrar un mensaje al usuario, etc.
+    
+    }
+  }
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,7 +115,7 @@ class _FormRegisterPageState extends State<FormRegisterPage> {
                   title: 'Register',
                   onTap: () {
                     if (_formkey.currentState!.validate()) {
-                      // Aquí puedes manejar el registro
+                    signUp(context);
                     }
                   },
                 ),

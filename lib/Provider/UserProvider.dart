@@ -14,9 +14,9 @@ class UserProvider extends StateNotifier<List<UserModel>> {
       final response = await http.post(Uri.parse(url), body: data.toJson());
       if (response.statusCode == 200) {
         String body = utf8.decode(response.bodyBytes);
-        final jsonData = jsonDecode(body);
+        //final jsonData = jsonDecode(body);
         state = [...state, data];
-        return jsonData['name'];
+        return response.body;
       } else {
         throw ("Error ${response.statusCode}");
       }

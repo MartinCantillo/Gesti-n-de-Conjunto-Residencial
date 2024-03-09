@@ -13,9 +13,9 @@ class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
       final url = "$endpoint/Anomalia.json";
       final response = await http.post(Uri.parse(url), body: data.toJson());
       if (response.statusCode == 200) {
-        final jsonData = jsonDecode(response.body);
+        //final jsonData = jsonDecode(response.body);
         state = [...state, data];
-        return jsonData['name'];
+        return response.body;
       } else {
         throw Exception("Error ${response.statusCode}");
       }
