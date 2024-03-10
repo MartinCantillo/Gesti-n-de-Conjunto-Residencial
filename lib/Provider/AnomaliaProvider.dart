@@ -43,6 +43,24 @@ class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
     }
   }
 
+  Future<List<AnomaliaModel>> getAnomaliaById(String idUser) async {
+    try {
+      final url = '$endpoint/Anomalia/$idUser.json';
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        String body = utf8.decode(response.bodyBytes);
+        final jsonData = jsonDecode(body);
+        final listData = Anomalia.fromJsonList(jsonData);
+        state = listData.anomaliaList;
+        return listData.anomaliaList;
+      } else {
+        throw Exception("Ocurrió algo ${response.statusCode}");
+      }
+    } catch (e) {
+      throw Exception("Error $e");
+    }
+  }
+
   Future<int> delete(String id) async {
     try {
       final url = '$endpoint/Anomalia/$id.json';
