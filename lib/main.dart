@@ -7,6 +7,7 @@ import 'package:gestionresidencial/Models/Residente.dart';
 import 'package:gestionresidencial/Models/User.dart';
 import 'package:gestionresidencial/Provider/AdministradorModelProvider.dart';
 import 'package:gestionresidencial/Provider/AnomaliaProvider.dart';
+import 'package:gestionresidencial/Provider/AuthenticatedUserdProvider.dart';
 import 'package:gestionresidencial/Provider/EstadoAnomaliaProvider.dart';
 import 'package:gestionresidencial/Provider/ResidenteProvider.dart';
 import 'package:gestionresidencial/Provider/UserProvider.dart';
@@ -87,6 +88,10 @@ final residenteProvider =
 final userProvider =
     StateNotifierProvider<UserProvider, List<UserModel>>((ref) {
   return UserProvider([]);
+});
+final userAuthenticatedProviderr =
+    StateNotifierProvider<AuthenticatedUserdProvider, List<UserModel>>((ref) {
+  return AuthenticatedUserdProvider([]);
 });
 
 final pkAdminProvider = StateProvider<String>((ref) => "");

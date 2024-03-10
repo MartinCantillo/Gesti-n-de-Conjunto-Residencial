@@ -71,7 +71,6 @@ class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
       }
     } catch (e) {
       throw (e);
-      
     }
   }
 

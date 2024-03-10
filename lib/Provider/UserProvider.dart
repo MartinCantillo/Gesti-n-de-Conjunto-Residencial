@@ -16,7 +16,7 @@ class UserProvider extends StateNotifier<List<UserModel>> {
         String body = utf8.decode(response.bodyBytes);
         final jsonData = jsonDecode(body);
         state = [...state, data];
-         return jsonData['name'];
+        return jsonData['name'];
       } else {
         throw ("Error ${response.statusCode}");
       }
@@ -33,8 +33,8 @@ class UserProvider extends StateNotifier<List<UserModel>> {
         String body = utf8.decode(response.bodyBytes);
         final jsonData = jsonDecode(body);
         final listData = User.fromJsonList(jsonData);
-        state = listData.UserList;
-        return listData.UserList;
+        state = listData.userList;
+        return listData.userList;
       } else {
         throw Exception("Ocurrió algo ${response.statusCode}");
       }
@@ -66,8 +66,7 @@ class UserProvider extends StateNotifier<List<UserModel>> {
       final response = await http.put(Uri.parse(url), body: data.toJson());
       if (response.statusCode == 200) {
         //final decodeData = jsonDecode(response.body);
-        state[state.indexWhere((user) => user.id == data.id)] =
-            data;
+        state[state.indexWhere((user) => user.id == data.id)] = data;
         return true;
       } else {
         throw ("Error ${response.statusCode}");
@@ -76,4 +75,6 @@ class UserProvider extends StateNotifier<List<UserModel>> {
       throw Exception("Error $e");
     }
   }
+
+ 
 }

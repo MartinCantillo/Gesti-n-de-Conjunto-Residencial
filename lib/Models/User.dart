@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 class User {
-  List<UserModel> UserList = [];
-
+  List<UserModel> userList = [];
+  List<UserModel> usersAuthenticatedList = [];
   User.fromJsonList(json) {
     if (json == null) {
       return;
@@ -12,10 +12,26 @@ class User {
           try {
             final value = UserModel.fromJson(json as String);
             value.id = key;
-            UserList.add(value);
+            userList.add(value);
           } catch (e) {
             throw Error();
           }
+        }
+      });
+    }
+  }
+  User.fromJsonListUserAuthenticate(mapList, String username, String password) {
+    if (mapList == null || username == "" || password == "") {
+      return;
+    } else {
+      mapList.forEach((key, val) {
+        try {
+          final value = UserModel.fromMap(val);
+          if (value.username == username && value.password == password) {
+            usersAuthenticatedList.add(value);
+          }
+        } catch (e) {
+          throw Exception("Usuario no encontrado o incorrectos");
         }
       });
     }
@@ -26,7 +42,7 @@ class UserModel {
   String? id;
   String? username;
   String? password;
-  UserModel( {
+  UserModel({
     this.id,
     this.username,
     this.password,
