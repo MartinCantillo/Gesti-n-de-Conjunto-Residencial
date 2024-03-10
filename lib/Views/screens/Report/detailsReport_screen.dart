@@ -16,7 +16,8 @@ class _ListAnomaliasState extends ConsumerState<ListAnomalias> {
   @override
   void initState() {
     String idUserGot = ref.read(pkUserProvider.notifier).state;
-    anomaliasList = ref.read(anomaliaProvider.notifier).getAll();
+    anomaliasList =
+        ref.read(anomaliaProvider.notifier).getAnomaliaById(idUserGot);
 
     super.initState();
   }
@@ -55,7 +56,6 @@ class _ListAnomaliasState extends ConsumerState<ListAnomalias> {
 }
 
 List<Widget> upload(data) {
-  
   List<Widget> dataList = [];
 
   if (data != null) {
@@ -63,13 +63,12 @@ List<Widget> upload(data) {
       print("data en list updaload${element.toString()}");
       dataList.add(Card(
         child: Column(
-          crossAxisAlignment:
-              CrossAxisAlignment.center, 
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(element.fechaReporteAnomalia),
             const SizedBox(height: 8),
-             Text('DescripcionA${element.descripcionAnomalia}'),
-             const SizedBox(height: 8),
+            Text('DescripcionA${element.descripcionAnomalia}'),
+            const SizedBox(height: 8),
             Text('asuntoAnomalia${element.asuntoAnomalia}'),
             const SizedBox(height: 8),
             Text('tipoAnomalia${element.tipoAnomalia}'),

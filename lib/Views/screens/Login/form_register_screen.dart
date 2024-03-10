@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gestionresidencial/Models/Residente.dart';
 import 'package:gestionresidencial/Views/Components/mybutton_component.dart';
-import 'package:gestionresidencial/Views/Components/mybutton2_component.dart';
 import 'package:gestionresidencial/Views/Components/mytextfield_component.dart';
 import 'package:gestionresidencial/Views/screens/Login/login_screen.dart';
 import 'package:gestionresidencial/main.dart';
