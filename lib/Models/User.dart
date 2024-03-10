@@ -11,6 +11,7 @@ class User {
         if (json is Map<String, dynamic>) {
           try {
             final value = UserModel.fromJson(json as String);
+           
             value.id = key;
             userList.add(value);
           } catch (e) {
@@ -28,7 +29,10 @@ class User {
         try {
           final value = UserModel.fromMap(val);
           if (value.username == username && value.password == password) {
+            print("si entro al if si lo encontro");
             usersAuthenticatedList.add(value);
+          }else{
+              
           }
         } catch (e) {
           throw Exception("Usuario no encontrado o incorrectos");

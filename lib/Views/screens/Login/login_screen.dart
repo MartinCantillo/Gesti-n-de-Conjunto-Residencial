@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:gestionresidencial/Views/Components/mybutton_component.dart';
 import 'package:gestionresidencial/Views/Components/mybutton2_component.dart';
@@ -8,17 +9,18 @@ import 'package:gestionresidencial/Views/Widgets/hiddenDrawer/hiddenDrawer.dart'
 import 'package:gestionresidencial/Views/screens/Login/register_screen.dart';
 
 import 'package:gestionresidencial/localstore/sharepreference.dart';
+import 'package:gestionresidencial/main.dart';
 
-class LoginPage extends StatefulWidget {
-  LoginPage({Key? key}) : super(key: key);
+class LoginPage extends ConsumerStatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
   static const String nombre = 'login';
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  ConsumerState<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends ConsumerState<LoginPage> {
   final _formkey = GlobalKey<FormState>();
   final prefs = PrefernciaUsuario();
 
@@ -27,11 +29,39 @@ class _LoginPageState extends State<LoginPage> {
 
   final passwordController = TextEditingController();
 
-  // sign user in method
-  void signUserIn(BuildContext context) {
-    prefs.usuario = usernameController.text;
-    prefs.contrasena = passwordController.text;
-    Navigator.of(context).pushNamed(HiddenDrawer.nombre);
+  Future<void> signUserIn(BuildContext context) async {
+    try {
+      prefs.usuario = usernameController.text;
+      prefs.contrasena = passwordController.text;
+      await ref
+          .read(userAuthenticatedProviderr.notifier)
+          .authenticate(prefs.usuario, prefs.contrasena);
+
+     Navigator.of(context).pushNamed(HiddenDrawer.nombre);
+    } catch (e) {
+      // Almacenar el contexto antes de entrar en el área asincrónica
+      final currentContext = context;
+      // Mostrar alerta en caso de error de autenticación
+      showDialog(
+        context: currentContext,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Error de autenticación"),
+            content: Text(
+                "Credenciales incorrectas. Por favor, inténtalo de nuevo."),
+            actions: <Widget>[
+              TextButton(
+                child: Text("OK"),
+                onPressed: () {
+                  Navigator.of(currentContext)
+                      .pop(); // Cerrar el diálogo de alerta
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
   void registerNow(BuildContext context) {
@@ -51,16 +81,16 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 0),
-          
+
                 // logo
                 const CircleAvatar(
                   radius: 100.0,
                   backgroundColor: Colors.grey,
                   backgroundImage: AssetImage('images/edificio.jpg'),
                 ),
-          
+
                 const SizedBox(height: 20),
-          
+
                 // welcome back
                 Text(
                   'Welcome!',
@@ -69,9 +99,9 @@ class _LoginPageState extends State<LoginPage> {
                     fontSize: 16,
                   ),
                 ),
-          
+
                 const SizedBox(height: 25),
-          
+
                 // username textfield
                 MyTextField(
                   controller: usernameController,
@@ -79,16 +109,16 @@ class _LoginPageState extends State<LoginPage> {
                   obscureText: false,
                   maxLines: 1,
                   labelText: "Username",
-                  validator: (value){
-                    if (value == null||value.isEmpty) {
-                      return("El campo esta vacio");
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return ("El campo esta vacio");
                     }
                     return null;
                   },
                 ),
-          
+
                 const SizedBox(height: 10),
-          
+
                 // password textfield
                 MyTextField(
                   controller: passwordController,
@@ -96,16 +126,16 @@ class _LoginPageState extends State<LoginPage> {
                   obscureText: true,
                   maxLines: 1,
                   labelText: "Password",
-                  validator: (value){
-                    if (value == null||value.isEmpty) {
-                      return("El campo esta vacio");
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return ("El campo esta vacio");
                     }
                     return null;
                   },
                 ),
-          
+
                 const SizedBox(height: 10),
-          
+
                 // forgot password?
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -119,22 +149,21 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                 ),
-          
+
                 const SizedBox(height: 15),
-          
+
                 // sign in button
                 MyButton(
                   title: 'Sign In',
                   onTap: () {
-                    if (_formkey.currentState!.validate()){
+                    if (_formkey.currentState!.validate()) {
                       signUserIn(context);
                     }
-                    
                   },
                 ),
-          
+
                 const SizedBox(height: 20),
-          
+
                 // or continue with
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -162,25 +191,25 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                 ),
-          
+
                 const SizedBox(height: 20),
-          
+
                 // google + apple sign in buttons
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // google button
                     SquareTile(imagePath: 'assets/images/google.png'),
-          
+
                     SizedBox(width: 25),
-          
+
                     // apple button
                     SquareTile(imagePath: 'assets/images/apple.png')
                   ],
                 ),
-          
+
                 const SizedBox(height: 20),
-          
+
                 // not a member? register now
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

@@ -10,15 +10,22 @@ class AuthenticatedUserdProvider extends StateNotifier<List<UserModel>> {
   AuthenticatedUserdProvider(List<UserModel> state) : super(state);
 
   Future<List<UserModel>> authenticate(String username, String password) async {
+   
     try {
       final url = "$endpoint/Usuario.json";
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         String body = utf8.decode(response.bodyBytes);
         final jsonData = jsonDecode(body);
+        
         final authenticatedUser =
             User.fromJsonListUserAuthenticate(jsonData, username, password);
+            if (authenticatedUser.usersAuthenticatedList.isEmpty) {
+             throw Exception("No se encontraron usuarios autenticados.");
+            }
+            print("si esta provider");
         state = authenticatedUser.usersAuthenticatedList;
+        
         return authenticatedUser.usersAuthenticatedList;
       } else {
         throw Exception("Ocurrió algo ${response.statusCode}");

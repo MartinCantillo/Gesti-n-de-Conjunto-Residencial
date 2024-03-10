@@ -76,9 +76,7 @@ class reporteState extends ConsumerState<reporte> {
   }
 
   void _submitReport() async {
-    // Aquí podemos manejar la lógica para enviar el reporte
-    // Podemos acceder a los valores a través de typeController.text, subjectController.text, descriptionController.text
-    // y las imágenes en _evidences
+
 
     if (_formkey.currentState!.validate()) {
       //appState.reports.addAll(reports);
