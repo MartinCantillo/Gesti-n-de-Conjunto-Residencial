@@ -73,10 +73,10 @@ class AnomaliaModel {
   }
 
   factory AnomaliaModel.fromMap(Map<String, dynamic> map) {
-    print("Datos entrante${map}");
+   
     try {
       return AnomaliaModel(
-        descripcionAnomalia: map[' DescripcionAnomalia'] ?? "",
+        descripcionAnomalia: map['DescripcionAnomalia'] ?? "",
         fechaReporteAnomalia: map['FechaReporteAnomalia'] ?? "",
         fotoAnomalia: map['FotoAnomalia'] ?? "",
         id: map['id'] ?? "",
@@ -86,7 +86,7 @@ class AnomaliaModel {
         asuntoAnomalia: map['asuntoAnomalia'] ?? "",
       );
     } catch (e) {
-      throw Exception("error${e}");
+      throw Exception("error$e");
     }
   }
 
