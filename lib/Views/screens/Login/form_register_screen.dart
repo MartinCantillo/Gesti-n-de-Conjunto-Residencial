@@ -59,13 +59,13 @@ void signUp(BuildContext context) async {
                 const SizedBox(height: 0),
                 // logo
                 const Icon(
-                  Icons.lock,
-                  size: 100,
+                  Icons.account_box,
+                  size: 150,
                   color: Colors.black,
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  'Welcome to create an account!',
+                  'Enter your information!',
                   style: TextStyle(
                     color: Colors.grey[700],
                     fontSize: 16,
@@ -121,22 +121,6 @@ void signUp(BuildContext context) async {
                 ),
                 const SizedBox(height: 20),
                 // are a member? Log In
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Already have an account?',
-                      style: TextStyle(color: Colors.grey[700]),
-                    ),
-                    const SizedBox(width: 4),
-                    MyButton2(
-                      title: 'Sign In',
-                      onTap: () {
-                        Navigator.of(context).pushNamed(LoginPage.nombre);
-                      },
-                    ),
-                  ],
-                )
               ],
             ),
           ),
