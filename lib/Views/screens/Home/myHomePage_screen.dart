@@ -18,7 +18,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final prefs = PrefernciaUsuario();
 
-
   @override
   void initState() {
     super.initState();
@@ -30,28 +29,29 @@ class _MyHomePageState extends State<MyHomePage> {
       duration: const Duration(milliseconds: 250),
       color: Colors.white,
       child: Center(
-      child: SizedBox(
-        height: MediaQuery.of(context).size.height,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              decoration: BoxDecoration( // Puedes ajustar el color según tu preferencia
-                borderRadius: BorderRadius.circular(20),
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                decoration: BoxDecoration(
+                  // Puedes ajustar el color según tu preferencia
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                padding: const EdgeInsets.all(15),
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Hola, Bienvenido',
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
               ),
-              padding: const EdgeInsets.all(15),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Hola, Bienvenido',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                  ),
-                  
-                ],
-              ),
-            ),
               const SizedBox(height: 25.0),
               Expanded(
                 flex: 2,
@@ -69,7 +69,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           const Spacer(),
                           MyButton2(
                             onTap: () {
-                              Navigator.pushNamed(context, HistorialPage.nombre);
+                              Navigator.pushNamed(
+                                  context, HistorialPage.nombre);
                               setState(() {});
                             },
                             title: 'Ver todos',
@@ -78,22 +79,21 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 50.0),
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 15.0),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: appState.reports.isEmpty
-                          ? const Center(
-                              child: Text('No hay reportes'),
-                            )
-                          : const Center(
-                              child: Text('No hay reportes'),
-                            )
-                    ),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 50.0),
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 15.0),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: appState.reports.isEmpty
+                            ? const Center(
+                                child: Text('No hay reportes'),
+                              )
+                            : const Center(
+                                child: Text('No hay reportes'),
+                              )),
                   ],
                 ),
               ),

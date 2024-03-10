@@ -1,27 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-const List<Color> _colorThemes = [
-  Colors.deepPurple,
-  Colors.blue,
-  Colors.teal,
-  Colors.green,
-  Colors.yellow,
-  Colors.orange,
-  Colors.red
-];
+// Define los temas disponibles
+enum AppTheme {
+  Light,
+  Dark,
+}
 
-class AppTheme {
-  final int selectedColor;
+// Define el provider para manejar el estado del tema
+final themeProvider = StateProvider<AppTheme>((ref) => AppTheme.Light);
 
-  AppTheme({this.selectedColor = 0})
-      : assert(selectedColor >= 0 && selectedColor < _colorThemes.length,
-            'Los colores van de 0 a ${_colorThemes.length-1}');
+// Método para obtener el tema actual
+ThemeData getThemeData(AppTheme theme) {
+  const List<Color> colorThemes = [
+    Colors.deepPurple,
+    Colors.blue,
+    Colors.teal,
+    Colors.green,
+    Colors.yellow,
+    Colors.orange,
+    Colors.red
+  ];
 
-  ThemeData theme() {
-    return ThemeData(
-        useMaterial3: true, 
-        colorSchemeSeed: _colorThemes[selectedColor],
-        brightness: Brightness.light
-    );
-  }
+  final selectedColor = 1; // O el color seleccionado que desees
+
+  return ThemeData(
+    useMaterial3: true,
+    colorSchemeSeed: colorThemes[selectedColor],
+    brightness: theme == AppTheme.Dark ? Brightness.dark : Brightness.light,
+    listTileTheme: ListTileThemeData(
+      iconColor: colorThemes[selectedColor],
+    ),
+  );
 }
