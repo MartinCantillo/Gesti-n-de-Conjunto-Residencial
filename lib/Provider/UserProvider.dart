@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:riverpod/riverpod.dart';
 
 class UserProvider extends StateNotifier<List<UserModel>> {
-  final String endpoint = "https://backendmovil2-default-rtdb.firebaseio.com/";
+  final String endpoint = "https://backendmovil2-default-rtdb.firebaseio.com";
   UserProvider(List<UserModel> state) : super(state);
 
   Future<String> save(UserModel data) async {
@@ -75,6 +75,4 @@ class UserProvider extends StateNotifier<List<UserModel>> {
       throw Exception("Error $e");
     }
   }
-
- 
 }

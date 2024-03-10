@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gestionresidencial/Models/User.dart';
 
 import 'package:gestionresidencial/Views/Components/mybutton_component.dart';
 import 'package:gestionresidencial/Views/Components/mybutton2_component.dart';
@@ -33,11 +34,20 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     try {
       prefs.usuario = usernameController.text;
       prefs.contrasena = passwordController.text;
+
       await ref
           .read(userAuthenticatedProviderr.notifier)
           .authenticate(prefs.usuario, prefs.contrasena);
+      final List<UserModel> users = ref.watch(userAuthenticatedProviderr);
 
-     Navigator.of(context).pushNamed(HiddenDrawer.nombre);
+      if (users.isNotEmpty) {
+        final String? lastUserId = users.last.id;
+        print('ID del último usuario autenticado: $lastUserId');
+      } else {
+        print('La lista de usuarios autenticados está vacía.');
+      }
+
+      Navigator.of(context).pushNamed(HiddenDrawer.nombre);
     } catch (e) {
       // Almacenar el contexto antes de entrar en el área asincrónica
       final currentContext = context;

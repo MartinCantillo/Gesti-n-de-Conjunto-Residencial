@@ -11,7 +11,7 @@ class User {
         if (json is Map<String, dynamic>) {
           try {
             final value = UserModel.fromJson(json as String);
-           
+
             value.id = key;
             userList.add(value);
           } catch (e) {
@@ -23,6 +23,7 @@ class User {
   }
   User.fromJsonListUserAuthenticate(mapList, String username, String password) {
     if (mapList == null || username == "" || password == "") {
+      print("entro dondde nada es null");
       return;
     } else {
       mapList.forEach((key, val) {
@@ -31,8 +32,8 @@ class User {
           if (value.username == username && value.password == password) {
             print("si entro al if si lo encontro");
             usersAuthenticatedList.add(value);
-          }else{
-              
+          } else {
+            print("no los encontro");
           }
         } catch (e) {
           throw Exception("Usuario no encontrado o incorrectos");
@@ -55,7 +56,7 @@ class UserModel {
   Map<String, dynamic> toMap() {
     return {
       'idUsuario': id,
-      'Username"': username,
+      'Username': username,
       'password': password,
     };
   }
