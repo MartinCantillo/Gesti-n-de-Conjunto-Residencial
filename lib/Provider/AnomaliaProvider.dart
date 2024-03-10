@@ -46,31 +46,34 @@ class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
   }
 
   Future<List<AnomaliaModel>> getAnomaliaById(String idUser) async {
+    
     try {
       final url = '$endpoint/Anomalia.json';
       final response = await http.get(Uri.parse(url));
+      
       if (response.statusCode == 200) {
         String body = utf8.decode(response.bodyBytes);
         final jsonData = jsonDecode(body);
-
+        
         // Verificar si el cuerpo de la respuesta está vacío
         if (jsonData == null || jsonData.isEmpty) {
           throw Exception("Respuesta null");
         }
 
         // Verificar si alguno de los documentos contiene el idUser
-        final listData = Anomalia.fromJsonListById(json, idUser);
+        final listData = Anomalia.fromJsonListById(jsonData, idUser);
 
         if (listData.anomaliaListByUser.isEmpty) {
           throw Exception(" No se encontraron anomalías para el idUser");
         }
+        
         state = listData.anomaliaListByUser;
         return listData.anomaliaListByUser;
       } else {
         throw Exception("Ocurrió algo ${response.statusCode}");
       }
     } catch (e) {
-      throw (e);
+      throw Exception (e);
     }
   }
 

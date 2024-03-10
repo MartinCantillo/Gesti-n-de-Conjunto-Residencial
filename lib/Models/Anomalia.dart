@@ -20,19 +20,19 @@ class Anomalia {
       });
     }
   }
-  Anomalia.fromJsonListById(json, idUser) {
+  Anomalia.fromJsonListById(jsonList, idUser) {
     if (json == null || idUser == "") {
       return;
     } else {
-      //print(json);
-      json.forEach((id, val) {
+      jsonList.forEach((id, val) {
         try {
           final value = AnomaliaModel.fromMap(val);
+
           if (value.idUser == idUser) {
             anomaliaListByUser.add(value);
           }
         } catch (e) {
-          throw Error();
+          throw Exception("error $e");
         }
       });
     }
@@ -73,16 +73,21 @@ class AnomaliaModel {
   }
 
   factory AnomaliaModel.fromMap(Map<String, dynamic> map) {
-    return AnomaliaModel(
-      descripcionAnomalia: map[' DescripcionAnomalia'] ?? "",
-      fechaReporteAnomalia: map['FechaReporteAnomalia'] ?? "",
-      fotoAnomalia: map['FotoAnomalia'] ?? "",
-      id: map['id'] ?? "",
-      idEstadoAnomalia: map['IDEstadoAnomalia'] ?? "",
-      idUser: map['idUser'] ?? "",
-      tipoAnomalia: map['tipoAnomalia'] ?? "",
-      asuntoAnomalia: map['asuntoAnomalia'] ?? "",
-    );
+    print("Datos entrante${map}");
+    try {
+      return AnomaliaModel(
+        descripcionAnomalia: map[' DescripcionAnomalia'] ?? "",
+        fechaReporteAnomalia: map['FechaReporteAnomalia'] ?? "",
+        fotoAnomalia: map['FotoAnomalia'] ?? "",
+        id: map['id'] ?? "",
+        idEstadoAnomalia: map['IDEstadoAnomalia'] ?? "",
+        idUser: map['idUser'] ?? "",
+        tipoAnomalia: map['tipoAnomalia'] ?? "",
+        asuntoAnomalia: map['asuntoAnomalia'] ?? "",
+      );
+    } catch (e) {
+      throw Exception("error${e}");
+    }
   }
 
   String toJson() => json.encode(toMap());

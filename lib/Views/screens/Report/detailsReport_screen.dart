@@ -39,7 +39,6 @@ class _ListAnomaliasState extends ConsumerState<ListAnomalias> {
                 child: CircularProgressIndicator(),
               );
             } else if (snapshot.hasError) {
-              print("entro error${snapshot.data}");
               return Center(
                 child: Text('Error: ${snapshot.error}'),
               );
@@ -60,7 +59,6 @@ List<Widget> upload(data) {
 
   if (data != null) {
     for (var element in data) {
-      print("data en list updaload${element.toString()}");
       dataList.add(Card(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
