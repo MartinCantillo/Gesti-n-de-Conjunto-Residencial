@@ -84,6 +84,7 @@ class reporteState extends ConsumerState<reporte> {
 
     try {
       String idUserGot = ref.read(pkUserProvider.notifier).state;
+      print("id user enviado a anomalia${idUserGot}");
       AnomaliaModel anomalia = AnomaliaModel(
         descripcionAnomalia: descriptionController.text,
         fechaReporteAnomalia: DateTime.now().toString(),
@@ -91,6 +92,7 @@ class reporteState extends ConsumerState<reporte> {
         fotoAnomalia: 'img',
         idEstadoAnomalia: 'pendiente',
         idUser: idUserGot,
+        asuntoAnomalia: subjectController.text
       );
       //Guardar anomalia
       await ref.read(anomaliaProvider.notifier).save(anomalia);

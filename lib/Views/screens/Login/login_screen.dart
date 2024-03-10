@@ -35,16 +35,16 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       prefs.usuario = usernameController.text;
       prefs.contrasena = passwordController.text;
 
-      await ref
+      final resp = await ref
           .read(userAuthenticatedProviderr.notifier)
           .authenticate(prefs.usuario, prefs.contrasena);
-      final List<UserModel> users = ref.watch(userAuthenticatedProviderr);
-
-      if (users.isNotEmpty) {
-        final String? lastUserId = users.last.id;
-        print('ID del último usuario autenticado: $lastUserId');
-      } else {
-        print('La lista de usuarios autenticados está vacía.');
+      //final List<UserModel> users =  ref.watch(userAuthenticatedProviderr);
+      if (resp!=Null) {
+        for (var element in resp) {
+            ref.read(pkUserProvider.notifier).state=element.id!;
+        }
+      }else{
+        print("lista vacia");
       }
 
       Navigator.of(context).pushNamed(HiddenDrawer.nombre);

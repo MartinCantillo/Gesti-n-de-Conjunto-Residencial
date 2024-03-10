@@ -23,9 +23,11 @@ class AuthenticatedUserdProvider extends StateNotifier<List<UserModel>> {
             if (authenticatedUser.usersAuthenticatedList.isEmpty) {
              throw Exception("No se encontraron usuarios autenticados.");
             }
-            print("si esta provider");
+          
         state = authenticatedUser.usersAuthenticatedList;
-        
+       for (var element in authenticatedUser.usersAuthenticatedList) {
+         print(element.toString());
+       }
         return authenticatedUser.usersAuthenticatedList;
       } else {
         throw Exception("Ocurrió algo ${response.statusCode}");

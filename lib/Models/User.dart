@@ -23,17 +23,17 @@ class User {
   }
   User.fromJsonListUserAuthenticate(mapList, String username, String password) {
     if (mapList == null || username == "" || password == "") {
-      print("entro dondde nada es null");
+    
       return;
     } else {
       mapList.forEach((key, val) {
         try {
           final value = UserModel.fromMap(val);
           if (value.username == username && value.password == password) {
-            print("si entro al if si lo encontro");
+            value.id=key;
             usersAuthenticatedList.add(value);
           } else {
-            print("no los encontro");
+           
           }
         } catch (e) {
           throw Exception("Usuario no encontrado o incorrectos");
@@ -73,4 +73,7 @@ class UserModel {
 
   factory UserModel.fromJson(String source) =>
       UserModel.fromMap(json.decode(source));
+
+  @override
+  String toString() => 'UserModel(id: $id, username: $username, password: $password)';
 }
