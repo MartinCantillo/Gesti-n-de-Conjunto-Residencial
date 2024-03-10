@@ -26,12 +26,14 @@ class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
   }
 
   Future<List<AnomaliaModel>> getAll() async {
+    print("getallaentro");
     try {
       final url = "$endpoint/Anomalia.json";
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         String body = utf8.decode(response.bodyBytes);
         final jsonData = jsonDecode(body);
+       
         final listData = Anomalia.fromJsonList(jsonData);
         state = listData.anomaliaList;
         return listData.anomaliaList;

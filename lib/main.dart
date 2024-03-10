@@ -20,6 +20,7 @@ import 'package:gestionresidencial/Views/screens/Login/form_register_screen.dart
 import 'package:gestionresidencial/Views/screens/Login/login_screen.dart';
 import 'package:gestionresidencial/Views/screens/Login/register_screen.dart';
 import 'package:gestionresidencial/Views/screens/Home/myHomePage_screen.dart';
+import 'package:gestionresidencial/Views/screens/Report/detailsReport_screen.dart';
 import 'package:gestionresidencial/Views/screens/Report/report_screen.dart';
 import 'package:gestionresidencial/Views/screens/Config/settings_screen.dart';
 
@@ -55,7 +56,8 @@ class MyApp extends StatelessWidget {
           reporte.nombre: (context) => const reporte(),
           HomeAdmin.nombre: (context) => const HomeAdmin(),
           HiddenDrawer.nombre: (context) => const HiddenDrawer(),
-          FormRegisterPage.nombre:(context) => const FormRegisterPage()
+          FormRegisterPage.nombre: (context) => const FormRegisterPage(),
+          ListAnomalias.nombre: (context) => const ListAnomalias(),
         },
       ),
     );
@@ -65,7 +67,8 @@ class MyApp extends StatelessWidget {
 //Providers
 
 final administradorProvider =
-    StateNotifierProvider<AdministradorProvider, List<AdministradorModel>>((ref) {
+    StateNotifierProvider<AdministradorProvider, List<AdministradorModel>>(
+        (ref) {
   return AdministradorProvider([]);
 });
 final anomaliaProvider =
@@ -85,8 +88,6 @@ final userProvider =
     StateNotifierProvider<UserProvider, List<UserModel>>((ref) {
   return UserProvider([]);
 });
-
-
 
 final pkAdminProvider = StateProvider<String>((ref) => "");
 final pkAnomaliaProvider = StateProvider<String>((ref) => "");
