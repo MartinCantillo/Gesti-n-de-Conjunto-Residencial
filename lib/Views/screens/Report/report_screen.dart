@@ -86,7 +86,7 @@ class reporteState extends ConsumerState<reporte> {
 
     try {
       String idUserGot = ref.read(pkUserProvider.notifier).state;
-      print("id user enviado a anomalia${idUserGot}");
+    //  print("id user enviado a anomalia${idUserGot}");
       AnomaliaModel anomalia = AnomaliaModel(
         descripcionAnomalia: descriptionController.text,
         fechaReporteAnomalia: DateTime.now().toString(),

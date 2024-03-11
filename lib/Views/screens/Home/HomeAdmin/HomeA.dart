@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gestionresidencial/Models/Anomalia.dart';
 import 'package:gestionresidencial/Provider/todoProvider/todoProvider.dart';
 import 'package:gestionresidencial/Views/screens/Report/detalleReportes.dart';
+import 'package:gestionresidencial/main.dart';
 
 class HomeAdmin extends ConsumerStatefulWidget {
   const HomeAdmin({super.key});
@@ -41,8 +43,12 @@ class _ReportListView extends ConsumerStatefulWidget {
 }
 
 class _ReportListViewState extends ConsumerState<_ReportListView> {
+  late Future<List<AnomaliaModel>> anomaliasList;
+
   @override
   void initState() {
+    anomaliasList = ref.read(anomaliaProvider.notifier).getAll();
+
     super.initState();
   }
 
@@ -73,26 +79,50 @@ class _ReportListViewState extends ConsumerState<_ReportListView> {
 
         /// Listado de reportes
         Expanded(
-          child: ListView.builder(
-            //itemCount: todos.length,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                  // Navegar a otra pantalla sin activar el switch
-                  Navigator.pushNamed(context, DetalleReportes.nombre);
-                  print('clic');
-                },
-                child: const Card(
-                  child: ListTile(
-                    title: Text('Asunto'),
-                    subtitle: Text('Descripción del reporte'),
-                    trailing: Text('Fecha del reporte'),
-                  ),
-                ),
-              );
+          child: FutureBuilder(
+            future: anomaliasList,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (snapshot.hasError) {
+                return Center(
+                  child: Text('Error: ${snapshot.error}'),
+                );
+              } else {
+                List<AnomaliaModel>? listaA = snapshot.data;
+                if (listaA != null) {
+                  return ListView.builder(
+                    itemCount: listaA.length,
+                    itemBuilder: (context, index) {
+                      final AnomaliaModel? datosA = snapshot.data?[index];
+
+                      return GestureDetector(
+                        onTap: () {
+                          // Navegar a otra pantalla sin activar el switch
+                          Navigator.pushNamed(context, DetalleReportes.nombre);
+                          print('clic');
+                        },
+                        child: Card(
+                          child: ListTile(
+                            title: Text(datosA?.asuntoAnomalia ?? ''),
+                            subtitle: Text(datosA?.descripcionAnomalia ?? ''),
+                            trailing: Text(datosA?.fechaReporteAnomalia ?? ''),
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              }
             },
           ),
-        )
+        ),
       ],
     );
   }
