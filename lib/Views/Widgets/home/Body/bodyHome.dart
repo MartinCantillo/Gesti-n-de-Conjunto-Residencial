@@ -1,17 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gestionresidencial/Models/Anomalia.dart';
 
 import 'package:gestionresidencial/Views/Components/mybutton2_component.dart';
 import 'package:gestionresidencial/Views/Widgets/home/waveClipper/ShapeClipperAppBar.dart';
 import 'package:gestionresidencial/Views/screens/Historial/historial_screen.dart';
+import 'package:gestionresidencial/main.dart';
 
-class BodyHome extends ConsumerWidget {
-  const BodyHome({
-    super.key,
-  });
+class BodyHome extends ConsumerStatefulWidget {
+  const BodyHome({super.key});
+
+  static String nombre = "bodyHome";
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  BodyHomeState createState() => BodyHomeState();
+}
+
+class BodyHomeState extends ConsumerState<BodyHome> {
+  late Future<List<AnomaliaModel>> anomaliasList;
+
+  @override
+  void initState() {
+    super.initState();
+    //String idUserGot = ref.read(pkUserProvider.notifier).state;
+    String idUserGot = "123";
+    anomaliasList =
+        ref.read(anomaliaProvider.notifier).getAnomaliaById(idUserGot);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: anomaliasList,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError || (snapshot.data as List).isEmpty) {
+          return buildBody(context, datas);
+        } else {
+          return buildBody(context, datas);
+        }
+      },
+    );
+  }
+
+  Widget buildBody(BuildContext context, dynamic data) {
     return Stack(
       children: [
         Column(
@@ -43,7 +76,7 @@ class BodyHome extends ConsumerWidget {
             ),
           ],
         ),
-         Positioned(
+        Positioned(
           bottom: MediaQuery.of(context).size.height * 0.45,
           left: 10,
           right: 0,
@@ -52,15 +85,24 @@ class BodyHome extends ConsumerWidget {
               SizedBox(
                 child: Column(
                   children: [
-                    Text("MAR", style: TextStyle(fontSize: 18, color: Theme.of(context).primaryColor)),
+                    Text("MAR",
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Theme.of(context).primaryColor)),
                     Card(
                       elevation: 10, // Espacio entre la hora y el día
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Center(
                           child: Column(children: [
-                            Text("11", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor)),
-                            const Text("Lunes", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w100)),
+                            Text("11",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Theme.of(context).primaryColor)),
+                            const Text("Lunes",
+                                style: TextStyle(
+                                    fontSize: 12, fontWeight: FontWeight.w100)),
                           ]),
                         ),
                       ),
@@ -75,7 +117,7 @@ class BodyHome extends ConsumerWidget {
               ),
             ],
           ),
-        ), 
+        ),
         Positioned(
           bottom: 0,
           left: 10,
@@ -101,15 +143,16 @@ class BodyHome extends ConsumerWidget {
               const SizedBox(height: 10),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.35,
-                child:  ListView.builder(
-                  itemCount: 3,
+                child: ListView.builder(
+                  itemCount: data.length > 3 ? 3 : data.length,
                   itemBuilder: (context, index) {
-                    return const Card(
-                    child: ListTile(
-                      title: Text('Asunto'),
-                      trailing: Text('Pendiente'),
-                    ),
-                  );
+                    final AnomaliaModel anomalia = data[index] ?? "";
+                    return Card(
+                      child: ListTile(
+                        title: Text(anomalia.asuntoAnomalia ?? ""),
+                        trailing: const Text('Pendiente'),
+                      ),
+                    );
                   },
                 ),
               ),
@@ -119,6 +162,8 @@ class BodyHome extends ConsumerWidget {
       ],
     );
   }
+
+  final List<AnomaliaModel> datas = [];
 
   Widget buildCardNotification() {
     return const Card(

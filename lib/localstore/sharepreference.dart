@@ -46,4 +46,14 @@ class PrefernciaUsuario {
   set colosecundario(bool value) {
     _prefs.setBool('colosecundario', value);
   }
+
+  Future<void> guardarNombreUsuario(String nombreUsuario) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('nombreUsuario', nombreUsuario);
+  }
+
+  Future<String?> obtenerNombreUsuario() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('nombreUsuario');
+  }
 }

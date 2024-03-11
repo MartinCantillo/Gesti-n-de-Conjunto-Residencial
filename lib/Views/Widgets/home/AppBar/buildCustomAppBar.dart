@@ -77,7 +77,7 @@ class _BuildCustomAppBarState extends ConsumerState<BuildCustomAppBar> {
                   fontWeight: FontWeight.bold),
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 10),
           Center(
             child: Container(
               decoration: BoxDecoration(
