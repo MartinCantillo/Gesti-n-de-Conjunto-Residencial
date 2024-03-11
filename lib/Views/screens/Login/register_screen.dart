@@ -43,10 +43,10 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
       try {
         // Guardar el usuario usando UserProvider
         String pkUsuario =
-            await ref.read(userProvider.notifier).save(userModel);
+            await ref.watch(userProvider.notifier).save(userModel);
 
         //Actualizar estado pkUser
-        ref.read(pkUserProvider.notifier).state = pkUsuario;
+        ref.watch(pkUserProvider.notifier).state = pkUsuario;
 
         Navigator.of(context).pushNamed(FormRegisterPage.nombre);
       } catch (e) {

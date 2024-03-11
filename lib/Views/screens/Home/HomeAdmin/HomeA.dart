@@ -13,12 +13,11 @@ class HomeAdmin extends ConsumerStatefulWidget {
 }
 
 class _HomeAdminState extends ConsumerState<HomeAdmin> {
-
   @override
   void initState() {
     super.initState();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,15 +26,12 @@ class _HomeAdminState extends ConsumerState<HomeAdmin> {
       ),
       body: const _ReportListView(),
       floatingActionButton: FloatingActionButton(
-        child: const Icon( Icons.message ),
-        onPressed: () {
-          
-        },
+        child: const Icon(Icons.message),
+        onPressed: () {},
       ),
     );
   }
 }
-
 
 class _ReportListView extends ConsumerStatefulWidget {
   const _ReportListView({super.key});
@@ -44,8 +40,7 @@ class _ReportListView extends ConsumerStatefulWidget {
   ConsumerState<_ReportListView> createState() => _ReportListViewState();
 }
 
-class  _ReportListViewState extends ConsumerState<_ReportListView> {
-
+class _ReportListViewState extends ConsumerState<_ReportListView> {
   @override
   void initState() {
     super.initState();
@@ -63,28 +58,29 @@ class  _ReportListViewState extends ConsumerState<_ReportListView> {
         ),
 
         SegmentedButton(
-          segments: const[
+          segments: const [
             ButtonSegment(value: TodoFilter.all, icon: Text('Todos')),
-            ButtonSegment(value: TodoFilter.completed, icon: Text('Completados')),
+            ButtonSegment(
+                value: TodoFilter.completed, icon: Text('Completados')),
             ButtonSegment(value: TodoFilter.pending, icon: Text('Pendientes')),
-          ], 
-          selected: <TodoFilter>{ currentFilter },
+          ],
+          selected: <TodoFilter>{currentFilter},
           onSelectionChanged: (value) {
             ref.read(todoFilterProvider.notifier).state = value.first;
           },
         ),
-        const SizedBox( height: 5 ),
+        const SizedBox(height: 5),
 
         /// Listado de reportes
         Expanded(
           child: ListView.builder(
             //itemCount: todos.length,
             itemBuilder: (context, index) {
-               return GestureDetector(
+              return GestureDetector(
                 onTap: () {
                   // Navegar a otra pantalla sin activar el switch
-                 Navigator.pushNamed( context, DetalleReportes.nombre);
-                 print('clic');
+                  Navigator.pushNamed(context, DetalleReportes.nombre);
+                  print('clic');
                 },
                 child: const Card(
                   child: ListTile(
