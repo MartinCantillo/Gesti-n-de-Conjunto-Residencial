@@ -59,7 +59,7 @@ class BodyHome extends ConsumerWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: Center(
                           child: Column(children: [
-                            Text("11", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Theme.of(context).primaryColorDark)),
+                            Text("11", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor)),
                             const Text("Lunes", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w100)),
                           ]),
                         ),

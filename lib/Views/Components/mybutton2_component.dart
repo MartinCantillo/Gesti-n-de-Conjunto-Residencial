@@ -14,8 +14,8 @@ class MyButton2 extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Text(title,
-        style: const TextStyle(
-          color: Colors.blue,
+        style: TextStyle(
+          color: Theme.of(context).primaryColor,
           fontWeight: FontWeight.bold,
         ),
       ),

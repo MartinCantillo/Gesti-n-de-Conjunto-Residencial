@@ -22,7 +22,8 @@ ThemeData getThemeData(AppTheme theme) {
     Colors.red
   ];
 
-  final selectedColor = 1; // O el color seleccionado que desees
+  final selectedColor = 1
+  ; // O el color seleccionado que desees
 
   return ThemeData(
     useMaterial3: true,
