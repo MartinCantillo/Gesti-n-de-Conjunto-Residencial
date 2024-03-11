@@ -9,7 +9,7 @@ import 'package:gestionresidencial/main.dart';
 class FormRegisterPage extends ConsumerStatefulWidget {
   const FormRegisterPage({Key? key}) : super(key: key);
 
-  static const String nombre = 'Form Register';
+  static  String nombre = 'FormRegister';
 
   @override
   _FormRegisterPageState createState() => _FormRegisterPageState();

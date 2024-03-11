@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gestionresidencial/Models/Anomalia.dart';
-import 'package:gestionresidencial/Provider/AnomaliaProvider.dart';
-import 'package:gestionresidencial/Views/Widgets/hiddenDrawer/hiddenDrawer.dart';
 import 'package:gestionresidencial/Views/screens/Report/detalleReportes.dart';
 import 'package:gestionresidencial/Views/screens/Home/HomePage.dart';
 
-import 'package:gestionresidencial/Views/screens/Report/report_screen.dart';
-import 'package:gestionresidencial/localstore/sharepreference.dart';
 import 'package:gestionresidencial/main.dart';
 
 class HistorialPage extends ConsumerStatefulWidget {
@@ -78,8 +74,8 @@ class _HistorialPageState extends ConsumerState<HistorialPage> {
             color: Colors.grey[100],
           ),
           child: ListTile(
-            title: Text('Tipo: ${report.tipoAnomalia}'),
-            subtitle: Text('Asunto: ${report.asuntoAnomalia}'),
+            title: Text('${report.tipoAnomalia}'),
+            subtitle: Text('${report.asuntoAnomalia}'),
             trailing: const Column(
               children: [
                 Text(

@@ -67,7 +67,8 @@ class MyApp extends ConsumerWidget {
         HomeAdmin.nombre: (context) => const HomeAdmin(),
         HiddenDrawer.nombre: (context) => const HiddenDrawer(),
         HomePage.nombre:(context) => const  HomePage(),
-        DetalleReportes.nombre:(context) => DetalleReportes()
+        DetalleReportes.nombre:(context) => DetalleReportes(),
+        FormRegisterPage.nombre:(context) => const FormRegisterPage(),
       },
     );
   }
