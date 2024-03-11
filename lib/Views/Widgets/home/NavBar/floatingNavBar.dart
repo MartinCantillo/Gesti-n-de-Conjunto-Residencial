@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gestionresidencial/Views/screens/Chat/chat_screen.dart';
+import 'package:gestionresidencial/Views/screens/Config/settings_screen.dart';
+import 'package:gestionresidencial/Views/screens/Historial/historial_screen.dart';
+import 'package:gestionresidencial/Views/screens/Home/HomePage.dart';
+import 'package:gestionresidencial/Views/screens/Report/detalleReportes.dart';
 import 'package:gestionresidencial/config/themes/app_themes.dart';
 
 class FloatingNavBar extends ConsumerWidget {
@@ -7,34 +12,45 @@ class FloatingNavBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    
     return  SafeArea(
         child: Container(
         padding: const EdgeInsets.all(12),
         margin: const EdgeInsets.symmetric(horizontal: 24),
         decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.5),
+          color: Theme.of(context).primaryColor.withOpacity(0.3),
           borderRadius: const BorderRadius.all(Radius.circular(24)),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            IconButtonNavBar(const Icon(Icons.home)),
-            IconButtonNavBar(const Icon(Icons.history)),
-            IconButtonNavBar(const Icon(Icons.chat)),
-            IconButtonNavBar(const Icon(Icons.person)),
+            iconButtonNavBar(context, 
+              const Icon(Icons.home), 
+              () => Navigator.pushNamed(context, HomePage.nombre),
+            ),
+            iconButtonNavBar(context, 
+              const Icon(Icons.history),
+              ()=>Navigator.pushNamed(context, HistorialPage.nombre),
+            ),
+            iconButtonNavBar(context,
+              const Icon(Icons.chat),
+              ()=>Navigator.pushNamed(context, ChatPage.nombre),
+            ),
+            iconButtonNavBar(context, 
+              const Icon(Icons.person),
+              ()=>Navigator.pushNamed(context, settingsPage.nombre)
+            ),
           ],
         ),
       ),
     );
   }
 
-  IconButton IconButtonNavBar(Icon icon) {
+  Widget iconButtonNavBar(BuildContext context, Icon icon,  VoidCallback onPressed) {
     return IconButton(
             icon: icon,
-            color: Colors.white,
-            onPressed: () {
-              
-            },
+            color: Theme.of(context).primaryColor,
+            onPressed: onPressed,
           );
   }
 }

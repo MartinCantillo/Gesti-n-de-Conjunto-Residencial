@@ -22,8 +22,7 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
   String dropdownValue = '';
   final address = ['Apto 414 - Edificio Burj Khalifa'];
 
-  final textStyle = const TextStyle(
-      fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white);
+  final textStyle = const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white);
 
   @override
   void initState() {

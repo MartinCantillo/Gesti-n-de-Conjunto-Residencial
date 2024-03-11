@@ -1,15 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gestionresidencial/Provider/todoProvider/todoProvider.dart';
-import 'package:gestionresidencial/Views/Widgets/WidgetsAdmin/NavbarAdmin.dart';
 import 'package:gestionresidencial/Views/screens/Report/detalleReportes.dart';
 
-class HomeAdmin extends ConsumerWidget {
+class HomeAdmin extends ConsumerStatefulWidget {
   const HomeAdmin({super.key});
-  
+
   static const String nombre = 'HomeAdmin';
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<HomeAdmin> createState() => _HomeAdminState();
+}
+
+class _HomeAdminState extends ConsumerState<HomeAdmin> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
+  
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Lista de Reportes'),
@@ -26,14 +37,23 @@ class HomeAdmin extends ConsumerWidget {
 }
 
 
-class _ReportListView extends ConsumerWidget {
-  const _ReportListView();
+class _ReportListView extends ConsumerStatefulWidget {
+  const _ReportListView({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<_ReportListView> createState() => _ReportListViewState();
+}
 
+class  _ReportListViewState extends ConsumerState<_ReportListView> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final currentFilter = ref.watch(todoFilterProvider);
-
 
     return Column(
       children: [

@@ -5,6 +5,7 @@ import 'package:gestionresidencial/Models/Anomalia.dart';
 import 'package:gestionresidencial/Models/EstadoAnomalia.dart';
 import 'package:gestionresidencial/Models/Residente.dart';
 import 'package:gestionresidencial/Models/User.dart';
+
 import 'package:gestionresidencial/Provider/AdministradorModelProvider.dart';
 import 'package:gestionresidencial/Provider/AnomaliaProvider.dart';
 import 'package:gestionresidencial/Provider/AuthenticatedUserdProvider.dart';
@@ -13,18 +14,17 @@ import 'package:gestionresidencial/Provider/ResidenteProvider.dart';
 import 'package:gestionresidencial/Provider/UserProvider.dart';
 
 import 'package:gestionresidencial/Views/Widgets/hiddenDrawer/hiddenDrawer.dart';
+
 import 'package:gestionresidencial/Views/screens/Chat/chat_screen.dart';
 import 'package:gestionresidencial/Views/screens/Historial/historial_screen.dart';
 import 'package:gestionresidencial/Views/screens/Home/HomeAdmin/HomeA.dart';
 import 'package:gestionresidencial/Views/screens/Home/HomePage.dart';
 import 'package:gestionresidencial/Views/screens/Login/form_register_screen.dart';
-
 import 'package:gestionresidencial/Views/screens/Login/login_screen.dart';
 import 'package:gestionresidencial/Views/screens/Login/newloginPage.dart';
 import 'package:gestionresidencial/Views/screens/Login/register_screen.dart';
 import 'package:gestionresidencial/Views/screens/Home/myHomePage_screen.dart';
 import 'package:gestionresidencial/Views/screens/Report/detalleReportes.dart';
-import 'package:gestionresidencial/Views/screens/Report/detailsReport_screen.dart';
 import 'package:gestionresidencial/Views/screens/Report/report_screen.dart';
 import 'package:gestionresidencial/Views/screens/Config/settings_screen.dart';
 
@@ -48,7 +48,6 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
-    final bool isDarkMode = false;
     final theme = ref.watch(themeProvider);
 
 
@@ -56,9 +55,9 @@ class MyApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       title: 'Conjunto Residencial App',
       theme: getThemeData(theme),
-      initialRoute: LoginPageNew.nombre,
+      initialRoute: LoginPage.nombre,
       routes: {
-        LoginPage.nombre: (context) => LoginPage(),
+        LoginPage.nombre: (context) => const LoginPage(),
         RegisterPage.nombre: (context) => const RegisterPage(),
         MyHomePage.nombre: (context) => const MyHomePage(),
         HistorialPage.nombre: (context) => const HistorialPage(reports: []),

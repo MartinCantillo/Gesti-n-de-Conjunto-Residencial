@@ -9,6 +9,10 @@ class settingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(onPressed: () => Navigator.pop(context), icon:  Icon(Icons.arrow_back_rounded, color: Theme.of(context).secondaryHeaderColor,)),
+        backgroundColor: Theme.of(context).primaryColor,
+      ),
       body: Center(
         child: Container(
           decoration: const BoxDecoration(

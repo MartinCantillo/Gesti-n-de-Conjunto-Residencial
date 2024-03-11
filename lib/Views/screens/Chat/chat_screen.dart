@@ -22,7 +22,9 @@ class _NewChat extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          IconButton(onPressed: () => Navigator.pop(context), icon: const Icon(Icons.arrow_back_rounded)),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),

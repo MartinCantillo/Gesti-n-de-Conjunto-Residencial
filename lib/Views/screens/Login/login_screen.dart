@@ -7,6 +7,7 @@ import 'package:gestionresidencial/Views/Components/mybutton2_component.dart';
 import 'package:gestionresidencial/Views/Components/mytextfield_component.dart';
 import 'package:gestionresidencial/Views/Components/squaretile_component.dart';
 import 'package:gestionresidencial/Views/Widgets/hiddenDrawer/hiddenDrawer.dart';
+import 'package:gestionresidencial/Views/screens/Home/HomePage.dart';
 import 'package:gestionresidencial/Views/screens/Login/register_screen.dart';
 
 import 'package:gestionresidencial/localstore/sharepreference.dart';
@@ -47,7 +48,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         print("lista vacia");
       }
 
-      Navigator.of(context).pushNamed(HiddenDrawer.nombre);
+      Navigator.of(context).pushNamed(HomePage.nombre);
     } catch (e) {
       // Almacenar el contexto antes de entrar en el área asincrónica
       final currentContext = context;

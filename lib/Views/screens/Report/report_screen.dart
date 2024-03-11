@@ -4,6 +4,7 @@ import 'package:gestionresidencial/Models/Anomalia.dart';
 import 'dart:io';
 import 'package:gestionresidencial/Views/Components/mytextfield_component.dart';
 import 'package:gestionresidencial/Views/Widgets/hiddenDrawer/hiddenDrawer.dart';
+import 'package:gestionresidencial/Views/screens/Home/HomePage.dart';
 
 import 'package:gestionresidencial/localstore/sharepreference.dart';
 import 'package:gestionresidencial/main.dart';
@@ -48,10 +49,10 @@ class reporteState extends ConsumerState<reporte> {
 
   final typeAnomaly = [
     "Seleccionar",
-    "Infrastructura",
+    "Infraestructura",
     "Seguridad",
-    "Incidente múdico",
-    "Servicios públicos",
+    "Incidente Médico",
+    "Servicios Públicos",
     "Otros"
   ];
 
@@ -96,10 +97,11 @@ class reporteState extends ConsumerState<reporte> {
       );
       //Guardar anomalia
       await ref.read(anomaliaProvider.notifier).save(anomalia);
+      print('Se registró la anomalia');
     } catch (e) {
       throw ('Error al guardar la anomalía: $e');
     }
-    Navigator.of(context).popAndPushNamed(HiddenDrawer.nombre);
+     Navigator.of(context).pop;
   }
 
   @override
@@ -109,7 +111,7 @@ class reporteState extends ConsumerState<reporte> {
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).popAndPushNamed(HiddenDrawer.nombre);
+            Navigator.of(context).popAndPushNamed(HomePage.nombre);
           },
           icon: const Icon(Icons.arrow_back_outlined),
         ),

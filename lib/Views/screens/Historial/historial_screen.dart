@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gestionresidencial/Views/Widgets/hiddenDrawer/hiddenDrawer.dart';
+import 'package:gestionresidencial/Views/screens/Home/HomePage.dart';
 
 import 'package:gestionresidencial/Views/screens/Report/report_screen.dart';
 import 'package:gestionresidencial/Views/screens/Report/detailsReport_screen.dart';
@@ -34,7 +35,7 @@ class _HistorialPageState extends State<HistorialPage> {
         leading: IconButton(
           onPressed: () {
           
-            Navigator.of(context).popAndPushNamed(HiddenDrawer.nombre);
+            Navigator.of(context).popAndPushNamed(HomePage.nombre);
           },
           icon: const Icon(Icons.arrow_back_outlined),
         ),
