@@ -78,8 +78,8 @@ class _HistorialPageState extends ConsumerState<HistorialPage> {
             color: Colors.grey[100],
           ),
           child: ListTile(
-            title: Text('Tipo: ${report.tipoAnomalia}'),
-            subtitle: Text('Asunto: ${report.asuntoAnomalia}'),
+            title: Text('${report.tipoAnomalia}'),
+            subtitle: Text('${report.asuntoAnomalia}'),
             trailing: const Column(
               children: [
                 Text(
