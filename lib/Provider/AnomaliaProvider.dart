@@ -4,10 +4,11 @@ import 'package:gestionresidencial/Models/Anomalia.dart';
 import 'package:http/http.dart' as http;
 import 'package:riverpod/riverpod.dart';
 
+
+
 class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
   final String endpoint = "https://backendmovil2-default-rtdb.firebaseio.com/";
   AnomaliaProvider(List<AnomaliaModel> state) : super(state);
-
   Future<String> save(AnomaliaModel data) async {
     try {
       final url = "$endpoint/Anomalia.json";
@@ -110,3 +111,4 @@ class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
     }
   }
 }
+

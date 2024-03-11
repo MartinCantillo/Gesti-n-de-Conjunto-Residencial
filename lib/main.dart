@@ -56,19 +56,18 @@ class MyApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       title: 'Conjunto Residencial App',
       theme: getThemeData(theme),
-      initialRoute: LoginPageNew.nombre,
+      initialRoute: LoginPage.nombre,
       routes: {
         LoginPage.nombre: (context) => LoginPage(),
         RegisterPage.nombre: (context) => const RegisterPage(),
         MyHomePage.nombre: (context) => const MyHomePage(),
-        HistorialPage.nombre: (context) => const HistorialPage(reports: []),
+        HistorialPage.nombre: (context) => const HistorialPage(),
         ChatPage.nombre: (context) => const ChatPage(),
         settingsPage.nombre: (context) => const settingsPage(),
         reporte.nombre: (context) => const reporte(),
         HomeAdmin.nombre: (context) => const HomeAdmin(),
         HiddenDrawer.nombre: (context) => const HiddenDrawer(),
         HomePage.nombre:(context) => const  HomePage(),
-        LoginPageNew.nombre:(context) => const LoginPageNew(),
         DetalleReportes.nombre:(context) => DetalleReportes()
       },
     );

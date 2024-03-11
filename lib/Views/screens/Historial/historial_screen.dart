@@ -1,86 +1,97 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gestionresidencial/Models/Anomalia.dart';
+import 'package:gestionresidencial/Provider/AnomaliaProvider.dart';
 import 'package:gestionresidencial/Views/Widgets/hiddenDrawer/hiddenDrawer.dart';
-
+import 'package:gestionresidencial/Views/screens/Report/detalleReportes.dart';
 import 'package:gestionresidencial/Views/screens/Report/report_screen.dart';
-import 'package:gestionresidencial/Views/screens/Report/detailsReport_screen.dart';
-
 import 'package:gestionresidencial/localstore/sharepreference.dart';
+import 'package:gestionresidencial/main.dart';
 
-
-class HistorialPage extends StatefulWidget {
-  final List<ReportPage> reports ;
-  const HistorialPage({Key? key, required this.reports}) : super(key: key);
-  
+class HistorialPage extends ConsumerStatefulWidget {
   static const String nombre = 'historialPage';
+  const HistorialPage({Key? key}) : super(key: key);
 
   @override
-  State<HistorialPage> createState() => _HistorialPageState();
+  _HistorialPageState createState() => _HistorialPageState();
 }
 
-class _HistorialPageState extends State<HistorialPage> { 
-  final prefs = PrefernciaUsuario();
-  
+class _HistorialPageState extends ConsumerState<HistorialPage> {
+  late Future<List<AnomaliaModel>> anomaliasList;
+
   @override
   void initState() {
     super.initState();
-    
+    String idUserGot = ref.read(pkUserProvider.notifier).state;
+    anomaliasList = ref.read(anomaliaProvider.notifier).getAnomaliaById(idUserGot);
   }
-
   @override
   Widget build(BuildContext context) {
+    // Obtenemos los datos de anomalías del provider
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
-          
             Navigator.of(context).popAndPushNamed(HiddenDrawer.nombre);
           },
           icon: const Icon(Icons.arrow_back_outlined),
         ),
       ),
-      body: appState.reports.isEmpty
-          ? const Center(
-              child: Text('No hay reportes'),
-            )
-          : _ListReports(),
+      body: FutureBuilder<List<AnomaliaModel>>(
+        future: anomaliasList,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else if (snapshot.hasData && snapshot.data!.isEmpty) {
+            return const Center(child: Text('No hay reportes'));
+          } else {
+            return _ListReports(snapshot.data ?? []);
+          }
+        },
+      ),
     );
   }
 
-  ListView _ListReports() {
+  ListView _ListReports(List<AnomaliaModel> reports) {
     return ListView.builder(
-            itemCount: appState.reports.length,
-            itemBuilder: (context, index) {
-              return Container(
-                padding: const EdgeInsetsDirectional.all(8),
-                margin: const EdgeInsetsDirectional.all(8.0),
-                decoration: BoxDecoration(
-                  boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 2,
-                        blurRadius: 3,
-                        offset: Offset(2, 4),
-                      ),
-                    ],
-                  color:Colors.grey[100], 
+      itemCount: reports.length,
+      itemBuilder: (context, index) {
+        final report = reports[index];
+        return Container(
+          padding: const EdgeInsetsDirectional.all(8),
+          margin: const EdgeInsetsDirectional.all(8.0),
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 2,
+                blurRadius: 3,
+                offset: Offset(2, 4),
+              ),
+            ],
+            color: Colors.grey[100],
+          ),
+          child: ListTile(
+            title: Text('Tipo: ${report.tipoAnomalia}'),
+            subtitle: Text('Asunto: ${report.asuntoAnomalia}'),
+            trailing: const Column(
+              children: [
+                Text(
+                  'Estado: En espera',
+                  style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
                 ),
-                child: ListTile(
-                  title: Text('Tipo: ${appState.reports[index].anomaly}'),
-                  subtitle: Text('Asunto: ${appState.reports[index].subject}'),
-                  trailing:const Column(
-                    children: [
-                      Text('Estado: En espera',
-                      style: TextStyle(color: Colors.red,
-                      fontWeight: FontWeight.bold)),
-                    ],
-                  ),
-                  onTap: () {
-                     Navigator.of(context).pushNamed(reporte.nombre);
-                  },
-                ),
-              );
+              ],
+            ),
+            onTap: () {
+              Navigator.of(context).pushNamed(DetalleReportes.nombre); // Asegúrate de que 'ReportScreen.nombre' sea el nombre correcto de la ruta
             },
-          );
+          ),
+        );
+      },
+    );
   }
 }
