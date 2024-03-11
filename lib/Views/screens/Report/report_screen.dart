@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gestionresidencial/Models/Anomalia.dart';
-import 'package:gestionresidencial/Provider/AdministradorModelProvider.dart';
-import 'package:gestionresidencial/Provider/AnomaliaProvider.dart';
 import 'dart:io';
 import 'package:gestionresidencial/Views/Components/mytextfield_component.dart';
 import 'package:gestionresidencial/Views/Widgets/hiddenDrawer/hiddenDrawer.dart';
@@ -57,6 +55,7 @@ class reporteState extends ConsumerState<reporte> {
     "Otros"
   ];
 
+
   String selectedval = "";
   Future<void> _pickImage() async {
     final pickedFile =
@@ -78,40 +77,28 @@ class reporteState extends ConsumerState<reporte> {
   }
 
   void _submitReport() async {
-    // Aquí podemos manejar la lógica para enviar el reporte
-    // Podemos acceder a los valores a través de typeController.text, subjectController.text, descriptionController.text
-    // y las imágenes en _evidences
 
-    List<ReportPage> reports = [
-      ReportPage(
-        subject: subjectController.text,
-        description: descriptionController.text,
-        evidences: _evidences,
-        anomaly: selectedval,
-      ),
-    ];
 
-    AnomaliaModel anomalia = AnomaliaModel(
-      tipoAnomalia: selectedval,
-      asuntoAnomalia: subjectController.text,
-      descripcionAnomalia: descriptionController.text,
-      fechaReporteAnomalia: DateTime.now()
-          .toString(), // Puedes cambiar esto según tu lógica de fecha
-      fotoAnomalia:
-          'img', // Aquí puedes agregar la lógica para manejar las imágenes
-      // Asumí que estos campos no estaban en el formulario, puedes ajustarlo según tus necesidades
+    if (_formkey.currentState!.validate()) {
+      //appState.reports.addAll(reports);
+    }
 
-      idEstadoAnomalia: 'pendiente',
-      idResidente: '45',
-    );
     try {
-      String response =
-          await ref.read(anomaliaProvider.notifier).save(anomalia);
-      print('Anomalía guardada con éxito: $response');
-      // Aquí puedes añadir la lógica para redirigir a una nueva pantalla o hacer alguna acción después de guardar la anomalía
+      String idUserGot = ref.read(pkUserProvider.notifier).state;
+      print("id user enviado a anomalia${idUserGot}");
+      AnomaliaModel anomalia = AnomaliaModel(
+        descripcionAnomalia: descriptionController.text,
+        fechaReporteAnomalia: DateTime.now().toString(),
+       tipoAnomalia: selectedval, 
+        fotoAnomalia: 'img',
+        idEstadoAnomalia: 'pendiente',
+        idUser: idUserGot,
+        asuntoAnomalia: subjectController.text
+      );
+      //Guardar anomalia
+      await ref.read(anomaliaProvider.notifier).save(anomalia);
     } catch (e) {
-      print('Error al guardar la anomalía: $e');
-      // Aquí puedes manejar el error, mostrar un mensaje al usuario, etc.
+      throw ('Error al guardar la anomalía: $e');
     }
     Navigator.of(context).popAndPushNamed(HiddenDrawer.nombre);
   }
@@ -141,6 +128,12 @@ class reporteState extends ConsumerState<reporte> {
                 style: TextStyle(shadows: [
                   Shadow(blurRadius: 0.5),
                 ], fontSize: 25),
+              const Text(
+                "Registro Reporte",
+                textAlign: TextAlign.center,
+                style: TextStyle(shadows: [
+                  Shadow(blurRadius: 0.5),
+                ], fontSize: 25),
               ),
               const SizedBox(height: 25),
               const Divider(),
@@ -156,24 +149,31 @@ class reporteState extends ConsumerState<reporte> {
                           ))
                       .toList(),
                   onChanged: (val) {
+                  items: typeAnomaly
+                      .map((e) => DropdownMenuItem(
+                            value: e,
+                            child: Text(e),
+                          ))
+                      .toList(),
+                  onChanged: (val) {
                     setState(() {
-                      selectedval = val as String;
+                      selectedval  = val as String;
                     });
                   },
                   decoration: InputDecoration(
                     labelText: "Tipo",
-                    enabledBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
+                        enabledBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey.shade400),
+                        ),
+                        fillColor: Colors.grey.shade200,
+                        filled: true,
                     ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey.shade400),
-                    ),
-                    fillColor: Colors.grey.shade200,
-                    filled: true,
-                  ),
-                  validator: (value) {
+                    validator: (value)  {
                     if (value == typeAnomaly[0]) {
-                      return ("Debe seleccionar el tipo de anomalia");
+                      return  ("Debe seleccionar el tipo de anomalia");
                     }
                     return null;
                   },
@@ -200,8 +200,8 @@ class reporteState extends ConsumerState<reporte> {
                   maxLines: 5,
                   labelText: "Descripcion",
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return ("Se necesita una descripcion del problema");
+                    if (value == null || value.isEmpty)  {
+                      return  ("Se necesita una descripcion del problema");
                     }
                   }),
               const SizedBox(height: 16.0),

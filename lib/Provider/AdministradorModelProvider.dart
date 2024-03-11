@@ -16,7 +16,7 @@ class AdministradorProvider extends StateNotifier<List<AdministradorModel>> {
         String body = utf8.decode(response.bodyBytes);
         final jsonData = jsonDecode(body);
         state = [...state, data];
-        return jsonData;
+        return jsonData['name'];
       } else {
         throw Exception("Error ${response.statusCode}");
       }
@@ -67,8 +67,7 @@ class AdministradorProvider extends StateNotifier<List<AdministradorModel>> {
       final response = await http.put(Uri.parse(url), body: data.toJson());
       if (response.statusCode == 200) {
         //final decodeData = jsonDecode(response.body);
-        state[state.indexWhere((admin) => admin.id == data.id)] =
-            data;
+        state[state.indexWhere((admin) => admin.id == data.id)] = data;
         return true;
       } else {
         throw ("Error ${response.statusCode}");

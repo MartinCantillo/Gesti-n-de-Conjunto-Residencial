@@ -16,7 +16,7 @@ class ResidenteProvider extends StateNotifier<List<ResidenteModel>> {
         String body = utf8.decode(response.bodyBytes);
         final jsonData = jsonDecode(body);
         state = [...state, data];
-        return jsonData;
+        return jsonData['name'];
       } else {
         throw ("Error ${response.statusCode}");
       }

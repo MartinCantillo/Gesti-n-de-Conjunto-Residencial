@@ -13,9 +13,10 @@ class EstadoAnomaliaProvider extends StateNotifier<List<EstadoAnomaliaModel>> {
       final url = "$endpoint/EstadoAnomalia.json";
       final response = await http.post(Uri.parse(url), body: data.toJson());
       if (response.statusCode == 200) {
-        final jsonData = jsonDecode(response.body);
+        String body = utf8.decode(response.bodyBytes);
+        final jsonData = jsonDecode(body);
         state = [...state, data];
-        return jsonData;
+        return jsonData['name'];
       } else {
         throw ("Error ${response.statusCode}");
       }
@@ -76,4 +77,3 @@ class EstadoAnomaliaProvider extends StateNotifier<List<EstadoAnomaliaModel>> {
     }
   }
 }
-

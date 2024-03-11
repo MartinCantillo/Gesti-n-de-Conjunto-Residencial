@@ -13,9 +13,10 @@ class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
       final url = "$endpoint/Anomalia.json";
       final response = await http.post(Uri.parse(url), body: data.toJson());
       if (response.statusCode == 200) {
-        final jsonData = jsonDecode(response.body);
+        String body = utf8.decode(response.bodyBytes);
+        final jsonData = jsonDecode(body);
         state = [...state, data];
-        return jsonData;
+        return jsonData['name'];
       } else {
         throw Exception("Error ${response.statusCode}");
       }
@@ -25,12 +26,14 @@ class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
   }
 
   Future<List<AnomaliaModel>> getAll() async {
+    print("getallaentro");
     try {
       final url = "$endpoint/Anomalia.json";
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         String body = utf8.decode(response.bodyBytes);
         final jsonData = jsonDecode(body);
+
         final listData = Anomalia.fromJsonList(jsonData);
         state = listData.anomaliaList;
         return listData.anomaliaList;
@@ -39,6 +42,38 @@ class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
       }
     } catch (e) {
       throw Exception("Error $e");
+    }
+  }
+
+  Future<List<AnomaliaModel>> getAnomaliaById(String idUser) async {
+    
+    try {
+      final url = '$endpoint/Anomalia.json';
+      final response = await http.get(Uri.parse(url));
+      
+      if (response.statusCode == 200) {
+        String body = utf8.decode(response.bodyBytes);
+        final jsonData = jsonDecode(body);
+        
+        // Verificar si el cuerpo de la respuesta está vacío
+        if (jsonData == null || jsonData.isEmpty) {
+          throw Exception("Respuesta null");
+        }
+
+        // Verificar si alguno de los documentos contiene el idUser
+        final listData = Anomalia.fromJsonListById(jsonData, idUser);
+
+        if (listData.anomaliaListByUser.isEmpty) {
+          throw Exception(" No se encontraron anomalías para el idUser");
+        }
+        
+        state = listData.anomaliaListByUser;
+        return listData.anomaliaListByUser;
+      } else {
+        throw Exception("Ocurrió algo ${response.statusCode}");
+      }
+    } catch (e) {
+      throw Exception (e);
     }
   }
 
@@ -65,8 +100,7 @@ class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
       final response = await http.put(Uri.parse(url), body: data.toJson());
       if (response.statusCode == 200) {
         //final decodeData = jsonDecode(response.body);
-        state[state.indexWhere(
-            (anomalia) => anomalia.id == data.id)] = data;
+        state[state.indexWhere((anomalia) => anomalia.id == data.id)] = data;
         return true;
       } else {
         throw ("Error ${response.statusCode}");

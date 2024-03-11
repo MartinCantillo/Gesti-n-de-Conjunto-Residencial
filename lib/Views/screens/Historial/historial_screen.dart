@@ -33,6 +33,7 @@ class _HistorialPageState extends State<HistorialPage> {
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
+          
             Navigator.of(context).popAndPushNamed(HiddenDrawer.nombre);
           },
           icon: const Icon(Icons.arrow_back_outlined),
@@ -75,10 +76,7 @@ class _HistorialPageState extends State<HistorialPage> {
                     ],
                   ),
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => DetailsReportPage(report: appState.reports[index])),
-                    );
+                     Navigator.of(context).pushNamed(reporte.nombre);
                   },
                 ),
               );

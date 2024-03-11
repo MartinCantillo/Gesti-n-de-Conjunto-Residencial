@@ -27,28 +27,34 @@ class ResidenteModel {
   String? id;
   String? nombreResidente;
   String? numApartamento;
+  String? numTelefono;
+  String? idUser;
   ResidenteModel({
     this.detallesContactoResidente,
     this.id,
     this.nombreResidente,
     this.numApartamento,
+    this.numTelefono,
+    this.idUser,
   });
 
   Map<String, dynamic> toMap() {
     return {
-      'DetallesContactoResidente': detallesContactoResidente,
       'id': id,
       'NombreResidente': nombreResidente,
       'NumApartamento': numApartamento,
+      'NumTelefono': numTelefono,
+      'idUser': idUser,
     };
   }
 
   factory ResidenteModel.fromMap(Map<String, dynamic> map) {
     return ResidenteModel(
-      detallesContactoResidente: map['DetallesContactoResidente'],
       id: map['id'],
       nombreResidente: map['NombreResidente'],
       numApartamento: map['NumApartamento'],
+      numTelefono: map['NumTelefono'],
+      idUser: map['idUser'],
     );
   }
 

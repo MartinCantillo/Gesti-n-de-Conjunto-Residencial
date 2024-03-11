@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 class User {
-  List<UserModel> UserList = [];
-
+  List<UserModel> userList = [];
+  List<UserModel> usersAuthenticatedList = [];
   User.fromJsonList(json) {
     if (json == null) {
       return;
@@ -11,11 +11,32 @@ class User {
         if (json is Map<String, dynamic>) {
           try {
             final value = UserModel.fromJson(json as String);
+
             value.id = key;
-            UserList.add(value);
+            userList.add(value);
           } catch (e) {
             throw Error();
           }
+        }
+      });
+    }
+  }
+  User.fromJsonListUserAuthenticate(mapList, String username, String password) {
+    if (mapList == null || username == "" || password == "") {
+    
+      return;
+    } else {
+      mapList.forEach((key, val) {
+        try {
+          final value = UserModel.fromMap(val);
+          if (value.username == username && value.password == password) {
+            value.id=key;
+            usersAuthenticatedList.add(value);
+          } else {
+           
+          }
+        } catch (e) {
+          throw Exception("Usuario no encontrado o incorrectos");
         }
       });
     }
@@ -35,7 +56,7 @@ class UserModel {
   Map<String, dynamic> toMap() {
     return {
       'idUsuario': id,
-      'Username"': username,
+      'Username': username,
       'password': password,
     };
   }
@@ -52,4 +73,7 @@ class UserModel {
 
   factory UserModel.fromJson(String source) =>
       UserModel.fromMap(json.decode(source));
+
+  @override
+  String toString() => 'UserModel(id: $id, username: $username, password: $password)';
 }
