@@ -55,7 +55,6 @@ class reporteState extends ConsumerState<reporte> {
     "Otros"
   ];
 
-
   String selectedval = "";
   Future<void> _pickImage() async {
     final pickedFile =
@@ -128,12 +127,6 @@ class reporteState extends ConsumerState<reporte> {
                 style: TextStyle(shadows: [
                   Shadow(blurRadius: 0.5),
                 ], fontSize: 25),
-              const Text(
-                "Registro Reporte",
-                textAlign: TextAlign.center,
-                style: TextStyle(shadows: [
-                  Shadow(blurRadius: 0.5),
-                ], fontSize: 25),
               ),
               const SizedBox(height: 25),
               const Divider(),
@@ -149,31 +142,24 @@ class reporteState extends ConsumerState<reporte> {
                           ))
                       .toList(),
                   onChanged: (val) {
-                  items: typeAnomaly
-                      .map((e) => DropdownMenuItem(
-                            value: e,
-                            child: Text(e),
-                          ))
-                      .toList(),
-                  onChanged: (val) {
                     setState(() {
-                      selectedval  = val as String;
+                      selectedval = val as String;
                     });
                   },
                   decoration: InputDecoration(
                     labelText: "Tipo",
-                        enabledBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey.shade400),
-                        ),
-                        fillColor: Colors.grey.shade200,
-                        filled: true,
+                    enabledBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
                     ),
-                    validator: (value)  {
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey.shade400),
+                    ),
+                    fillColor: Colors.grey.shade200,
+                    filled: true,
+                  ),
+                  validator: (value) {
                     if (value == typeAnomaly[0]) {
-                      return  ("Debe seleccionar el tipo de anomalia");
+                      return ("Debe seleccionar el tipo de anomalia");
                     }
                     return null;
                   },
@@ -200,8 +186,8 @@ class reporteState extends ConsumerState<reporte> {
                   maxLines: 5,
                   labelText: "Descripcion",
                   validator: (value) {
-                    if (value == null || value.isEmpty)  {
-                      return  ("Se necesita una descripcion del problema");
+                    if (value == null || value.isEmpty) {
+                      return ("Se necesita una descripcion del problema");
                     }
                   }),
               const SizedBox(height: 16.0),
