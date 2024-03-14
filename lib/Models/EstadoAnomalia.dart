@@ -26,25 +26,29 @@ class EstadoAnomaliaModel {
   String? estado;
   String? id;
   String? idEstadoAnomalia;
+  String? fecha;
   EstadoAnomaliaModel({
     this.estado,
     this.id,
     this.idEstadoAnomalia,
+    this.fecha
   });
 
   Map<String, dynamic> toMap() {
     return {
-      'estado': estado,
       'id': id,
+      'estado': estado,
       'idEstadoAnomalia': idEstadoAnomalia,
+      'fecha': fecha
     };
   }
 
   factory EstadoAnomaliaModel.fromMap(Map<String, dynamic> map) {
     return EstadoAnomaliaModel(
-      estado: map['estado'],
       id: map['id'],
+      estado: map['estado'],
       idEstadoAnomalia: map['idEstadoAnomalia'],
+      fecha: map['fecha'],
     );
   }
 

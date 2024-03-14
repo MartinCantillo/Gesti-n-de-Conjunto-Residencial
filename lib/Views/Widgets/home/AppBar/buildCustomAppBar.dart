@@ -1,36 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gestionresidencial/localstore/sharepreference.dart';
 
 class BuildCustomAppBar extends ConsumerStatefulWidget {
-  const BuildCustomAppBar({super.key});
+  const BuildCustomAppBar({super.key}) ;
 
   @override
-  ConsumerState<BuildCustomAppBar> createState() => _BuildCustomAppBarState();
+  _BuildCustomAppBarState createState() => _BuildCustomAppBarState();
 }
 
 class _BuildCustomAppBarState extends ConsumerState<BuildCustomAppBar> {
-
+  final prefs = PrefernciaUsuario();
   String dropdownValue = '';
-  final address = ['Apto 414 - Torre 4'];
-
-  final textStyle = const TextStyle(
-    fontWeight: FontWeight.bold, 
-    fontSize: 16, 
-    color: Colors.white,
-  );
-  
+  List<String> address = [];
 
   @override
   void initState() {
     super.initState();
-    dropdownValue = address[0];
+    dropdownValue = prefs.apartment;
+    address = [prefs.apartment]; // Inicializar la lista con el valor del apartamento
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
-    final String userName = 'Usuario';
     return Positioned(
       top: 0,
       left: 0,
@@ -70,7 +62,7 @@ class _BuildCustomAppBarState extends ConsumerState<BuildCustomAppBar> {
               color: Theme.of(context).primaryColor,
             ),
             child: Text(
-              userName,
+              prefs.usuario,
               style: TextStyle(
                   fontSize: 40,
                   color: Theme.of(context).scaffoldBackgroundColor,
@@ -94,7 +86,7 @@ class _BuildCustomAppBarState extends ConsumerState<BuildCustomAppBar> {
                       value: dropDownStringItem,
                       child: Row(
                         children: [
-                           Icon(
+                          Icon(
                             Icons.home,
                             color: Theme.of(context).scaffoldBackgroundColor,
                           ),

@@ -21,7 +21,6 @@ import 'package:gestionresidencial/Views/screens/Home/HomeAdmin/HomeA.dart';
 import 'package:gestionresidencial/Views/screens/Home/HomePage.dart';
 import 'package:gestionresidencial/Views/screens/Login/form_register_screen.dart';
 import 'package:gestionresidencial/Views/screens/Login/login_screen.dart';
-import 'package:gestionresidencial/Views/screens/Login/newloginPage.dart';
 import 'package:gestionresidencial/Views/screens/Login/register_screen.dart';
 import 'package:gestionresidencial/Views/screens/Home/myHomePage_screen.dart';
 import 'package:gestionresidencial/Views/screens/Report/detalleReportes.dart';
