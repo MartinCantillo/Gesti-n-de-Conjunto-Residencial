@@ -1,8 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gestionresidencial/Models/Anomalia.dart';
+import 'package:gestionresidencial/main.dart';
 
-class DetalleReportes extends StatelessWidget {
+class DetalleReportes extends ConsumerStatefulWidget {
 
   static String nombre = 'detallesScreen';
+
+  const DetalleReportes({super.key});
+
+  @override
+  ConsumerState<DetalleReportes> createState() => _DetalleReportesState();
+}
+
+class _DetalleReportesState extends ConsumerState<DetalleReportes> {
+  late Future<List<AnomaliaModel>> anomaliasList;
+  @override
+  void initState() {
+    super.initState();
+    String idUserGot = ref.read(pkUserProvider.notifier).state;
+    anomaliasList = ref.read(anomaliaProvider.notifier).getAnomaliaById(idUserGot);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +99,7 @@ class DetalleReportes extends StatelessWidget {
                 // Acción para asignar prioridad
               },
               decoration: InputDecoration(
-                border: UnderlineInputBorder(),
+                border: const UnderlineInputBorder(),
                 filled: true,
                 fillColor: Colors.grey[200],
               ),
