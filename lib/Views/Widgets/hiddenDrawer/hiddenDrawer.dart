@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:gestionresidencial/Views/screens/Chat/chat_screen.dart';
-import 'package:gestionresidencial/Views/screens/Historial/historial_screen.dart';
 import 'package:gestionresidencial/Views/screens/Home/myHomePage_screen.dart';
 import 'package:gestionresidencial/Views/screens/Report/detailsReport_screen.dart';
 

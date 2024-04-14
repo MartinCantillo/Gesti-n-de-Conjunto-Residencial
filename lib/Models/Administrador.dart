@@ -24,12 +24,12 @@ class Administrador {
 
 class AdministradorModel {
   String? apellidoAdmin;
-  String? detallesContactoAdmin;
+  String? telefono;
   String? id;
   String? nombreAdmin;
   AdministradorModel({
     this.apellidoAdmin,
-    this.detallesContactoAdmin,
+    this.telefono,
     this.id,
     this.nombreAdmin,
   });
@@ -37,7 +37,7 @@ class AdministradorModel {
   Map<String, dynamic> toMap() {
     return {
       'ApellidoAdmin': apellidoAdmin,
-      'DetallesContactoAdmin': detallesContactoAdmin,
+      'DetallesContactoAdmin': telefono,
       'id': id,
       'NombreAdmin': nombreAdmin,
     };
@@ -46,7 +46,7 @@ class AdministradorModel {
   factory AdministradorModel.fromMap(Map<String, dynamic> map) {
     return AdministradorModel(
       apellidoAdmin: map['ApellidoAdmin'],
-      detallesContactoAdmin: map['DetallesContactoAdmin'],
+      telefono: map['telefono'],
       id: map['id'],
       nombreAdmin: map['NombreAdmin'],
     );

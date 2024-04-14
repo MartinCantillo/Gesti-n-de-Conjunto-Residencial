@@ -68,7 +68,7 @@ class _HistorialPageState extends ConsumerState<HistorialPage> {
                 color: Colors.grey.withOpacity(0.5),
                 spreadRadius: 2,
                 blurRadius: 3,
-                offset: Offset(2, 4),
+                offset: const Offset(2, 4),
               ),
             ],
             color: Colors.grey[100],

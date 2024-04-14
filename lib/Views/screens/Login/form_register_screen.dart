@@ -4,6 +4,7 @@ import 'package:gestionresidencial/Models/Residente.dart';
 import 'package:gestionresidencial/Views/Components/mybutton_component.dart';
 import 'package:gestionresidencial/Views/Components/mytextfield_component.dart';
 import 'package:gestionresidencial/Views/screens/Login/login_screen.dart';
+import 'package:gestionresidencial/localstore/sharepreference.dart';
 import 'package:gestionresidencial/main.dart';
 
 class FormRegisterPage extends ConsumerStatefulWidget {
@@ -16,6 +17,7 @@ class FormRegisterPage extends ConsumerStatefulWidget {
 }
 
 class _FormRegisterPageState extends ConsumerState<FormRegisterPage> {
+  final prefs = PrefernciaUsuario();
   final _formkey = GlobalKey<FormState>();
   final nameController = TextEditingController();
   final numberController = TextEditingController();
@@ -31,7 +33,7 @@ class _FormRegisterPageState extends ConsumerState<FormRegisterPage> {
             numApartamento: numberApartmentController.text,
             numTelefono: numberController.text,
             idUser: idUserGot);
-
+            prefs.apartment=numberApartmentController.text;
         // Guardar el usuario usando UserProvider
         String response =
             await ref.read(residenteProvider.notifier).save(residenteModel);

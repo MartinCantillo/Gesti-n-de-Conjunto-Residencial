@@ -27,7 +27,7 @@ class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
   }
 
   Future<List<AnomaliaModel>> getAll() async {
-    print("getallaentro");
+   // print("getallaentro");
     try {
       final url = "$endpoint/Anomalia.json";
       final response = await http.get(Uri.parse(url));

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gestionresidencial/Models/Residente.dart';
 import 'package:gestionresidencial/Models/User.dart';
 
 import 'package:gestionresidencial/Views/Components/mybutton_component.dart';

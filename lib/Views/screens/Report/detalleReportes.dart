@@ -7,6 +7,8 @@ class DetalleReportes extends ConsumerStatefulWidget {
 
   static String nombre = 'detallesScreen';
 
+  const DetalleReportes({super.key});
+
   @override
   ConsumerState<DetalleReportes> createState() => _DetalleReportesState();
 }
@@ -97,7 +99,7 @@ class _DetalleReportesState extends ConsumerState<DetalleReportes> {
                 // Acción para asignar prioridad
               },
               decoration: InputDecoration(
-                border: UnderlineInputBorder(),
+                border: const UnderlineInputBorder(),
                 filled: true,
                 fillColor: Colors.grey[200],
               ),

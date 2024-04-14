@@ -23,14 +23,12 @@ class Residente {
 }
 
 class ResidenteModel {
-  String? detallesContactoResidente;
   String? id;
   String? nombreResidente;
   String? numApartamento;
   String? numTelefono;
   String? idUser;
   ResidenteModel({
-    this.detallesContactoResidente,
     this.id,
     this.nombreResidente,
     this.numApartamento,

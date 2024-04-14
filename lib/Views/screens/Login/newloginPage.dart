@@ -8,25 +8,27 @@ class LoginPageNew extends StatelessWidget {
    @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage('background_login.png'), // Aquí debes proporcionar la ruta de la imagen
           fit: BoxFit.cover, // Ajusta la imagen para que cubra todo el contenedor
         ),
       ),
-      child: YourContentWidget(), // Aquí colocas el resto de tu contenido
+      child: const YourContentWidget(), // Aquí colocas el resto de tu contenido
     );
   }
 }
 
 class YourContentWidget extends StatelessWidget {
+  const YourContentWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Background Image Example'),
+        title: const Text('Background Image Example'),
       ),
-      body: Center(
+      body: const Center(
         child: Text(
           'Contenido de tu aplicación',
           style: TextStyle(color: Colors.white),

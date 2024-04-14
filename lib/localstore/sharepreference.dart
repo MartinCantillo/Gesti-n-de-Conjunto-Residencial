@@ -56,4 +56,12 @@ class PrefernciaUsuario {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString('nombreUsuario');
   }
+
+  String get apartment {
+    return _prefs.getString('apartment') ?? "apartment no encontrado";
+  }
+
+  set apartment(String value) {
+    _prefs.setString('apartment', value);
+  }
 }

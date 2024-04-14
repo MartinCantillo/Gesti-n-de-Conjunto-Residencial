@@ -124,7 +124,7 @@ class _NavbarAdminState extends State<NavbarAdmin> {
             ],
           ),
         ),
-       AdminW()
+       const AdminW()
       ][currentPageIndex],
     );
   }

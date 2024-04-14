@@ -1,8 +1,11 @@
 import 'dart:convert';
 
+import 'package:gestionresidencial/Models/EstadoAnomalia.dart';
+
 class Anomalia {
   List<AnomaliaModel> anomaliaList = [];
   List<AnomaliaModel> anomaliaListByUser = [];
+  List<EstadoAnomaliaModel> estadoanomaliaList = [];
 
   Anomalia.fromJsonList(json) {
     if (json == null) {
@@ -21,7 +24,7 @@ class Anomalia {
     }
   }
   Anomalia.fromJsonListById(jsonList, idUser) {
-    if (json == null || idUser == "") {
+    if (idUser == "") {
       return;
     } else {
       jsonList.forEach((id, val) {
@@ -76,14 +79,14 @@ class AnomaliaModel {
    
     try {
       return AnomaliaModel(
+        id: map['id'] ?? "",
+        tipoAnomalia: map['tipoAnomalia'] ?? "",
+        asuntoAnomalia: map['asuntoAnomalia'] ?? "",
         descripcionAnomalia: map['DescripcionAnomalia'] ?? "",
         fechaReporteAnomalia: map['FechaReporteAnomalia'] ?? "",
         fotoAnomalia: map['FotoAnomalia'] ?? "",
-        id: map['id'] ?? "",
         idEstadoAnomalia: map['IDEstadoAnomalia'] ?? "",
         idUser: map['idUser'] ?? "",
-        tipoAnomalia: map['tipoAnomalia'] ?? "",
-        asuntoAnomalia: map['asuntoAnomalia'] ?? "",
       );
     } catch (e) {
       throw Exception("error$e");

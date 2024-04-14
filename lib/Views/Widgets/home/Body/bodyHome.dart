@@ -5,6 +5,7 @@ import 'package:gestionresidencial/Models/Anomalia.dart';
 import 'package:gestionresidencial/Views/Components/mybutton2_component.dart';
 import 'package:gestionresidencial/Views/Widgets/home/waveClipper/ShapeClipperAppBar.dart';
 import 'package:gestionresidencial/Views/screens/Historial/historial_screen.dart';
+import 'package:gestionresidencial/localstore/sharepreference.dart';
 import 'package:gestionresidencial/main.dart';
 
 class BodyHome extends ConsumerStatefulWidget {
@@ -18,12 +19,13 @@ class BodyHome extends ConsumerStatefulWidget {
 
 class BodyHomeState extends ConsumerState<BodyHome> {
   late Future<List<AnomaliaModel>> anomaliasList;
+final prefs = PrefernciaUsuario();
 
   @override
   void initState() {
     super.initState();
-    //String idUserGot = ref.read(pkUserProvider.notifier).state;
-    String idUserGot = "123";
+   String idUserGot = ref.read(pkUserProvider.notifier).state;
+   // String idUserGot = "123";
     anomaliasList =
         ref.read(anomaliaProvider.notifier).getAnomaliaById(idUserGot);
   }
@@ -38,7 +40,7 @@ class BodyHomeState extends ConsumerState<BodyHome> {
         } else if (snapshot.hasError || (snapshot.data as List).isEmpty) {
           return buildBody(context, datas);
         } else {
-          return buildBody(context, datas);
+          return buildBody(context, snapshot.data);
         }
       },
     );
@@ -151,6 +153,7 @@ class BodyHomeState extends ConsumerState<BodyHome> {
                       child: ListTile(
                         title: Text(anomalia.asuntoAnomalia ?? ""),
                         trailing: const Text('Pendiente'),
+                        subtitle:  Text(anomalia.fechaReporteAnomalia ?? ""),
                       ),
                     );
                   },
