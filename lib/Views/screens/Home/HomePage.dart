@@ -28,23 +28,9 @@ class HomePageState extends ConsumerState<HomePage> {
             SizedBox(height: 5),
           ],
         ),
-        bottomNavigationBar: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            const Expanded(
-              child: FloatingNavBar(),
-            ),
-            SizedBox(
-
-              width: 72, // Ancho fijo para el botón flotante
-              child: Padding(
-                padding: const EdgeInsets.all( 8.0),
-                child: addButton(context),
-              ),
-            ),
-          ],
+        bottomNavigationBar: const FloatingNavBar(),
+        floatingActionButton: addButton(context),
         ),
-      ),
     );
   }
 }

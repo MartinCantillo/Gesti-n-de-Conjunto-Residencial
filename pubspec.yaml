@@ -44,6 +44,7 @@ dependencies:
   http: ^1.1.0
   riverpod: ^2.5.0
   flutter_custom_clippers:
+  carousel_slider:
   
 dev_dependencies:
   flutter_test:
