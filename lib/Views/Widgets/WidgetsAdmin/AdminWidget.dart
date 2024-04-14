@@ -1,34 +1,36 @@
 import 'package:flutter/material.dart';
 
 class AdminW extends StatefulWidget {
+  const AdminW({super.key});
+
   @override
   _RegisterPageState createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<AdminW> {
-  GlobalKey<FormState> keyForm = new GlobalKey();
-  TextEditingController nameCtrl = new TextEditingController();
-  TextEditingController emailCtrl = new TextEditingController();
-  TextEditingController mobileCtrl = new TextEditingController();
-  TextEditingController passwordCtrl = new TextEditingController();
-  TextEditingController repeatPassCtrl = new TextEditingController();
+  GlobalKey<FormState> keyForm = GlobalKey();
+  TextEditingController nameCtrl = TextEditingController();
+  TextEditingController emailCtrl = TextEditingController();
+  TextEditingController mobileCtrl = TextEditingController();
+  TextEditingController passwordCtrl = TextEditingController();
+  TextEditingController repeatPassCtrl = TextEditingController();
   String gender = 'hombre';
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-      home: new Scaffold(
+      home: Scaffold(
         
-        appBar: new AppBar(
+        appBar: AppBar(
           
-          title: new Text('Configuracion'),
+          title: const Text('Configuracion'),
           centerTitle: true,
         ),
-        body: new SingleChildScrollView(
-          child: new Container(
-            margin: new EdgeInsets.all(60.0),
-            child: new Form(
+        body: SingleChildScrollView(
+          child: Container(
+            margin: const EdgeInsets.all(60.0),
+            child: Form(
               key: keyForm,
               child: formUI(),
               
@@ -41,7 +43,7 @@ class _RegisterPageState extends State<AdminW> {
 
   formItemsDesign(icon, item) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 7),
+      padding: const EdgeInsets.symmetric(vertical: 7),
       child: Card(child: ListTile(leading: Icon(icon), title: item)),
     );
   }
@@ -73,7 +75,7 @@ class _RegisterPageState extends State<AdminW> {
           null,
           Column(
             children: <Widget>[
-              Text("Genero"),
+              const Text("Genero"),
               RadioListTile<String>(
                 title: const Text('Hombre'),
                 value: 'hombre',
@@ -101,7 +103,7 @@ class _RegisterPageState extends State<AdminW> {
           Icons.email,
           TextFormField(
             controller: emailCtrl,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelText: 'Email',
             ),
             keyboardType: TextInputType.emailAddress,
@@ -113,7 +115,7 @@ class _RegisterPageState extends State<AdminW> {
           TextFormField(
             controller: passwordCtrl,
             obscureText: true,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelText: 'Contraseña',
             ),
           ),
@@ -123,7 +125,7 @@ class _RegisterPageState extends State<AdminW> {
           TextFormField(
             controller: repeatPassCtrl,
             obscureText: true,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelText: 'Repetir la Contraseña',
             ),
           ),

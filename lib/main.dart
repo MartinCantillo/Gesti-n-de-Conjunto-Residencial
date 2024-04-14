@@ -46,9 +46,7 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     final theme = ref.watch(themeProvider);
-
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -65,9 +63,9 @@ class MyApp extends ConsumerWidget {
         reporte.nombre: (context) => const reporte(),
         HomeAdmin.nombre: (context) => const HomeAdmin(),
         HiddenDrawer.nombre: (context) => const HiddenDrawer(),
-        HomePage.nombre:(context) => const  HomePage(),
-        DetalleReportes.nombre:(context) => DetalleReportes(),
-        FormRegisterPage.nombre:(context) => const FormRegisterPage(),
+        HomePage.nombre: (context) => const HomePage(),
+        DetalleReportes.nombre: (context) => const DetalleReportes(),
+        FormRegisterPage.nombre: (context) => const FormRegisterPage(),
       },
     );
   }
@@ -104,9 +102,6 @@ final userAuthenticatedProviderr =
 final themeProvider = StateProvider<AppTheme>((ref) {
   return AppTheme.Light;
 });
-
-
-
 
 final pkAdminProvider = StateProvider<String>((ref) => "");
 final pkAnomaliaProvider = StateProvider<String>((ref) => "");

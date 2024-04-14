@@ -4,6 +4,8 @@ class DetalleReportes extends StatelessWidget {
 
   static String nombre = 'detallesScreen';
 
+  const DetalleReportes({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,7 +83,7 @@ class DetalleReportes extends StatelessWidget {
                 // Acción para asignar prioridad
               },
               decoration: InputDecoration(
-                border: UnderlineInputBorder(),
+                border: const UnderlineInputBorder(),
                 filled: true,
                 fillColor: Colors.grey[200],
               ),

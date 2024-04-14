@@ -24,7 +24,7 @@ class Anomalia {
     }
   }
   Anomalia.fromJsonListById(jsonList, idUser) {
-    if (json == null || idUser == "") {
+    if (idUser == "") {
       return;
     } else {
       jsonList.forEach((id, val) {

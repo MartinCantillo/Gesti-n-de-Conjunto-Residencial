@@ -4,8 +4,6 @@ import 'package:gestionresidencial/Views/screens/Chat/chat_screen.dart';
 import 'package:gestionresidencial/Views/screens/Config/settings_screen.dart';
 import 'package:gestionresidencial/Views/screens/Historial/historial_screen.dart';
 import 'package:gestionresidencial/Views/screens/Home/HomePage.dart';
-import 'package:gestionresidencial/Views/screens/Report/detalleReportes.dart';
-import 'package:gestionresidencial/config/themes/app_themes.dart';
 
 class FloatingNavBar extends ConsumerWidget {
   const FloatingNavBar({super.key});

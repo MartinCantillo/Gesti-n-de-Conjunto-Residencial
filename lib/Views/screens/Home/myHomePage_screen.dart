@@ -37,7 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 20),
                 decoration: BoxDecoration(
-                  // Puedes ajustar el color según tu preferencia
+                 
                   borderRadius: BorderRadius.circular(20),
                 ),
                 padding: const EdgeInsets.all(15),

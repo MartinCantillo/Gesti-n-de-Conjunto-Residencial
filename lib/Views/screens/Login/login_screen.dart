@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gestionresidencial/Models/User.dart';
 
 import 'package:gestionresidencial/Views/Components/mybutton_component.dart';
 import 'package:gestionresidencial/Views/Components/mybutton2_component.dart';
 import 'package:gestionresidencial/Views/Components/mytextfield_component.dart';
 import 'package:gestionresidencial/Views/Components/squaretile_component.dart';
-import 'package:gestionresidencial/Views/Widgets/hiddenDrawer/hiddenDrawer.dart';
 import 'package:gestionresidencial/Views/screens/Home/HomePage.dart';
 import 'package:gestionresidencial/Views/screens/Login/register_screen.dart';
 
@@ -57,12 +55,12 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         context: currentContext,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Error de autenticación"),
-            content: Text(
+            title: const Text("Error de autenticación"),
+            content: const Text(
                 "Credenciales incorrectas. Por favor, inténtalo de nuevo."),
             actions: <Widget>[
               TextButton(
-                child: Text("OK"),
+                child: const Text("OK"),
                 onPressed: () {
                   Navigator.of(currentContext)
                       .pop(); // Cerrar el diálogo de alerta

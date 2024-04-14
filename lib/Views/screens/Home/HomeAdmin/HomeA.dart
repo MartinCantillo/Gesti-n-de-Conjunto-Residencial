@@ -40,7 +40,7 @@ class _HomeAdminState extends ConsumerState<HomeAdmin> {
 }
 
 class _ReportListView extends ConsumerStatefulWidget {
-  const _ReportListView({super.key});
+  const _ReportListView();
 
   @override
   ConsumerState<_ReportListView> createState() => _ReportListViewState();

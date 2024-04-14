@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gestionresidencial/Models/Anomalia.dart';
 import 'dart:io';
 import 'package:gestionresidencial/Views/Components/mytextfield_component.dart';
-import 'package:gestionresidencial/Views/Widgets/hiddenDrawer/hiddenDrawer.dart';
 import 'package:gestionresidencial/Views/screens/Historial/historial_screen.dart';
 import 'package:gestionresidencial/Views/screens/Home/HomePage.dart';
 
@@ -179,6 +178,7 @@ class reporteState extends ConsumerState<reporte> {
                   if (value == null || value.isEmpty) {
                     return ("El asunto es requerido");
                   }
+                  return null;
                 },
               ),
               const SizedBox(height: 16.0),
@@ -192,6 +192,7 @@ class reporteState extends ConsumerState<reporte> {
                     if (value == null || value.isEmpty) {
                       return ("Se necesita una descripcion del problema");
                     }
+                    return null;
                   }),
               const SizedBox(height: 16.0),
               Container(
