@@ -33,6 +33,7 @@ import 'package:gestionresidencial/config/themes/app_themes.dart';
 import 'package:gestionresidencial/localstore/sharepreference.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   final prefs = PrefernciaUsuario();
   await prefs.initPrefs();
   runApp(

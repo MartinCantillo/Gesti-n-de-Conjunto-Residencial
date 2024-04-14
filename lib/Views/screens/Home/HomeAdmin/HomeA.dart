@@ -73,6 +73,8 @@ class _ReportListViewState extends ConsumerState<_ReportListView> {
             ButtonSegment(
                 value: TodoFilter.completed, icon: Text('Completados')),
             ButtonSegment(value: TodoFilter.pending, icon: Text('Pendientes')),
+            ButtonSegment(value: TodoFilter.process, icon: Text('Proceso')),
+            ButtonSegment(value: TodoFilter.rejected, icon: Text('Rechazado')),
           ],
           selected: <TodoFilter>{currentFilter},
           onSelectionChanged: (value) {
