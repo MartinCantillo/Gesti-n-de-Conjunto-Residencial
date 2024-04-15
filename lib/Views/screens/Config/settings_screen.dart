@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gestionresidencial/Views/screens/Home/HomeAdmin/HomeA.dart';
 
 // ignore: camel_case_types
 class settingsPage extends StatelessWidget {
@@ -23,7 +24,7 @@ class settingsPage extends StatelessWidget {
             ),
           ),
           child: ListView(
-            children: const [
+            children:  [
               UserAccountsDrawerHeader(
                 accountName: Text('Usuario'),
                 accountEmail: Text('usuario@example.com'),
@@ -35,11 +36,19 @@ class settingsPage extends StatelessWidget {
                     size: 68.0,
                     color: Colors.black,
                   ),
+                  
                 ),
+                
               ),
+              ElevatedButton(onPressed: (){
+                Navigator.of(context).pushNamed(HomeAdmin.nombre);
+              }, child: Text("Admin")),
             ],
+            
           ),
+          
         ),
+        
       ),
     );
   }

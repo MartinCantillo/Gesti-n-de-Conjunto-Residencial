@@ -23,6 +23,7 @@ import 'package:gestionresidencial/Views/screens/Login/form_register_screen.dart
 import 'package:gestionresidencial/Views/screens/Login/login_screen.dart';
 import 'package:gestionresidencial/Views/screens/Login/register_screen.dart';
 import 'package:gestionresidencial/Views/screens/Home/myHomePage_screen.dart';
+import 'package:gestionresidencial/Views/screens/Report/detailsReport_screen.dart';
 import 'package:gestionresidencial/Views/screens/Report/detalleReportes.dart';
 import 'package:gestionresidencial/Views/screens/Report/report_screen.dart';
 import 'package:gestionresidencial/Views/screens/Config/settings_screen.dart';
@@ -67,6 +68,7 @@ class MyApp extends ConsumerWidget {
         HomePage.nombre: (context) => const HomePage(),
         DetalleReportes.nombre: (context) => const DetalleReportes(),
         FormRegisterPage.nombre: (context) => const FormRegisterPage(),
+        ListAnomalias.nombre: (context) => const ListAnomalias(),
       },
     );
   }
