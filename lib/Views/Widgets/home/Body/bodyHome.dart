@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gestionresidencial/Models/Anomalia.dart';
@@ -38,7 +39,7 @@ final prefs = PrefernciaUsuario();
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError || (snapshot.data as List).isEmpty) {
-          return buildBody(context, datas);
+          return buildBody(context, dataVacia);
         } else {
           return buildBody(context, snapshot.data);
         }
@@ -61,7 +62,7 @@ final prefs = PrefernciaUsuario();
                       clipper: ShapeClipperAppBar(),
                       child: Container(
                         color: Theme.of(context).primaryColor,
-                        height: MediaQuery.of(context).size.height * 0.3,
+                        height: MediaQuery.of(context).size.height * 0.35,
                         alignment: Alignment.center,
                       ),
                     ),
@@ -70,7 +71,7 @@ final prefs = PrefernciaUsuario();
                     clipper: ShapeClipperAppBar(),
                     child: Container(
                       color: Theme.of(context).primaryColor,
-                      height: MediaQuery.of(context).size.height * 0.28,
+                      height: MediaQuery.of(context).size.height * 0.32,
                     ),
                   ),
                 ],
@@ -79,9 +80,9 @@ final prefs = PrefernciaUsuario();
           ],
         ),
         Positioned(
-          bottom: MediaQuery.of(context).size.height * 0.45,
+          bottom: MediaQuery.of(context).size.height * 0.4,
           left: 10,
-          right: 0,
+          right: 10,
           child: Row(
             children: [
               SizedBox(
@@ -114,7 +115,7 @@ final prefs = PrefernciaUsuario();
               ),
               const SizedBox(width: 15),
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.8,
+                width: MediaQuery.of(context).size.width * 0.7,
                 child: buildCardNotification(),
               ),
             ],
@@ -151,7 +152,7 @@ final prefs = PrefernciaUsuario();
                     final AnomaliaModel anomalia = data[index] ?? "";
                     return Card(
                       child: ListTile(
-                        title: Text(anomalia.asuntoAnomalia ?? ""),
+                        title: Text(anomalia.tipoAnomalia ?? ""),
                         trailing: const Text('Pendiente'),
                         subtitle:  Text(anomalia.fechaReporteAnomalia ?? ""),
                       ),
@@ -166,54 +167,63 @@ final prefs = PrefernciaUsuario();
     );
   }
 
-  final List<AnomaliaModel> datas = [];
-
+  final List<AnomaliaModel> dataVacia = [];
   Widget buildCardNotification() {
-    return const Card(
-      elevation: 2,
-      child: Padding(
-        padding: EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'AdminName',
-                  style: TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.normal,
+    return  Column(
+      children: [
+        CarouselSlider(
+          options: CarouselOptions(viewportFraction: 1),
+          items: const [ 
+            Card(
+            elevation: 2,
+            child: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'AdminName',
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                      Text(
+                        'Hora',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                Text(
-                  'Hora',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey,
+                  SizedBox(height: 8),
+                  Text(
+                    'Mantenimiento del Lobby',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: 8),
-            Text(
-              'Mantenimiento del Lobby',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
+                  SizedBox(height: 8),
+                  Text(
+                    'Lorem ipsum dolor',
+                    style: TextStyle(
+                      fontSize: 12,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                ],
               ),
             ),
-            SizedBox(height: 8),
-            Text(
-              'Lorem ipsum dolor',
-              style: TextStyle(
-                fontSize: 12,
-              ),
-            ),
-            SizedBox(height: 8),
-          ],
+          ),], 
         ),
-      ),
+        const SizedBox(height: 10,),
+        
+      ],
     );
   }
 }

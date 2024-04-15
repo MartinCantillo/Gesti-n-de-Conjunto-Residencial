@@ -14,10 +14,9 @@ class FloatingNavBar extends ConsumerWidget {
     return  SafeArea(
         child: Container(
         padding: const EdgeInsets.all(12),
-        margin: const EdgeInsets.symmetric(horizontal: 24),
         decoration: BoxDecoration(
           color: Theme.of(context).primaryColor.withOpacity(0.3),
-          borderRadius: const BorderRadius.all(Radius.circular(24)),
+          borderRadius: const BorderRadius.all(Radius.circular(20)),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -13,8 +13,7 @@ class ShapeClipperAppBar extends CustomClipper<Path> {
 
     //primera curva
     var firstStartPoint = Offset(size.width / 5, size.height); //primer punto
-    var firstEndPoint =
-        Offset(size.width / 2.25, size.height - 50); //segundo punto
+    var firstEndPoint = Offset(size.width / 2.25, size.height - 50); //segundo punto
     path.quadraticBezierTo(firstStartPoint.dx, firstStartPoint.dy,
         firstEndPoint.dx, firstEndPoint.dy); //dibujar la curva
 
