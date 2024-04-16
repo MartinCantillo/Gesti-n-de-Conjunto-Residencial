@@ -110,5 +110,7 @@ class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
       throw Exception("Error $e");
     }
   }
+
+  //Obtener detalles de la anomalia por 
 }
 

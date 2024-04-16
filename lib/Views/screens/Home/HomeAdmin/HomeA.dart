@@ -31,8 +31,7 @@ class _HomeAdminState extends ConsumerState<HomeAdmin> {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.message),
         onPressed: () {
-          Navigator.pushNamed(
-                                  context, ChatPage.nombre);
+          Navigator.pushNamed(context, ChatPage.nombre);
         },
       ),
     );
@@ -52,7 +51,6 @@ class _ReportListViewState extends ConsumerState<_ReportListView> {
   @override
   void initState() {
     anomaliasList = ref.read(anomaliaProvider.notifier).getAll();
-
     super.initState();
   }
 
@@ -66,7 +64,6 @@ class _ReportListViewState extends ConsumerState<_ReportListView> {
           title: Text('Listado de reportes'),
           subtitle: Text('Estos son los reportes hechos por los residentes'),
         ),
-
         SegmentedButton(
           segments: const [
             ButtonSegment(value: TodoFilter.all, icon: Text('Todos')),
@@ -106,9 +103,11 @@ class _ReportListViewState extends ConsumerState<_ReportListView> {
 
                       return GestureDetector(
                         onTap: () {
-                          // Navegar a otra pantalla sin activar el switch
-                          Navigator.pushNamed(context, DetalleReportes.nombre);
-                          print('clic');
+                        
+                          showDialog(
+                            context: context,
+                            builder: (context) => _buildAnomaliaDialog(datosA),
+                          );
                         },
                         child: Card(
                           child: ListTile(
@@ -128,6 +127,48 @@ class _ReportListViewState extends ConsumerState<_ReportListView> {
               }
             },
           ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildAnomaliaDialog(AnomaliaModel? anomalia) {
+    return AlertDialog(
+      title: Text(anomalia?.asuntoAnomalia ?? ''),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Descripción: ${anomalia?.descripcionAnomalia ?? ''}'),
+          const SizedBox(height: 10),
+          Text('Prioridad:'),
+          DropdownButton<String>(
+            value: anomalia?.prioridad ?? '', 
+            onChanged: (String? newValue) {
+              print(anomalia?.id ?? "");
+            },
+            items: <String?>['', 'Baja', 'Media', 'Alta']
+                .map<DropdownMenuItem<String>>((String? value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value ?? 'Sin prioridad'),
+              );
+            }).toList(),
+          ),
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop(); // Cerrar el diálogo
+          },
+          child: Text('Cerrar'),
+        ),
+        ElevatedButton(
+          onPressed: () {
+           print(anomalia?.id??"");
+          },
+          child: Text('Asignar Prioridad'),
         ),
       ],
     );

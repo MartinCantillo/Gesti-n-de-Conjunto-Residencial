@@ -1,4 +1,4 @@
-import 'package:carousel_slider/carousel_slider.dart';
+//import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gestionresidencial/Models/Anomalia.dart';
@@ -171,7 +171,7 @@ final prefs = PrefernciaUsuario();
   Widget buildCardNotification() {
     return  Column(
       children: [
-        CarouselSlider(
+      /*  CarouselSlider(
           options: CarouselOptions(viewportFraction: 1),
           items: const [ 
             Card(
@@ -221,6 +221,7 @@ final prefs = PrefernciaUsuario();
             ),
           ),], 
         ),
+        */
         const SizedBox(height: 10,),
         
       ],
