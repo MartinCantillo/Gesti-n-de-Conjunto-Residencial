@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gestionresidencial/Models/Anomalia.dart';
 
@@ -115,7 +119,7 @@ final prefs = PrefernciaUsuario();
               ),
               const SizedBox(width: 15),
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.7,
+                width: MediaQuery.of(context).size.width * 0.72,
                 child: buildCardNotification(),
               ),
             ],
@@ -172,58 +176,83 @@ final prefs = PrefernciaUsuario();
     return  Column(
       children: [
         CarouselSlider(
-          options: CarouselOptions(viewportFraction: 1),
-          items: const [ 
-            Card(
-            elevation: 2,
-            child: Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'AdminName',
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                      Text(
-                        'Hora',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Mantenimiento del Lobby',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Lorem ipsum dolor',
-                    style: TextStyle(
-                      fontSize: 12,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                ],
+          options: CarouselOptions(viewportFraction: 1, autoPlay: true, ),
+          items: [ 
+            ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Opacity(
+              opacity: 0.9,
+              child: Image.asset(
+                ("assets/images/new.png"),
+                fit: BoxFit.fill,
+              ),
+              
               ),
             ),
-          ),], 
+            CardAdmin(),
+
+          
+          ], 
         ),
         const SizedBox(height: 10,),
         
       ],
     );
+  }
+}
+
+class CardAdmin extends StatelessWidget {
+  const CardAdmin({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+    elevation: 2,
+    child: Padding(
+      padding: EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'AdminName',
+                style: TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+              Text(
+                'Hora',
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.grey,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 8),
+          Text(
+            'Mantenimiento del Lobby',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 8),
+          Text(
+            'Lorem ipsum dolor',
+            style: TextStyle(
+              fontSize: 12,
+            ),
+          ),
+          SizedBox(height: 8),
+        ],
+      ),
+    ),
+              );
   }
 }
