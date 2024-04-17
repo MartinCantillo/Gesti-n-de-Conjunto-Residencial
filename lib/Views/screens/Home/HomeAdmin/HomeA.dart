@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gestionresidencial/Models/Anomalia.dart';
 import 'package:gestionresidencial/Provider/todoProvider/todoProvider.dart';
 import 'package:gestionresidencial/Views/screens/Chat/chat_screen.dart';
-import 'package:gestionresidencial/Views/screens/Report/detalleReportes.dart';
 import 'package:gestionresidencial/main.dart';
 
 class HomeAdmin extends ConsumerStatefulWidget {
@@ -44,9 +43,9 @@ class _ReportListView extends ConsumerStatefulWidget {
   @override
   ConsumerState<_ReportListView> createState() => _ReportListViewState();
 }
-
 class _ReportListViewState extends ConsumerState<_ReportListView> {
   late Future<List<AnomaliaModel>> anomaliasList;
+  late Future <AnomaliaModel> anomaliaUpdate;
 
   @override
   void initState() {
@@ -103,7 +102,6 @@ class _ReportListViewState extends ConsumerState<_ReportListView> {
 
                       return GestureDetector(
                         onTap: () {
-                        
                           showDialog(
                             context: context,
                             builder: (context) => _buildAnomaliaDialog(datosA),
@@ -133,6 +131,8 @@ class _ReportListViewState extends ConsumerState<_ReportListView> {
   }
 
   Widget _buildAnomaliaDialog(AnomaliaModel? anomalia) {
+    String? selectedPrioridad = anomalia?.prioridad; // Guardar la prioridad seleccionada
+
     return AlertDialog(
       title: Text(anomalia?.asuntoAnomalia ?? ''),
       content: Column(
@@ -143,9 +143,12 @@ class _ReportListViewState extends ConsumerState<_ReportListView> {
           const SizedBox(height: 10),
           Text('Prioridad:'),
           DropdownButton<String>(
-            value: anomalia?.prioridad ?? '', 
+            value: selectedPrioridad,
             onChanged: (String? newValue) {
-              print(anomalia?.id ?? "");
+             
+              setState(() {
+                selectedPrioridad = newValue;
+              });
             },
             items: <String?>['', 'Baja', 'Media', 'Alta']
                 .map<DropdownMenuItem<String>>((String? value) {
@@ -165,8 +168,23 @@ class _ReportListViewState extends ConsumerState<_ReportListView> {
           child: Text('Cerrar'),
         ),
         ElevatedButton(
-          onPressed: () {
-           print(anomalia?.id??"");
+          onPressed: () async {
+            if (selectedPrioridad != null) {
+          //actualizar el valor en la anomalía
+              setState(() {
+                anomalia?.prioridad = selectedPrioridad!;
+              });
+              // Actualiza la anomalía en el proveedor
+              final updatedAnomalia = await ref.read(anomaliaProvider.notifier).update(anomalia?.id?? '',anomalia!);
+              
+              // Muestra un SnackBar con el mensaje de éxito
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Se ha actualizado la prioridad con éxito'),
+                  duration: Duration(seconds: 2), // Duración del SnackBar
+                ),
+              );
+            }
           },
           child: Text('Asignar Prioridad'),
         ),

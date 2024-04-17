@@ -69,7 +69,6 @@ class MyApp extends ConsumerWidget {
         DetalleReportes.nombre: (context) => const DetalleReportes(),
         FormRegisterPage.nombre: (context) => const FormRegisterPage(),
         ListAnomalias.nombre: (context) => const ListAnomalias(),
-        
       },
     );
   }
