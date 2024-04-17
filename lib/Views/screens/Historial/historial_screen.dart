@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:gestionresidencial/Models/Anomalia.dart';
 
-import 'package:gestionresidencial/Views/screens/Report/detailsReport_screen.dart';
 import 'package:gestionresidencial/Views/screens/Report/detalleReportes.dart';
 
 import 'package:gestionresidencial/Views/screens/Home/HomePage.dart';

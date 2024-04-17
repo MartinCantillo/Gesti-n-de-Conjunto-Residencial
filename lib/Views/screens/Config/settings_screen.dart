@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
 
-import 'package:gestionresidencial/Views/screens/Home/HomeAdmin/HomeA.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:gestionresidencial/localstore/sharepreference.dart';
 
 // ignore: camel_case_types
-class settingsPage extends StatelessWidget {
+class settingsPage extends ConsumerStatefulWidget {
   const settingsPage({Key? key}) : super(key: key);
 
   static const String nombre = 'settings';
 
+  @override
+  ConsumerState<settingsPage> createState() => _settingsPageState();
+}
+
+class _settingsPageState extends ConsumerState<settingsPage> {
+  final prefs = PrefernciaUsuario();
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,26 +36,20 @@ class settingsPage extends StatelessWidget {
           child: ListView(
             children:  [
               UserAccountsDrawerHeader(
-                accountName: Text('Usuario'),
-                accountEmail: Text('usuario@example.com'),
-                currentAccountPicture: CircleAvatar(
+                accountName: Text(prefs.nombreusuario),
+                accountEmail: Text(prefs.usuario),
+                currentAccountPicture: const CircleAvatar(
                   backgroundColor: Colors.white,
-
                   child: Icon(
                     Icons.person,
                     size: 68.0,
                     color: Colors.black,
                   ),
-                  
                 ),
-                
               ),
             ],
-            
           ),
-          
         ),
-        
       ),
     );
   }
