@@ -1,12 +1,21 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:carousel_slider/carousel_slider.dart';
+
+import 'package:intl/intl.dart';
+
 import 'package:gestionresidencial/Models/Anomalia.dart';
 
 import 'package:gestionresidencial/Views/Components/mybutton2_component.dart';
+
 import 'package:gestionresidencial/Views/Widgets/home/waveClipper/ShapeClipperAppBar.dart';
+
 import 'package:gestionresidencial/Views/screens/Historial/historial_screen.dart';
+
 import 'package:gestionresidencial/localstore/sharepreference.dart';
+
 import 'package:gestionresidencial/main.dart';
 
 class BodyHome extends ConsumerStatefulWidget {
@@ -20,13 +29,13 @@ class BodyHome extends ConsumerStatefulWidget {
 
 class BodyHomeState extends ConsumerState<BodyHome> {
   late Future<List<AnomaliaModel>> anomaliasList;
-final prefs = PrefernciaUsuario();
+  final prefs = PrefernciaUsuario();
 
   @override
   void initState() {
     super.initState();
-   String idUserGot = ref.read(pkUserProvider.notifier).state;
-   // String idUserGot = "123";
+    String idUserGot = ref.read(pkUserProvider.notifier).state;
+    // String idUserGot = "123";
     anomaliasList =
         ref.read(anomaliaProvider.notifier).getAnomaliaById(idUserGot);
   }
@@ -71,7 +80,7 @@ final prefs = PrefernciaUsuario();
                     clipper: ShapeClipperAppBar(),
                     child: Container(
                       color: Theme.of(context).primaryColor,
-                      height: MediaQuery.of(context).size.height * 0.32,
+                      height: MediaQuery.of(context).size.height * 0.33,
                     ),
                   ),
                 ],
@@ -80,87 +89,117 @@ final prefs = PrefernciaUsuario();
           ],
         ),
         Positioned(
-          bottom: MediaQuery.of(context).size.height * 0.4,
+          bottom: MediaQuery.of(context).size.height * 0.32,
           left: 10,
           right: 10,
-          child: Row(
-            children: [
-              SizedBox(
-                child: Column(
-                  children: [
-                    Text("MAR",
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: Theme.of(context).primaryColor)),
-                    Card(
-                      elevation: 10, // Espacio entre la hora y el día
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Center(
-                          child: Column(children: [
-                            Text("11",
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: Theme.of(context).primaryColor)),
-                            const Text("Lunes",
-                                style: TextStyle(
-                                    fontSize: 12, fontWeight: FontWeight.w100)),
-                          ]),
-                        ),
-                      ),
-                    ),
-                  ],
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            child: Row(
+              children: [
+                SizedBox(
+                  child: dateCardWidget(),
                 ),
-              ),
-              const SizedBox(width: 15),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.7,
-                child: buildCardNotification(),
-              ),
-            ],
+                Expanded(
+                  child: buildCardNotification(),
+                ),
+              ],
+            ),
           ),
         ),
         Positioned(
           bottom: 0,
           left: 10,
           right: 10,
-          child: Column(
-            children: [
-              const SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
+          child: listMisReportes(data),
+        ),
+      ],
+    );
+  }
+
+  Column listMisReportes(data) {
+    return Column(
+      children: [
+        const SizedBox(height: 10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Mis Reportes',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            MyButton2(
+              title: 'Ver todos',
+              onTap: () {
+                Navigator.of(context).pushNamed(HistorialPage.nombre);
+              },
+            ),
+          ],
+        ),
+        const SizedBox(height: 10),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.3,
+          child: ListView.builder(
+            itemCount: data.length > 3 ? 3 : data.length,
+            itemBuilder: (context, index) {
+              final AnomaliaModel anomalia = data[index] ?? "";
+              return Card(
+                color: Theme.of(context).scaffoldBackgroundColor,
+                child: ListTile(
+                  title: Text(anomalia.tipoAnomalia ?? ""),
+                  trailing: const Text('Pendiente'),
+                  subtitle: Text(anomalia.fechaReporteAnomalia ?? ""),
+                ),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget dateCardWidget() {
+    return Column(
+      children: [
+        Text(
+          DateFormat.MMM().format(DateTime.now()),
+          style: TextStyle(
+            fontSize: 18,
+            letterSpacing: 2,
+            color: Theme.of(context).primaryColor,
+          ),
+        ),
+        Card(
+          elevation: 10,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+              child: Column(
                 children: [
-                  const Text('Mis Reportes',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                  MyButton2(
-                    title: 'Ver todos',
-                    onTap: () {
-                      Navigator.of(context).pushNamed(HistorialPage.nombre);
-                    },
+                  Text(
+                    DateFormat.d().format(
+                        DateTime.now()), // Muestra el día actual en números
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
+                  Text(
+                    DateFormat.EEEE().format(
+                        DateTime.now()), // Muestra el día actual en letras
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w100,
+                      color: Theme.of(context).primaryColor,
+                    ),
                   ),
                 ],
               ),
-              const SizedBox(height: 10),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.35,
-                child: ListView.builder(
-                  itemCount: data.length > 3 ? 3 : data.length,
-                  itemBuilder: (context, index) {
-                    final AnomaliaModel anomalia = data[index] ?? "";
-                    return Card(
-                      child: ListTile(
-                        title: Text(anomalia.tipoAnomalia ?? ""),
-                        trailing: const Text('Pendiente'),
-                        subtitle:  Text(anomalia.fechaReporteAnomalia ?? ""),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ],
@@ -168,61 +207,65 @@ final prefs = PrefernciaUsuario();
   }
 
   final List<AnomaliaModel> dataVacia = [];
+
   Widget buildCardNotification() {
-    return  Column(
+    return Column(
       children: [
         CarouselSlider(
           options: CarouselOptions(viewportFraction: 1),
-          items: const [ 
-            Card(
-            elevation: 2,
-            child: Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          items: [
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 45.0),
+              child: Card(
+                color: Theme.of(context).scaffoldBackgroundColor,
+                elevation: 2,
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'AdminName',
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            'Administración',
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
+                          Text(
+                            DateFormat.Hm().format(DateTime.now()),
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      const Text(
+                        'Mantenimiento del Lobby',
                         style: TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.normal,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Text(
-                        'Hora',
+                      const SizedBox(height: 8),
+                      const Text(
+                        'Lorem ipsum dolor',
                         style: TextStyle(
                           fontSize: 12,
-                          color: Colors.grey,
                         ),
                       ),
+                      const SizedBox(height: 8),
                     ],
                   ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Mantenimiento del Lobby',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Lorem ipsum dolor',
-                    style: TextStyle(
-                      fontSize: 12,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                ],
+                ),
               ),
             ),
-          ),], 
+          ],
         ),
-        const SizedBox(height: 10,),
-        
       ],
     );
   }

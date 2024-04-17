@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:gestionresidencial/localstore/sharepreference.dart';
 
 class BuildCustomAppBar extends ConsumerStatefulWidget {
@@ -43,7 +45,9 @@ class _BuildCustomAppBarState extends ConsumerState<BuildCustomAppBar> {
                   'Hola, ',
                   style: TextStyle(
                       fontSize: 34,
-                      color: Theme.of(context).secondaryHeaderColor),
+                      color: Theme.of(context).secondaryHeaderColor,
+                      backgroundColor: Colors.transparent,
+                  ),  
                 ),
                 IconButton(
                   icon: const Icon(Icons.notifications_outlined),
@@ -62,10 +66,11 @@ class _BuildCustomAppBarState extends ConsumerState<BuildCustomAppBar> {
               color: Theme.of(context).primaryColor,
             ),
             child: Text(
-              prefs.usuario,
+              prefs.nombreusuario,
               style: TextStyle(
                   fontSize: 40,
                   color: Theme.of(context).scaffoldBackgroundColor,
+                  backgroundColor: Colors.transparent,
                   fontWeight: FontWeight.bold),
             ),
           ),
@@ -76,7 +81,7 @@ class _BuildCustomAppBarState extends ConsumerState<BuildCustomAppBar> {
                 borderRadius: BorderRadius.circular(50),
                 color: Theme.of(context).secondaryHeaderColor.withOpacity(0.3),
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: DropdownButtonHideUnderline(
                 child: DropdownButton(
                   value: dropdownValue,
@@ -91,7 +96,7 @@ class _BuildCustomAppBarState extends ConsumerState<BuildCustomAppBar> {
                             color: Theme.of(context).scaffoldBackgroundColor,
                           ),
                           const SizedBox(width: 5),
-                          Text(dropDownStringItem),
+                          Text('Apto '+dropDownStringItem),
                         ],
                       ),
                     );

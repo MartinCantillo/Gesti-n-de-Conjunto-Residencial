@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:gestionresidencial/Models/User.dart';
 
 import 'package:gestionresidencial/Views/Components/mybutton_component.dart';
 import 'package:gestionresidencial/Views/Components/mybutton2_component.dart';
 import 'package:gestionresidencial/Views/Components/mytextfield_component.dart';
+
 import 'package:gestionresidencial/Views/screens/Login/form_register_screen.dart';
 import 'package:gestionresidencial/Views/screens/Login/login_screen.dart';
 
 import 'package:gestionresidencial/localstore/sharepreference.dart';
+
 import 'package:gestionresidencial/main.dart';
 
 class RegisterPage extends ConsumerStatefulWidget {
@@ -81,7 +85,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                 const SizedBox(height: 20),
 
                 Text(
-                  'Welcome to create an account!',
+                  'Bienvenido, crea una cuenta!',
                   style: TextStyle(
                     color: Colors.grey[700],
                     fontSize: 16,
@@ -97,7 +101,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                   //hintText: 'Email',
                   obscureText: false,
                   maxLines: 1,
-                  labelText: "Email",
+                  labelText: "Correo",
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return ("El campo esta vacio");
@@ -113,7 +117,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                   //hintText: 'Password',
                   obscureText: true,
                   maxLines: 1,
-                  labelText: "Password",
+                  labelText: "Contraseña",
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return ("El campo esta vacio");
@@ -129,7 +133,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                   //hintText: 'Confirm Password',
                   obscureText: true,
                   maxLines: 1,
-                  labelText: "Confirm Password",
+                  labelText: "Confirmar contraseña",
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return ("El campo esta vacio");
@@ -149,7 +153,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                 const SizedBox(height: 20),
 
                 MyButton(
-                  title: 'Register',
+                  title: 'Registrarse',
                   onTap: () {
                     if (_formkey.currentState!.validate()) {
                       signUp(context);
@@ -164,7 +168,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Already have an account?',
+                      'ya tienes una cuenta?',
                       style: TextStyle(color: Colors.grey[700]),
                     ),
                     const SizedBox(width: 4),

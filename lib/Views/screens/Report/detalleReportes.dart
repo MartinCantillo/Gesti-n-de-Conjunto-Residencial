@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:gestionresidencial/Models/Anomalia.dart';
+
+import 'package:gestionresidencial/Views/Components/elevatedButton.dart';
+
 import 'package:gestionresidencial/main.dart';
 
 class DetalleReportes extends ConsumerStatefulWidget {
@@ -88,29 +93,30 @@ class _DetalleReportesState extends ConsumerState<DetalleReportes> {
             ),
 
             const SizedBox(height: 20), // Añade un espacio entre los textos
-            const Text(
-              'Prioridad:',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8), // Añade un espacio entre el texto y el DropdownButton
-            DropdownButtonFormField<String>(
-              value: 'Alta',
-              onChanged: (value) {
-                // Acción para asignar prioridad
-              },
-              decoration: InputDecoration(
-                border: const UnderlineInputBorder(),
-                filled: true,
-                fillColor: Colors.grey[200],
-              ),
-              items: <String>['Alta', 'Media', 'Baja']
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            ),
+            // const Text(
+            //   'Prioridad:',
+            //   style: TextStyle(fontWeight: FontWeight.bold),
+            // ),
+            // const SizedBox(height: 8), // Añade un espacio entre el texto y el DropdownButton
+            // DropdownButtonFormField<String>(
+            //   value: 'Alta',
+            //   onChanged: (value) {
+            //     // Acción para asignar prioridad
+            //   },
+            //   decoration: InputDecoration(
+            //     border: const UnderlineInputBorder(),
+            //     filled: true,
+            //     fillColor: Colors.grey[200],
+            //   ),
+            //   items: <String>['Alta', 'Media', 'Baja']
+            //       .map<DropdownMenuItem<String>>((String value) {
+            //     return DropdownMenuItem<String>(
+            //       value: value,
+            //       child: Text(value),
+            //     );
+            //   }).toList(),
+            // ),
+            //CustomElevatedButton(onPressed: onPressed, title: title)
           ],
         ),
       ),

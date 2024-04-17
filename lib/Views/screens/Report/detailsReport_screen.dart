@@ -1,6 +1,9 @@
 import "package:flutter/material.dart";
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:gestionresidencial/Models/Anomalia.dart';
+
 import 'package:gestionresidencial/main.dart';
 
 class ListAnomalias extends ConsumerStatefulWidget {

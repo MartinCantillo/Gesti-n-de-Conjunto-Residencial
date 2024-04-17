@@ -21,6 +21,7 @@ class User {
       });
     }
   }
+
   User.fromJsonListUserAuthenticate(mapList, String username, String password) {
     if (mapList == null || username == "" || password == "") {
     
@@ -42,7 +43,6 @@ class User {
     }
   }
 }
-
 class UserModel {
   String? id;
   String? username;

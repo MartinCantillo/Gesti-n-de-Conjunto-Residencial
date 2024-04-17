@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:gestionresidencial/config/themes/app_themes.dart';
+
+import 'package:gestionresidencial/localstore/sharepreference.dart';
+
 import 'package:gestionresidencial/Models/Administrador.dart';
 import 'package:gestionresidencial/Models/Anomalia.dart';
 import 'package:gestionresidencial/Models/EstadoAnomalia.dart';
@@ -13,8 +19,6 @@ import 'package:gestionresidencial/Provider/EstadoAnomaliaProvider.dart';
 import 'package:gestionresidencial/Provider/ResidenteProvider.dart';
 import 'package:gestionresidencial/Provider/UserProvider.dart';
 
-import 'package:gestionresidencial/Views/Widgets/hiddenDrawer/hiddenDrawer.dart';
-
 import 'package:gestionresidencial/Views/screens/Chat/chat_screen.dart';
 import 'package:gestionresidencial/Views/screens/Historial/historial_screen.dart';
 import 'package:gestionresidencial/Views/screens/Home/HomeAdmin/HomeA.dart';
@@ -27,10 +31,6 @@ import 'package:gestionresidencial/Views/screens/Report/detailsReport_screen.dar
 import 'package:gestionresidencial/Views/screens/Report/detalleReportes.dart';
 import 'package:gestionresidencial/Views/screens/Report/report_screen.dart';
 import 'package:gestionresidencial/Views/screens/Config/settings_screen.dart';
-
-import 'package:gestionresidencial/config/themes/app_themes.dart';
-
-import 'package:gestionresidencial/localstore/sharepreference.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -64,7 +64,6 @@ class MyApp extends ConsumerWidget {
         settingsPage.nombre: (context) => const settingsPage(),
         reporte.nombre: (context) => const reporte(),
         HomeAdmin.nombre: (context) => const HomeAdmin(),
-        HiddenDrawer.nombre: (context) => const HiddenDrawer(),
         HomePage.nombre: (context) => const HomePage(),
         DetalleReportes.nombre: (context) => const DetalleReportes(),
         FormRegisterPage.nombre: (context) => const FormRegisterPage(),

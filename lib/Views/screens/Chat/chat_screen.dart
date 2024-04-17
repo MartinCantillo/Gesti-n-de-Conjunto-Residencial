@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:gestionresidencial/Views/Components/messageField_component.dart';
+
 import 'package:gestionresidencial/Views/Widgets/chat/myMessage_widget.dart';
 import 'package:gestionresidencial/Views/Widgets/chat/youMessage_widget.dart';
 
