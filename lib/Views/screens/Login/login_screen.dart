@@ -6,6 +6,7 @@ import 'package:gestionresidencial/Views/Components/mybutton_component.dart';
 import 'package:gestionresidencial/Views/Components/mybutton2_component.dart';
 import 'package:gestionresidencial/Views/Components/mytextfield_component.dart';
 import 'package:gestionresidencial/Views/Components/squaretile_component.dart';
+import 'package:gestionresidencial/Views/screens/Home/HomeAdmin/HomeA.dart';
 
 import 'package:gestionresidencial/Views/screens/Home/HomePage.dart';
 import 'package:gestionresidencial/Views/screens/Login/register_screen.dart';
@@ -41,15 +42,22 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           .read(userAuthenticatedProviderr.notifier)
           .authenticate(prefs.usuario, prefs.contrasena);
       //final List<UserModel> users =  ref.watch(userAuthenticatedProviderr);
-      if (resp!=Null) {
+      if (resp != Null) {
         for (var element in resp) {
-            ref.read(pkUserProvider.notifier).state=element.id!;
+          if (element.username == "Admin" && element.password == "Admin") {
+           // print(element.username );
+             Navigator.of(context).pushNamed(HomeAdmin.nombre);
+          } else {
+            //print(element.username );
+            ref.read(pkUserProvider.notifier).state = element.id!;
+             Navigator.of(context).pushNamed(HomePage.nombre);
+          }
         }
-      }else{
+      } else {
         print("lista vacia");
       }
 
-      Navigator.of(context).pushNamed(HomePage.nombre);
+     
     } catch (e) {
       // Almacenar el contexto antes de entrar en el área asincrónica
       final currentContext = context;
@@ -93,18 +101,18 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 0),
-        
+
                 // logo
                 const CircleAvatar(
                   radius: 100.0,
                   backgroundColor: Colors.grey,
                   backgroundImage: AssetImage('assets/images/edificio.png'),
-                  
+
                   // child: SquareTile(imagePath: 'assets/images/edificio.png'),
                 ),
-        
+
                 const SizedBox(height: 20),
-        
+
                 // welcome back
                 Text(
                   'Bienvenido!',
@@ -113,9 +121,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     fontSize: 16,
                   ),
                 ),
-        
+
                 const SizedBox(height: 25),
-        
+
                 // username textfield
                 MyTextField(
                   controller: usernameController,
@@ -130,9 +138,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     return null;
                   },
                 ),
-        
+
                 const SizedBox(height: 10),
-        
+
                 // password textfield
                 MyTextField(
                   controller: passwordController,
@@ -147,9 +155,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     return null;
                   },
                 ),
-        
+
                 const SizedBox(height: 10),
-        
+
                 // forgot password?
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -163,9 +171,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     ],
                   ),
                 ),
-        
+
                 const SizedBox(height: 15),
-        
+
                 // sign in button
                 MyButton(
                   title: 'Iniciar Sesión',
@@ -175,9 +183,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     }
                   },
                 ),
-        
+
                 const SizedBox(height: 20),
-        
+
                 // or continue with
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -205,25 +213,25 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     ],
                   ),
                 ),
-        
+
                 const SizedBox(height: 20),
-        
+
                 // google + apple sign in buttons
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // google button
                     SquareTile(imagePath: 'assets/images/google.png'),
-        
+
                     SizedBox(width: 25),
-        
+
                     // apple button
                     SquareTile(imagePath: 'assets/images/apple.png')
                   ],
                 ),
-        
+
                 const SizedBox(height: 20),
-        
+
                 // not a member? register now
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
