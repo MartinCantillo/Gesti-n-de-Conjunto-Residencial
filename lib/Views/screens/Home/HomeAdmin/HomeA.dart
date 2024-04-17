@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:gestionresidencial/Models/Anomalia.dart';
-
 import 'package:gestionresidencial/Provider/todoProvider/todoProvider.dart';
-
 import 'package:gestionresidencial/Views/screens/Chat/chat_screen.dart';
-import 'package:gestionresidencial/Views/screens/Report/detalleReportes.dart';
-
 import 'package:gestionresidencial/main.dart';
 
 class HomeAdmin extends ConsumerStatefulWidget {
-  const HomeAdmin({super.key});
+  const HomeAdmin({Key? key}) : super(key: key);
 
   static const String nombre = 'HomeAdmin';
 
@@ -21,11 +15,6 @@ class HomeAdmin extends ConsumerStatefulWidget {
 }
 
 class _HomeAdminState extends ConsumerState<HomeAdmin> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,9 +38,9 @@ class _ReportListView extends ConsumerStatefulWidget {
   @override
   ConsumerState<_ReportListView> createState() => _ReportListViewState();
 }
+
 class _ReportListViewState extends ConsumerState<_ReportListView> {
   late Future<List<AnomaliaModel>> anomaliasList;
-  late Future <AnomaliaModel> anomaliaUpdate;
 
   @override
   void initState() {
@@ -99,12 +88,27 @@ class _ReportListViewState extends ConsumerState<_ReportListView> {
                   child: Text('Error: ${snapshot.error}'),
                 );
               } else {
-                List<AnomaliaModel>? listaA = snapshot.data;
-                if (listaA != null) {
+                List<AnomaliaModel>? filteredList =
+                    snapshot.data?.where((anomalia) {
+                  switch (currentFilter) {
+                    case TodoFilter.pending:
+                      return anomalia.idEstadoAnomalia == 'Pendiente';
+                    case TodoFilter.rejected:
+                      return anomalia.idEstadoAnomalia == 'Rechazado';
+                     case TodoFilter.process:
+                      return anomalia.idEstadoAnomalia == 'Proceso';
+                      
+                    
+                    default:
+                      return true; // Para el caso de 'Todos' y cualquier otro estado no definido
+                  }
+                }).toList();
+
+                if (filteredList != null) {
                   return ListView.builder(
-                    itemCount: listaA.length,
+                    itemCount: filteredList.length,
                     itemBuilder: (context, index) {
-                      final AnomaliaModel? datosA = snapshot.data?[index];
+                      final AnomaliaModel datosA = filteredList[index];
 
                       return GestureDetector(
                         onTap: () {
@@ -115,9 +119,9 @@ class _ReportListViewState extends ConsumerState<_ReportListView> {
                         },
                         child: Card(
                           child: ListTile(
-                            title: Text(datosA?.asuntoAnomalia ?? ''),
-                            subtitle: Text(datosA?.descripcionAnomalia ?? ''),
-                            trailing: Text(datosA?.fechaReporteAnomalia ?? ''),
+                            title: Text(datosA.asuntoAnomalia ?? ""),
+                            subtitle: Text(datosA.descripcionAnomalia ?? ""),
+                            trailing: Text(datosA.fechaReporteAnomalia ?? ""),
                           ),
                         ),
                       );
@@ -136,22 +140,21 @@ class _ReportListViewState extends ConsumerState<_ReportListView> {
     );
   }
 
-  Widget _buildAnomaliaDialog(AnomaliaModel? anomalia) {
-    String? selectedPrioridad = anomalia?.prioridad; // Guardar la prioridad seleccionada
+  Widget _buildAnomaliaDialog(AnomaliaModel anomalia) {
+    String? selectedPrioridad = anomalia.prioridad;
 
     return AlertDialog(
-      title: Text(anomalia?.asuntoAnomalia ?? ''),
+      title: Text(anomalia.asuntoAnomalia ?? ""),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Descripción: ${anomalia?.descripcionAnomalia ?? ''}'),
+          Text('Descripción: ${anomalia.descripcionAnomalia}'),
           const SizedBox(height: 10),
           Text('Prioridad:'),
           DropdownButton<String>(
             value: selectedPrioridad,
             onChanged: (String? newValue) {
-             
               setState(() {
                 selectedPrioridad = newValue;
               });
@@ -176,18 +179,18 @@ class _ReportListViewState extends ConsumerState<_ReportListView> {
         ElevatedButton(
           onPressed: () async {
             if (selectedPrioridad != null) {
-          //actualizar el valor en la anomalía
-              setState(() {
-                anomalia?.prioridad = selectedPrioridad!;
-              });
+              //actualizar el valor en la anomalía
+              anomalia.prioridad = selectedPrioridad;
               // Actualiza la anomalía en el proveedor
-              final updatedAnomalia = await ref.read(anomaliaProvider.notifier).update(anomalia?.id?? '',anomalia!);
-              
+              await ref
+                  .read(anomaliaProvider.notifier)
+                  .update(anomalia.id ?? "", anomalia);
+
               // Muestra un SnackBar con el mensaje de éxito
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text('Se ha actualizado la prioridad con éxito'),
-                  duration: Duration(seconds: 2), // Duración del SnackBar
+                  duration: const Duration(seconds: 2), // Duración del SnackBar
                 ),
               );
             }

@@ -45,19 +45,17 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       if (resp != Null) {
         for (var element in resp) {
           if (element.username == "Admin" && element.password == "Admin") {
-           // print(element.username );
-             Navigator.of(context).pushNamed(HomeAdmin.nombre);
+            // print(element.username );
+            Navigator.of(context).pushNamed(HomeAdmin.nombre);
           } else {
             //print(element.username );
             ref.read(pkUserProvider.notifier).state = element.id!;
-             Navigator.of(context).pushNamed(HomePage.nombre);
+            Navigator.of(context).pushNamed(HomePage.nombre);
           }
         }
       } else {
         print("lista vacia");
       }
-
-     
     } catch (e) {
       // Almacenar el contexto antes de entrar en el área asincrónica
       final currentContext = context;
