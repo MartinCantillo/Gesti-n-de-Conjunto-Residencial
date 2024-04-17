@@ -30,7 +30,7 @@ class Anomalia {
       jsonList.forEach((id, val) {
         try {
           final value = AnomaliaModel.fromMap(val);
-
+           value.id = id;
           if (value.idUser == idUser) {
             anomaliaListByUser.add(value);
           }
