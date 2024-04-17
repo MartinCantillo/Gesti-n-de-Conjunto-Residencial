@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 
 class ShapeClipperAppBar extends CustomClipper<Path> {
@@ -22,7 +20,7 @@ class ShapeClipperAppBar extends CustomClipper<Path> {
         size.width - (size.width / 3.24), size.height - 105); //tercer punto
     var secondEndPoint = Offset(size.width, size.height - 10); //cuarto punto
     path.quadraticBezierTo(secondStartPoint.dx, secondStartPoint.dy,
-        secondEndPoint.dx, secondEndPoint.dy);
+        secondEndPoint.dx, secondEndPoint.dy); //dibujar la curva
 
     // úlima línea/punto de la curva
     path.lineTo(size.width, 0);

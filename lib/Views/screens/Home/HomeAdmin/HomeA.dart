@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:gestionresidencial/Models/Anomalia.dart';
+
 import 'package:gestionresidencial/Provider/todoProvider/todoProvider.dart';
+
 import 'package:gestionresidencial/Views/screens/Chat/chat_screen.dart';
+import 'package:gestionresidencial/Views/screens/Report/detalleReportes.dart';
+
 import 'package:gestionresidencial/main.dart';
 
 class HomeAdmin extends ConsumerStatefulWidget {

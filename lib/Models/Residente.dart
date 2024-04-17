@@ -25,12 +25,14 @@ class Residente {
 class ResidenteModel {
   String? id;
   String? nombreResidente;
+  String? apellidoResidente;
   String? numApartamento;
   String? numTelefono;
   String? idUser;
   ResidenteModel({
     this.id,
     this.nombreResidente,
+    this.apellidoResidente,
     this.numApartamento,
     this.numTelefono,
     this.idUser,
@@ -40,6 +42,7 @@ class ResidenteModel {
     return {
       'id': id,
       'NombreResidente': nombreResidente,
+      'ApellidoResidente': apellidoResidente,
       'NumApartamento': numApartamento,
       'NumTelefono': numTelefono,
       'idUser': idUser,
@@ -50,6 +53,7 @@ class ResidenteModel {
     return ResidenteModel(
       id: map['id'],
       nombreResidente: map['NombreResidente'],
+      apellidoResidente: map['ApellidoResidente'], 
       numApartamento: map['NumApartamento'],
       numTelefono: map['NumTelefono'],
       idUser: map['idUser'],

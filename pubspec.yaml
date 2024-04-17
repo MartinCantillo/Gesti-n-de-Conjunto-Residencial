@@ -46,6 +46,7 @@ dependencies:
   flutter_custom_clippers:
   carousel_slider:
   card_swiper: ^3.0.1
+  intl:
   
 dev_dependencies:
   flutter_test:

@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:gestionresidencial/Models/Residente.dart';
+
 import 'package:http/http.dart' as http;
+
 import 'package:riverpod/riverpod.dart';
 
 class ResidenteProvider extends StateNotifier<List<ResidenteModel>> {

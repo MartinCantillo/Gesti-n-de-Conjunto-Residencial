@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:gestionresidencial/Views/Components/mybutton2_component.dart';
 
 import 'package:gestionresidencial/Views/screens/Historial/historial_screen.dart';

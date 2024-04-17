@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:gestionresidencial/Models/Residente.dart';
+
 import 'package:gestionresidencial/Views/Components/mybutton_component.dart';
 import 'package:gestionresidencial/Views/Components/mytextfield_component.dart';
+
 import 'package:gestionresidencial/Views/screens/Login/login_screen.dart';
+
 import 'package:gestionresidencial/localstore/sharepreference.dart';
+
 import 'package:gestionresidencial/main.dart';
 
 class FormRegisterPage extends ConsumerStatefulWidget {
@@ -20,6 +26,7 @@ class _FormRegisterPageState extends ConsumerState<FormRegisterPage> {
   final prefs = PrefernciaUsuario();
   final _formkey = GlobalKey<FormState>();
   final nameController = TextEditingController();
+  final lastnameController = TextEditingController();
   final numberController = TextEditingController();
   final numberApartmentController = TextEditingController();
 
@@ -27,9 +34,11 @@ class _FormRegisterPageState extends ConsumerState<FormRegisterPage> {
     if (_formkey.currentState!.validate()) {
       String idUserGot = ref.read(pkUserProvider.notifier).state;
       try {
+        prefs.nombreusuario = nameController.text;
         ResidenteModel residenteModel = ResidenteModel(
             // Asignar los valores del usuario desde los controladores
             nombreResidente: nameController.text,
+            apellidoResidente: lastnameController.text,
             numApartamento: numberApartmentController.text,
             numTelefono: numberController.text,
             idUser: idUserGot);
@@ -67,7 +76,7 @@ class _FormRegisterPageState extends ConsumerState<FormRegisterPage> {
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  'Enter your information!',
+                  'Ingresa tu información!',
                   style: TextStyle(
                     color: Colors.grey[700],
                     fontSize: 16,
@@ -78,7 +87,20 @@ class _FormRegisterPageState extends ConsumerState<FormRegisterPage> {
                   controller: nameController,
                   obscureText: false,
                   maxLines: 1,
-                  labelText: "Full name",
+                  labelText: "Nombres",
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return ("El campo está vacío");
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 10),
+                MyTextField(
+                  controller: lastnameController,
+                  obscureText: false,
+                  maxLines: 1,
+                  labelText: "Apellidos",
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return ("El campo está vacío");
@@ -91,7 +113,7 @@ class _FormRegisterPageState extends ConsumerState<FormRegisterPage> {
                   controller: numberApartmentController,
                   obscureText: false,
                   maxLines: 1,
-                  labelText: "Apartment Number",
+                  labelText: "Número de Apartmento",
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return ("El campo está vacío");
@@ -104,7 +126,7 @@ class _FormRegisterPageState extends ConsumerState<FormRegisterPage> {
                   controller: numberController,
                   obscureText: false,
                   maxLines: 1,
-                  labelText: "Phone number",
+                  labelText: "Número de Teléfono",
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return ("El campo está vacío");
@@ -114,7 +136,7 @@ class _FormRegisterPageState extends ConsumerState<FormRegisterPage> {
                 ),
                 const SizedBox(height: 20),
                 MyButton(
-                  title: 'Register',
+                  title: 'Guardar',
                   onTap: () {
                     if (_formkey.currentState!.validate()) {
                       signUp(context);

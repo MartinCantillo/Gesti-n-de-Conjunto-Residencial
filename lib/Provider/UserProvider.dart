@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:gestionresidencial/Models/User.dart';
+
 import 'package:http/http.dart' as http;
+
 import 'package:riverpod/riverpod.dart';
 
 class UserProvider extends StateNotifier<List<UserModel>> {

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gestionresidencial/Views/Widgets/home/AppBar/buildCustomAppBar.dart';
 
+import 'package:gestionresidencial/Views/Widgets/home/AppBar/buildCustomAppBar.dart';
 import 'package:gestionresidencial/Views/Widgets/home/Body/bodyHome.dart';
 import 'package:gestionresidencial/Views/Widgets/home/NavBar/floatingNavBar.dart';
+
 import 'package:gestionresidencial/Views/screens/Report/report_screen.dart';
 
 class HomePage extends ConsumerStatefulWidget {
@@ -25,7 +26,6 @@ class HomePageState extends ConsumerState<HomePage> {
           children: [
             BodyHome(),
             BuildCustomAppBar(),
-            SizedBox(height: 5),
           ],
         ),
         bottomNavigationBar: const FloatingNavBar(),
