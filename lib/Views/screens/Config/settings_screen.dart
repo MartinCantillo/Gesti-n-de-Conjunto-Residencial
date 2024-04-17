@@ -40,9 +40,6 @@ class settingsPage extends StatelessWidget {
                 ),
                 
               ),
-              ElevatedButton(onPressed: (){
-                Navigator.of(context).pushNamed(HomeAdmin.nombre);
-              }, child: Text("Admin")),
             ],
             
           ),
