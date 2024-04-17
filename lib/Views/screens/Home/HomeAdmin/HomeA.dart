@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gestionresidencial/Models/Anomalia.dart';
 import 'package:gestionresidencial/Provider/todoProvider/todoProvider.dart';
 import 'package:gestionresidencial/Views/screens/Chat/chat_screen.dart';
-import 'package:gestionresidencial/Views/screens/Report/detalleReportes.dart';
 import 'package:gestionresidencial/main.dart';
 
 class HomeAdmin extends ConsumerStatefulWidget {
@@ -31,8 +30,7 @@ class _HomeAdminState extends ConsumerState<HomeAdmin> {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.message),
         onPressed: () {
-          Navigator.pushNamed(
-                                  context, ChatPage.nombre);
+          Navigator.pushNamed(context, ChatPage.nombre);
         },
       ),
     );
@@ -45,14 +43,13 @@ class _ReportListView extends ConsumerStatefulWidget {
   @override
   ConsumerState<_ReportListView> createState() => _ReportListViewState();
 }
-
 class _ReportListViewState extends ConsumerState<_ReportListView> {
   late Future<List<AnomaliaModel>> anomaliasList;
+  late Future <AnomaliaModel> anomaliaUpdate;
 
   @override
   void initState() {
     anomaliasList = ref.read(anomaliaProvider.notifier).getAll();
-
     super.initState();
   }
 
@@ -66,7 +63,6 @@ class _ReportListViewState extends ConsumerState<_ReportListView> {
           title: Text('Listado de reportes'),
           subtitle: Text('Estos son los reportes hechos por los residentes'),
         ),
-
         SegmentedButton(
           segments: const [
             ButtonSegment(value: TodoFilter.all, icon: Text('Todos')),
@@ -106,9 +102,10 @@ class _ReportListViewState extends ConsumerState<_ReportListView> {
 
                       return GestureDetector(
                         onTap: () {
-                          // Navegar a otra pantalla sin activar el switch
-                          Navigator.pushNamed(context, DetalleReportes.nombre);
-                          print('clic');
+                          showDialog(
+                            context: context,
+                            builder: (context) => _buildAnomaliaDialog(datosA),
+                          );
                         },
                         child: Card(
                           child: ListTile(
@@ -128,6 +125,68 @@ class _ReportListViewState extends ConsumerState<_ReportListView> {
               }
             },
           ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildAnomaliaDialog(AnomaliaModel? anomalia) {
+    String? selectedPrioridad = anomalia?.prioridad; // Guardar la prioridad seleccionada
+
+    return AlertDialog(
+      title: Text(anomalia?.asuntoAnomalia ?? ''),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Descripción: ${anomalia?.descripcionAnomalia ?? ''}'),
+          const SizedBox(height: 10),
+          Text('Prioridad:'),
+          DropdownButton<String>(
+            value: selectedPrioridad,
+            onChanged: (String? newValue) {
+             
+              setState(() {
+                selectedPrioridad = newValue;
+              });
+            },
+            items: <String?>['', 'Baja', 'Media', 'Alta']
+                .map<DropdownMenuItem<String>>((String? value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value ?? 'Sin prioridad'),
+              );
+            }).toList(),
+          ),
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop(); // Cerrar el diálogo
+          },
+          child: Text('Cerrar'),
+        ),
+        ElevatedButton(
+          onPressed: () async {
+            if (selectedPrioridad != null) {
+          //actualizar el valor en la anomalía
+              setState(() {
+                anomalia?.prioridad = selectedPrioridad!;
+              });
+              // Actualiza la anomalía en el proveedor
+              final updatedAnomalia = await ref.read(anomaliaProvider.notifier).update(anomalia?.id?? '',anomalia!);
+              
+              // Muestra un SnackBar con el mensaje de éxito
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Se ha actualizado la prioridad con éxito'),
+                  duration: Duration(seconds: 2), // Duración del SnackBar
+                ),
+              );
+            }
+          },
+          child: Text('Asignar Prioridad'),
         ),
       ],
     );

@@ -1,3 +1,4 @@
+
 import 'dart:io';
 
 import 'package:carousel_slider/carousel_slider.dart';
@@ -186,12 +187,9 @@ final prefs = PrefernciaUsuario();
                 ("assets/images/new.png"),
                 fit: BoxFit.fill,
               ),
-              
               ),
             ),
             CardAdmin(),
-
-          
           ], 
         ),
         const SizedBox(height: 10,),

@@ -51,6 +51,7 @@ class AnomaliaModel {
   String? id;
   String? idEstadoAnomalia;
   String? idUser;
+  String? prioridad;
   AnomaliaModel({
     this.descripcionAnomalia,
     this.fechaReporteAnomalia,
@@ -60,6 +61,7 @@ class AnomaliaModel {
     this.idUser,
     this.asuntoAnomalia,
     this.tipoAnomalia,
+    this.prioridad,
   });
 
   Map<String, dynamic> toMap() {
@@ -72,11 +74,11 @@ class AnomaliaModel {
       'idUser': idUser,
       'tipoAnomalia': tipoAnomalia,
       'asuntoAnomalia': asuntoAnomalia,
+      'prioridad': prioridad,
     };
   }
 
   factory AnomaliaModel.fromMap(Map<String, dynamic> map) {
-   
     try {
       return AnomaliaModel(
         id: map['id'] ?? "",
@@ -87,9 +89,11 @@ class AnomaliaModel {
         fotoAnomalia: map['FotoAnomalia'] ?? "",
         idEstadoAnomalia: map['IDEstadoAnomalia'] ?? "",
         idUser: map['idUser'] ?? "",
+        prioridad: map['prioridad'] ?? "",
       );
     } catch (e) {
-      throw Exception("error$e");
+      // print("Entro");
+      throw Exception("error de a ui$e");
     }
   }
 
@@ -97,9 +101,4 @@ class AnomaliaModel {
 
   factory AnomaliaModel.fromJson(String source) =>
       AnomaliaModel.fromMap(json.decode(source));
-
-  @override
-  String toString() {
-    return 'AnomaliaModel(descripcionAnomalia: $descripcionAnomalia, fechaReporteAnomalia: $fechaReporteAnomalia, fotoAnomalia: $fotoAnomalia, tipoAnomalia: $tipoAnomalia, asuntoAnomalia: $asuntoAnomalia, id: $id, idEstadoAnomalia: $idEstadoAnomalia, idUser: $idUser)';
-  }
 }
