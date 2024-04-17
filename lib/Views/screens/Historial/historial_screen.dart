@@ -26,6 +26,18 @@ class _HistorialPageState extends ConsumerState<HistorialPage> {
     String idUserGot = ref.read(pkUserProvider.notifier).state;
     anomaliasList = ref.read(anomaliaProvider.notifier).getAnomaliaById(idUserGot);
   }
+  Future<void> _deleteAnomalia(String id) async {
+  if (id != null && id.isNotEmpty) {
+    try {
+      await ref.read(anomaliaProvider.notifier).delete(id);
+      print("Se ha eliminado la anomalia");
+    } catch (e) {
+      print(e);
+    }
+  } else {
+    print("el id esta vacio");
+  }
+}
   @override
   Widget build(BuildContext context) {
     // Obtenemos los datos de anomalías del provider
@@ -62,35 +74,57 @@ class _HistorialPageState extends ConsumerState<HistorialPage> {
       itemCount: reports.length,
       itemBuilder: (context, index) {
         final report = reports[index];
-        return Container(
-          padding: const EdgeInsetsDirectional.all(8),
-          margin: const EdgeInsetsDirectional.all(8.0),
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 2,
-                blurRadius: 3,
-                offset: const Offset(2, 4),
+        final reportId = report.id;
+        return Dismissible(
+          key: Key(reportId ?? ''),
+          direction: DismissDirection.endToStart,
+          onDismissed: (direction)async {
+            if (direction == DismissDirection.endToStart){
+              
+              if (reportId != null && reportId.isNotEmpty){
+                _deleteAnomalia(reportId);
+                ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text("Anomalia eliminada"),
+                duration: Duration(seconds: 2),)
+              );
+              }else{
+                print("ERROR al intentar eliminar la anomalia");
+              }
+              
+
+            }
+          },
+            child: Container(
+              padding: const EdgeInsetsDirectional.all(8),
+              margin: const EdgeInsetsDirectional.all(8.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 2,
+                    blurRadius: 3,
+                    offset: const Offset(2, 4),
+                  ),
+                ],
+                color: Colors.grey[100],
               ),
-            ],
-            color: Colors.grey[100],
-          ),
-          child: ListTile(
-            title: Text('${report.tipoAnomalia}'),
-            subtitle: Text('${report.asuntoAnomalia}'),
-            trailing: const Column(
-              children: [
-                Text(
-                  'Estado: En espera',
-                  style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+              child: ListTile(
+                title: Text('${report.tipoAnomalia}'),
+                subtitle: Text('${report.asuntoAnomalia}'),
+                trailing: const Column(
+                  children: [
+                    Text(
+                      'Estado: Pendiente',
+                      style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+                    ),
+                  ],
                 ),
-              ],
+                onTap: () {
+                  Navigator.of(context).pushNamed(ListAnomalias.nombre); // Asegúrate de que 'ReportScreen.nombre' sea el nombre correcto de la ruta
+                },
+              ),
             ),
-            onTap: () {
-              Navigator.of(context).pushNamed(DetalleReportes.nombre); // Asegúrate de que 'ReportScreen.nombre' sea el nombre correcto de la ruta
-            },
-          ),
         );
       },
     );
