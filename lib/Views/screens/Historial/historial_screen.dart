@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:gestionresidencial/Models/Anomalia.dart';
+
 import 'package:gestionresidencial/Views/screens/Report/detalleReportes.dart';
 import 'package:gestionresidencial/Views/screens/Home/HomePage.dart';
+
 import 'package:gestionresidencial/main.dart';
 
 class HistorialPage extends ConsumerStatefulWidget {
@@ -18,7 +22,7 @@ class _HistorialPageState extends ConsumerState<HistorialPage> {
   final Map<String, String> _tipoAnomaliaImagenes = {
     'Infraestructura': 'https://cdn-icons-png.flaticon.com/512/9147/9147877.png',
     'Seguridad': 'https://cdn-icons-png.flaticon.com/512/8631/8631499.png',
-    'Incidente Médico': 'https://thumbs.dreamstime.com/b/logotipo-de-hospital-m%C3%A1s-icono-ilustraci%C3%B3n-vector-color-rojo-la-ayuda-hospitalaria-iconos-signo-sobre-fondo-blanco-195775894.jpg',
+    'Incidente Médico': 'https://media.istockphoto.com/id/1321617070/es/vector/logotipo-m%C3%A9dico-de-salud.jpg?s=612x612&w=0&k=20&c=BsQIM8iPSDMgR8eQZNOjpd0Q2JuuhyM9dMOC7fFgHC4=',
     'Servicios Públicos': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2rvBncx8szJO-kyRfk7t6Pgxfx5YKrPzVHisfCG-DIhbsbOQ4XBlfyJ4p09hYS8pOECo&usqp=CAU',
     'Otro': 'https://static.vecteezy.com/system/resources/thumbnails/007/126/739/small/question-mark-icon-free-vector.jpg'
 
@@ -81,17 +85,20 @@ class _HistorialPageState extends ConsumerState<HistorialPage> {
                   return Dismissible(
                     key: Key(reportId ?? ''),
                     direction: DismissDirection.endToStart,
-                    background: Container(
-                    padding: EdgeInsets.only(left:350),
-                    margin: EdgeInsets.symmetric(horizontal:20, vertical: 4),
-                    color: Colors.red,
-                    child: Icon(
-                      Icons.delete,
-                      color: Colors.white,
-                      size: 30,
-                  ),
-        
-                ),
+                    background: Positioned(
+                      right: 0,
+                      child: Container(
+                      padding: const EdgeInsets.only(left: 150),
+                      margin: const EdgeInsets.symmetric(horizontal:20, vertical: 4),
+                      color: Colors.red,
+                      child: const Icon(
+                        Icons.delete,
+                        color: Colors.white,
+                        size: 30,
+                                      ),
+                            
+                                    ),
+                    ),
                     onDismissed: (direction) async {
                       if (direction == DismissDirection.endToStart) {
                         if (reportId != null && reportId.isNotEmpty) {

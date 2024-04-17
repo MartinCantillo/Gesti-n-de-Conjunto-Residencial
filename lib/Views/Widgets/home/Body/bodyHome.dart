@@ -214,13 +214,16 @@ class BodyHomeState extends ConsumerState<BodyHome> {
         CarouselSlider(
           options: CarouselOptions(viewportFraction: 1, autoPlay: true),
           items: [
-            ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: Opacity(
-              opacity: 0.9,
-              child: Image.asset("assets/images/new.png",
-                fit: BoxFit.fill,
-              ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 15.0),
+              child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Opacity(
+                opacity: 0.9,
+                child: Image.asset("assets/images/new.png",
+                  fit: BoxFit.fill,
+                ),
+                ),
               ),
             ),
             Padding(

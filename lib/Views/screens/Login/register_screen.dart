@@ -68,119 +68,126 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Center(
-          child: Form(
-            key: _formkey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(height: 0),
-
-                // logo
-                const Icon(
-                  Icons.lock,
-                  size: 100,
-                  color: Colors.black,
-                ),
-
-                const SizedBox(height: 20),
-
-                Text(
-                  'Bienvenido, crea una cuenta!',
-                  style: TextStyle(
-                    color: Colors.grey[700],
-                    fontSize: 16,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Center(
+                child: Form(
+                  key: _formkey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(height: 0),
+            
+                      // logo
+                      const Icon(
+                        Icons.lock,
+                        size: 100,
+                        color: Colors.black,
+                      ),
+            
+                      const SizedBox(height: 20),
+            
+                      Text(
+                        'Bienvenido, crea una cuenta!',
+                        style: TextStyle(
+                          color: Colors.grey[700],
+                          fontSize: 16,
+                        ),
+                      ),
+            
+                      const SizedBox(height: 25),
+            
+                      const SizedBox(height: 10),
+            
+                      MyTextField(
+                        controller: emailController,
+                        //hintText: 'Email',
+                        obscureText: false,
+                        maxLines: 1,
+                        labelText: "Correo",
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return ("El campo esta vacio");
+                          }
+                          return null;
+                        },
+                      ),
+            
+                      const SizedBox(height: 10),
+            
+                      MyTextField(
+                        controller: passwordController,
+                        //hintText: 'Password',
+                        obscureText: true,
+                        maxLines: 1,
+                        labelText: "Contraseña",
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return ("El campo esta vacio");
+                          }
+                          return null;
+                        },
+                      ),
+            
+                      const SizedBox(height: 10),
+            
+                      MyTextField(
+                        controller: confirmPasswordController,
+                        //hintText: 'Confirm Password',
+                        obscureText: true,
+                        maxLines: 1,
+                        labelText: "Confirmar contraseña",
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return ("El campo esta vacio");
+                          }
+                          return null;
+                        },
+                      ),
+            
+                      // forgot password?
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 25.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                        ),
+                      ),
+            
+                      const SizedBox(height: 20),
+            
+                      MyButton(
+                        title: 'Registrarse',
+                        onTap: () {
+                          if (_formkey.currentState!.validate()) {
+                            signUp(context);
+                          }
+                        },
+                      ),
+            
+                      const SizedBox(height: 20),
+            
+                      // are a member? Log In
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'ya tienes una cuenta?',
+                            style: TextStyle(color: Colors.grey[700]),
+                          ),
+                          const SizedBox(width: 4),
+                          MyButton2(
+                            title: 'Sign In',
+                            onTap: () {
+                              logiNow(context);
+                            },
+                          ),
+                        ],
+                      )
+                    ],
                   ),
                 ),
-
-                const SizedBox(height: 25),
-
-                const SizedBox(height: 10),
-
-                MyTextField(
-                  controller: emailController,
-                  //hintText: 'Email',
-                  obscureText: false,
-                  maxLines: 1,
-                  labelText: "Correo",
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return ("El campo esta vacio");
-                    }
-                    return null;
-                  },
-                ),
-
-                const SizedBox(height: 10),
-
-                MyTextField(
-                  controller: passwordController,
-                  //hintText: 'Password',
-                  obscureText: true,
-                  maxLines: 1,
-                  labelText: "Contraseña",
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return ("El campo esta vacio");
-                    }
-                    return null;
-                  },
-                ),
-
-                const SizedBox(height: 10),
-
-                MyTextField(
-                  controller: confirmPasswordController,
-                  //hintText: 'Confirm Password',
-                  obscureText: true,
-                  maxLines: 1,
-                  labelText: "Confirmar contraseña",
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return ("El campo esta vacio");
-                    }
-                    return null;
-                  },
-                ),
-
-                // forgot password?
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                  ),
-                ),
-
-                const SizedBox(height: 20),
-
-                MyButton(
-                  title: 'Registrarse',
-                  onTap: () {
-                    if (_formkey.currentState!.validate()) {
-                      signUp(context);
-                    }
-                  },
-                ),
-
-                const SizedBox(height: 20),
-
-                // are a member? Log In
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'ya tienes una cuenta?',
-                      style: TextStyle(color: Colors.grey[700]),
-                    ),
-                    const SizedBox(width: 4),
-                    MyButton2(
-                      title: 'Sign In',
-                      onTap: () {
-                        logiNow(context);
-                      },
-                    ),
-                  ],
-                )
-              ],
+              ),
             ),
           ),
         ),

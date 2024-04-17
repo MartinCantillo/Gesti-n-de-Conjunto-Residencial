@@ -60,90 +60,97 @@ class _FormRegisterPageState extends ConsumerState<FormRegisterPage> {
       backgroundColor:Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Center(
-          child: Form(
-            key: _formkey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(height: 0),
-                // logo
-                const Icon(
-                  Icons.account_box,
-                  size: 150,
-                  color: Colors.black,
-                ),
-                const SizedBox(height: 20),
-                Text(
-                  'Ingresa tu información!',
-                  style: TextStyle(
-                    color: Colors.grey[700],
-                    fontSize: 16,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Center(
+                child: Form(
+                  key: _formkey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(height: 0),
+                      // logo
+                      const Icon(
+                        Icons.account_box,
+                        size: 150,
+                        color: Colors.black,
+                      ),
+                      const SizedBox(height: 20),
+                      Text(
+                        'Ingresa tu información!',
+                        style: TextStyle(
+                          color: Colors.grey[700],
+                          fontSize: 16,
+                        ),
+                      ),
+                      const SizedBox(height: 25),
+                      MyTextField(
+                        controller: nameController,
+                        obscureText: false,
+                        maxLines: 1,
+                        labelText: "Nombres",
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return ("El campo está vacío");
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 10),
+                      MyTextField(
+                        controller: lastnameController,
+                        obscureText: false,
+                        maxLines: 1,
+                        labelText: "Apellidos",
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return ("El campo está vacío");
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 10),
+                      MyTextField(
+                        controller: numberApartmentController,
+                        obscureText: false,
+                        maxLines: 1,
+                        labelText: "Número de Apartmento",
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return ("El campo está vacío");
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 10),
+                      MyTextField(
+                        controller: numberController,
+                        obscureText: false,
+                        maxLines: 1,
+                        labelText: "Número de Teléfono",
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return ("El campo está vacío");
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 20),
+                      MyButton(
+                        title: 'Guardar',
+                        onTap: () {
+                          if (_formkey.currentState!.validate()) {
+                            signUp(context);
+                          }
+                        },
+                      ),
+                      const SizedBox(height: 20),
+                      // are a member? Log In
+                    ],
                   ),
                 ),
-                const SizedBox(height: 25),
-                MyTextField(
-                  controller: nameController,
-                  obscureText: false,
-                  maxLines: 1,
-                  labelText: "Nombres",
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return ("El campo está vacío");
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 10),
-                MyTextField(
-                  controller: lastnameController,
-                  obscureText: false,
-                  maxLines: 1,
-                  labelText: "Apellidos",
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return ("El campo está vacío");
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 10),
-                MyTextField(
-                  controller: numberApartmentController,
-                  obscureText: false,
-                  maxLines: 1,
-                  labelText: "Número de Apartmento",
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return ("El campo está vacío");
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 10),
-                MyTextField(
-                  controller: numberController,
-                  obscureText: false,
-                  maxLines: 1,
-                  labelText: "Número de Teléfono",
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return ("El campo está vacío");
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 20),
-                MyButton(
-                  title: 'Guardar',
-                  onTap: () {
-                    if (_formkey.currentState!.validate()) {
-                      signUp(context);
-                    }
-                  },
-                ),
-                const SizedBox(height: 20),
-                // are a member? Log In
-              ],
+              ),
             ),
           ),
         ),

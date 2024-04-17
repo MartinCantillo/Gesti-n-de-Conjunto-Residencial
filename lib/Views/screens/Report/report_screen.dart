@@ -117,9 +117,31 @@ class reporteState extends ConsumerState<reporte> {
           icon: const Icon(Icons.arrow_back_outlined),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(2.0),
-        child: FormReport(),
+      body: Column(
+        children: [
+          const Column(
+            children: [
+              Text(
+                "Registro Reporte",
+                textAlign: TextAlign.center,
+                style: TextStyle(shadows: [
+                  Shadow(blurRadius: 0.5),
+                ], fontSize: 25),
+              ),
+            ],
+          ),
+          const SizedBox(height: 25),
+          const Divider(),
+          const SizedBox(height: 25.0),
+          Center(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(2.0),
+                child: FormReport(),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -130,16 +152,6 @@ class reporteState extends ConsumerState<reporte> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Text(
-            "Registro Reporte",
-            textAlign: TextAlign.center,
-            style: TextStyle(shadows: [
-              Shadow(blurRadius: 0.5),
-            ], fontSize: 25),
-          ),
-          const SizedBox(height: 25),
-          const Divider(),
-          const SizedBox(height: 25.0),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25.0),
             child: DropdownButtonFormField(
