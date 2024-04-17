@@ -3,23 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:gestionresidencial/Models/Anomalia.dart';
-
-import 'package:gestionresidencial/Views/Components/elevatedButton.dart';
+import 'package:gestionresidencial/Views/screens/Chat/chat_screen.dart';
 
 import 'package:gestionresidencial/main.dart';
 
 class DetalleReportes extends ConsumerStatefulWidget {
-
   static String nombre = 'detallesScreen';
 
-  const DetalleReportes({super.key});
+  const DetalleReportes({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<DetalleReportes> createState() => _DetalleReportesState();
+  _DetalleReportesState createState() => _DetalleReportesState();
 }
 
 class _DetalleReportesState extends ConsumerState<DetalleReportes> {
   late Future<List<AnomaliaModel>> anomaliasList;
+
   @override
   void initState() {
     super.initState();
@@ -40,35 +39,57 @@ class _DetalleReportesState extends ConsumerState<DetalleReportes> {
             },
           ),
         ],
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       ),
-      body: Container(
-        padding: const EdgeInsets.all(16),
-        width: double.infinity,
-        height: double.infinity,
+      body: FutureBuilder(
+        future: anomaliasList,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text('Error: ${snapshot.error}'),
+            );
+          } else {
+            List<AnomaliaModel> data = snapshot.data as List<AnomaliaModel>;
+            return upload(data.isNotEmpty ? data.first : null);
+          }
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.chat),  
+        onPressed: () {
+          Navigator.of(context).pushNamed(ChatPage.nombre);
+      },),
+    );
+  }
+
+  Widget upload(AnomaliaModel? data) {
+    if (data != null) {
+      return Padding(
+        padding: const EdgeInsets.all(20.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 20), // Añade un espacio entre la parte superior y el primer texto
             const Text(
               'Asunto:',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            const Text('Asunto del reporte'),
-
+            Text('${data.asuntoAnomalia}'),
             const SizedBox(height: 20), // Añade un espacio entre los textos
             const Text(
               'Tipo:',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            const Text('Tipo del reporte'),
-
+            Text('${data.tipoAnomalia}'),
             const SizedBox(height: 20), // Añade un espacio entre los textos
             const Text(
               'Descripción:',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            const Text('Descripción del reporte'),
-
+            Text('${data.descripcionAnomalia}'),
             const SizedBox(height: 20), // Añade un espacio entre los textos
             const Text(
               'Evidencia:',
@@ -79,47 +100,13 @@ class _DetalleReportesState extends ConsumerState<DetalleReportes> {
               height: 200, // Altura reservada para la imagen
               color: Colors.grey[200], // Color de fondo
               alignment: Alignment.center,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.photo),
-                    onPressed: () {
-                      // Acción para cargar la imagen
-                    },
-                  ),
-                ],
-              ),
+              child: const Icon(Icons.photo),
             ),
-
-            const SizedBox(height: 20), // Añade un espacio entre los textos
-            // const Text(
-            //   'Prioridad:',
-            //   style: TextStyle(fontWeight: FontWeight.bold),
-            // ),
-            // const SizedBox(height: 8), // Añade un espacio entre el texto y el DropdownButton
-            // DropdownButtonFormField<String>(
-            //   value: 'Alta',
-            //   onChanged: (value) {
-            //     // Acción para asignar prioridad
-            //   },
-            //   decoration: InputDecoration(
-            //     border: const UnderlineInputBorder(),
-            //     filled: true,
-            //     fillColor: Colors.grey[200],
-            //   ),
-            //   items: <String>['Alta', 'Media', 'Baja']
-            //       .map<DropdownMenuItem<String>>((String value) {
-            //     return DropdownMenuItem<String>(
-            //       value: value,
-            //       child: Text(value),
-            //     );
-            //   }).toList(),
-            // ),
-            //CustomElevatedButton(onPressed: onPressed, title: title)
           ],
         ),
-      ),
-    );
+      );
+    } else {
+      return const SizedBox(); // Retorna un widget vacío si no hay datos
+    }
   }
 }

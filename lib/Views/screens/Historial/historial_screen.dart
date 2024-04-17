@@ -87,10 +87,12 @@ class _HistorialPageState extends ConsumerState<HistorialPage> {
             if (direction == DismissDirection.endToStart) {
               if (reportId != null && reportId.isNotEmpty) {
                 _deleteAnomalia(reportId);
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text("Anomalia eliminada"),
-                  duration: Duration(seconds: 2),
-                ));
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text("Anomalia eliminada"),
+                    duration: Duration(seconds: 2),
+                  ),
+                );
               } else {
                 print("ERROR al intentar eliminar la anomalia");
               }
@@ -109,7 +111,7 @@ class _HistorialPageState extends ConsumerState<HistorialPage> {
                   offset: const Offset(2, 4),
                 ),
               ],
-              color: Colors.grey[100],
+              color: Colors.white,
             ),
             child: ListTile(
               title: Text('${report.tipoAnomalia}'),
@@ -124,8 +126,7 @@ class _HistorialPageState extends ConsumerState<HistorialPage> {
                 ],
               ),
               onTap: () {
-                Navigator.of(context).pushNamed(ListAnomalias
-                    .nombre); // Asegúrate de que 'ReportScreen.nombre' sea el nombre correcto de la ruta
+                Navigator.of(context).pushNamed(DetalleReportes.nombre); // Asegúrate de que 'ReportScreen.nombre' sea el nombre correcto de la ruta
               },
             ),
           ),

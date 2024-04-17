@@ -30,17 +30,17 @@ class MyTextField extends StatelessWidget {
         decoration: InputDecoration(
             labelText: labelText,
             enabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: Colors.white),
+              borderSide: BorderSide(color: Theme.of(context).scaffoldBackgroundColor),
               borderRadius: BorderRadius.circular(5)
             ),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey.shade400),
+              borderSide: BorderSide(color: Colors.grey[300]!, style: BorderStyle.solid),
             ),
             contentPadding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-            fillColor: Colors.grey.shade200,
+            fillColor: Colors.white,
             filled: true,
             //hintText: hintText,
-            hintStyle: TextStyle(color: Colors.grey[500])),
+            hintStyle: TextStyle(color: Theme.of(context).scaffoldBackgroundColor)),
             
       ),
     );

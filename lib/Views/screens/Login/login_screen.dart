@@ -90,7 +90,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   Widget build(BuildContext context) {
     prefs.ultimapagina = LoginPage.nombre;
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Center(
           child: Form(
@@ -100,10 +100,10 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               children: [
                 const SizedBox(height: 0),
 
-                // logo
-                const CircleAvatar(
+                // logo 
+                CircleAvatar(
                   radius: 100.0,
-                  backgroundColor: Colors.grey,
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                   backgroundImage: AssetImage('assets/images/edificio.png'),
 
                   // child: SquareTile(imagePath: 'assets/images/edificio.png'),
@@ -112,10 +112,10 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 const SizedBox(height: 20),
 
                 // welcome back
-                Text(
+                const Text(
                   'Bienvenido!',
                   style: TextStyle(
-                    color: Colors.grey[700],
+                    color: Colors.black,
                     fontSize: 16,
                   ),
                 ),

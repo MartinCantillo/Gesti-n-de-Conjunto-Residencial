@@ -44,10 +44,8 @@ class _FormRegisterPageState extends ConsumerState<FormRegisterPage> {
             idUser: idUserGot);
             prefs.apartment=numberApartmentController.text;
         // Guardar el usuario usando UserProvider
-        String response =
-            await ref.read(residenteProvider.notifier).save(residenteModel);
-        print('registro guardado con éxito: $response');
-
+        String response = await ref.read(residenteProvider.notifier).save(residenteModel);
+        //print('registro guardado con éxito: $response');
         Navigator.of(context).pushNamed(LoginPage.nombre);
       } catch (e) {
         print('Error al guardar el registro: $e');
@@ -59,7 +57,7 @@ class _FormRegisterPageState extends ConsumerState<FormRegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor:Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Center(
           child: Form(
