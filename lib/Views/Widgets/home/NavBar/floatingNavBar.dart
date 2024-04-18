@@ -7,11 +7,18 @@ import 'package:gestionresidencial/Views/screens/Config/settings_screen.dart';
 import 'package:gestionresidencial/Views/screens/Historial/historial_screen.dart';
 import 'package:gestionresidencial/Views/screens/Home/HomePage.dart';
 
-class FloatingNavBar extends ConsumerWidget {
+class FloatingNavBar extends ConsumerStatefulWidget {
   const FloatingNavBar({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  FloatingNavBarState createState() => FloatingNavBarState();
+}
+
+class FloatingNavBarState extends ConsumerState<FloatingNavBar> {
+  final int _selectedIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
         padding: const EdgeInsets.all(12),
@@ -24,21 +31,35 @@ class FloatingNavBar extends ConsumerWidget {
           children: [
             iconButtonNavBar(
               context,
-              const Icon(Icons.home),
-              () => Navigator.pushNamed(context, HomePage.nombre),
+              Icon(Icons.home,
+                  color: _selectedIndex == 0
+                      ? Theme.of(context).primaryColor
+                      : null),
+                  () => _selectedIndex == 0
+                    ? null
+                    : () => Navigator.of(context).pushNamed(HomePage.nombre),
             ),
             iconButtonNavBar(
-              context,
-              const Icon(Icons.history),
-              () => Navigator.pushNamed(context, HistorialPage.nombre),
-            ),
+                context,
+                Icon(Icons.history,
+                    color: _selectedIndex == 1
+                        ? Theme.of(context).primaryColor
+                        : null),
+                () => Navigator.of(context).pushNamed(HistorialPage.nombre)),
             iconButtonNavBar(
-              context,
-              const Icon(Icons.chat),
-              () => Navigator.pushNamed(context, ChatPage.nombre),
-            ),
-            // iconButtonNavBar(context, const Icon(Icons.person),
-            //     () => Navigator.pushNamed(context, settingsPage.nombre)),
+                context,
+                Icon(Icons.chat,
+                    color: _selectedIndex == 2
+                        ? Theme.of(context).primaryColor
+                        : null),
+                () => Navigator.of(context).pushNamed(ChatPage.nombre)),
+            iconButtonNavBar(
+                context,
+                Icon(Icons.person,
+                    color: _selectedIndex == 3
+                        ? Theme.of(context).primaryColor
+                        : null),
+                () => Navigator.of(context).pushNamed(settingsPage.nombre)),
           ],
         ),
       ),
@@ -50,7 +71,7 @@ class FloatingNavBar extends ConsumerWidget {
     return IconButton(
       icon: icon,
       color: Theme.of(context).primaryColor,
-      onPressed: onPressed,
+      onPressed: onPressed ?? () {},
     );
   }
 }

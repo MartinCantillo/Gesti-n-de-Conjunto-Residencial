@@ -88,6 +88,7 @@ class BodyHomeState extends ConsumerState<BodyHome> {
             ),
           ],
         ),
+        const SizedBox(height: 10),
         Positioned(
           bottom: MediaQuery.of(context).size.height * 0.32,
           left: 10,
@@ -100,12 +101,13 @@ class BodyHomeState extends ConsumerState<BodyHome> {
                   child: dateCardWidget(),
                 ),
                 Expanded(
-                  child: buildCardNotification(),
+                  child: buildBannerNotification(),
                 ),
               ],
             ),
           ),
         ),
+        const SizedBox(height: 20),
         Positioned(
           bottom: 0,
           left: 10,
@@ -208,7 +210,7 @@ class BodyHomeState extends ConsumerState<BodyHome> {
 
   final List<AnomaliaModel> dataVacia = [];
 
-  Widget buildCardNotification() {
+  Widget buildBannerNotification() {
     return Column(
       children: [
         CarouselSlider(

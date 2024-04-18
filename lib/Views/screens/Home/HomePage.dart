@@ -17,10 +17,15 @@ class HomePage extends ConsumerStatefulWidget {
   HomePageState createState() => HomePageState();
 }
 
+final GlobalKey<NavigatorState> homeNavigatorKey = GlobalKey<NavigatorState>();
 class HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return WillPopScope(
+      onWillPop: () async {
+        // Bloquea la navegación hacia atrás
+        return false;
+      },
       child: Scaffold(
         body: const Stack(
           children: [
@@ -30,7 +35,7 @@ class HomePageState extends ConsumerState<HomePage> {
         ),
         bottomNavigationBar: const FloatingNavBar(),
         floatingActionButton: addButton(context),
-        ),
+      ),
     );
   }
 }

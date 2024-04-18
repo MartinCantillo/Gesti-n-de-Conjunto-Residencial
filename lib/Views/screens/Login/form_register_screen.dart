@@ -16,7 +16,7 @@ import 'package:gestionresidencial/main.dart';
 class FormRegisterPage extends ConsumerStatefulWidget {
   const FormRegisterPage({Key? key}) : super(key: key);
 
-  static  String nombre = 'FormRegister';
+  static String nombre = 'FormRegister';
 
   @override
   _FormRegisterPageState createState() => _FormRegisterPageState();
@@ -42,10 +42,17 @@ class _FormRegisterPageState extends ConsumerState<FormRegisterPage> {
             numApartamento: numberApartmentController.text,
             numTelefono: numberController.text,
             idUser: idUserGot);
-            prefs.apartment=numberApartmentController.text;
+        prefs.apartment = numberApartmentController.text;
         // Guardar el usuario usando UserProvider
-        String response = await ref.read(residenteProvider.notifier).save(residenteModel);
+        String response =
+            await ref.read(residenteProvider.notifier).save(residenteModel);
         //print('registro guardado con éxito: $response');
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("¡Genial, se guardó correctamente!"),
+            duration: Duration(seconds: 2),
+          ),
+        );
         Navigator.of(context).pushNamed(LoginPage.nombre);
       } catch (e) {
         print('Error al guardar el registro: $e');
@@ -57,7 +64,7 @@ class _FormRegisterPageState extends ConsumerState<FormRegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -93,6 +100,8 @@ class _FormRegisterPageState extends ConsumerState<FormRegisterPage> {
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return ("El campo está vacío");
+                          } else if (value.length < 3) {
+                            return "Este campo debe tener al menos 3 caracteres";
                           }
                           return null;
                         },
@@ -106,6 +115,8 @@ class _FormRegisterPageState extends ConsumerState<FormRegisterPage> {
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return ("El campo está vacío");
+                          } else if (value.length < 3) {
+                            return "Este campo debe tener al menos 3 caracteres";
                           }
                           return null;
                         },
@@ -119,6 +130,8 @@ class _FormRegisterPageState extends ConsumerState<FormRegisterPage> {
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return ("El campo está vacío");
+                          } else if (!RegExp(r'^\d{3}$').hasMatch(value)) {
+                            return "El número de apartamento debe tener 3 dígitos";
                           }
                           return null;
                         },
@@ -132,6 +145,10 @@ class _FormRegisterPageState extends ConsumerState<FormRegisterPage> {
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return ("El campo está vacío");
+                          } else if (!RegExp(r'^\[0-9]+$').hasMatch(value)) {
+                            return "Ingrese un número de teléfono válido";
+                          } else if (value.length < 10) {
+                            return "El número de teléfono debe tener al menos 10 dígitos";
                           }
                           return null;
                         },
@@ -144,6 +161,7 @@ class _FormRegisterPageState extends ConsumerState<FormRegisterPage> {
                             signUp(context);
                           }
                         },
+                        isLoading: false,
                       ),
                       const SizedBox(height: 20),
                       // are a member? Log In

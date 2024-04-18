@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gestionresidencial/localstore/sharepreference.dart';
 
 class BuildCustomAppBar extends ConsumerStatefulWidget {
-  const BuildCustomAppBar({super.key}) ;
+  const BuildCustomAppBar({super.key});
 
   @override
   _BuildCustomAppBarState createState() => _BuildCustomAppBarState();
@@ -20,7 +20,9 @@ class _BuildCustomAppBarState extends ConsumerState<BuildCustomAppBar> {
   void initState() {
     super.initState();
     dropdownValue = prefs.apartment;
-    address = [prefs.apartment]; // Inicializar la lista con el valor del apartamento
+    address = [
+      prefs.apartment
+    ]; // Inicializar la lista con el valor del apartamento
   }
 
   @override
@@ -35,19 +37,17 @@ class _BuildCustomAppBarState extends ConsumerState<BuildCustomAppBar> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             height: kToolbarHeight, // Altura de la barra de aplicación
-            decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
-            ),
+
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   'Hola, ',
                   style: TextStyle(
-                      fontSize: 34,
-                      color: Theme.of(context).secondaryHeaderColor,
-                      backgroundColor: Colors.transparent,
-                  ),  
+                    fontSize: 34,
+                    color: Theme.of(context).secondaryHeaderColor,
+                    backgroundColor: Colors.transparent,
+                  ),
                 ),
                 IconButton(
                   icon: const Icon(Icons.notifications_outlined),
@@ -62,15 +62,11 @@ class _BuildCustomAppBarState extends ConsumerState<BuildCustomAppBar> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             height: kToolbarHeight, // Altura de la barra de aplicación
-            decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
-            ),
             child: Text(
               prefs.nombreusuario,
               style: TextStyle(
                   fontSize: 40,
                   color: Theme.of(context).scaffoldBackgroundColor,
-                  backgroundColor: Colors.transparent,
                   fontWeight: FontWeight.bold),
             ),
           ),
@@ -96,13 +92,21 @@ class _BuildCustomAppBarState extends ConsumerState<BuildCustomAppBar> {
                             color: Theme.of(context).scaffoldBackgroundColor,
                           ),
                           const SizedBox(width: 5),
-                          Text('Apto '+dropDownStringItem),
+                          Text('Apto $dropDownStringItem'),
                         ],
                       ),
                     );
                   }).toList(),
                   elevation: 8,
-                  style: TextStyle(color: Theme.of(context).scaffoldBackgroundColor),
+                  style: TextStyle(
+                      color: Theme.of(context).scaffoldBackgroundColor),
+                  // Cambia el color del botón cuando está en foco
+                  dropdownColor:
+                      Theme.of(context).primaryColor.withOpacity(0.8),
+                  // Aumenta el tamaño del ícono cuando está en foco
+                  iconSize: 30,
+                  // Ajusta el borde del botón cuando está en foco
+                  borderRadius: BorderRadius.circular(25),
                   underline: const SizedBox(),
                   onChanged: (value) {
                     setState(() {

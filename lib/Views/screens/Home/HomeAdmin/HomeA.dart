@@ -151,7 +151,7 @@ class _ReportListViewState extends ConsumerState<_ReportListView> {
         children: [
           Text('Descripción: ${anomalia.descripcionAnomalia}'),
           const SizedBox(height: 10),
-          Text('Prioridad:'),
+          const Text('Prioridad:'),
           DropdownButton<String>(
             value: selectedPrioridad,
             onChanged: (String? newValue) {
@@ -174,7 +174,7 @@ class _ReportListViewState extends ConsumerState<_ReportListView> {
           onPressed: () {
             Navigator.of(context).pop(); // Cerrar el diálogo
           },
-          child: Text('Cerrar'),
+          child: const Text('Cerrar'),
         ),
         ElevatedButton(
           onPressed: () async {
@@ -188,14 +188,14 @@ class _ReportListViewState extends ConsumerState<_ReportListView> {
 
               // Muestra un SnackBar con el mensaje de éxito
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
+                const SnackBar(
                   content: Text('Se ha actualizado la prioridad con éxito'),
-                  duration: const Duration(seconds: 2), // Duración del SnackBar
+                  duration: Duration(seconds: 2), // Duración del SnackBar
                 ),
               );
             }
           },
-          child: Text('Asignar Prioridad'),
+          child: const Text('Asignar Prioridad'),
         ),
       ],
     );

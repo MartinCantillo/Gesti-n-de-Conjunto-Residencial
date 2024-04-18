@@ -112,7 +112,27 @@ class reporteState extends ConsumerState<reporte> {
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).popAndPushNamed(HomePage.nombre);
+            showDialog(
+              context: context, 
+              builder: (BuildContext context) { 
+                
+                return AlertDialog(
+                  title: const Text('Confirmación'),
+                  content:
+                      const Text('¿Seguro que desea abandonar el reporte?'),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.of(context).pop(), 
+                      child: const Text('No'),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.of(context).popAndPushNamed(HomePage.nombre), 
+                      child: const Text('Si'),
+                    ),
+                  ],
+                );
+               },
+            );
           },
           icon: const Icon(Icons.arrow_back_outlined),
         ),
@@ -133,13 +153,9 @@ class reporteState extends ConsumerState<reporte> {
           const SizedBox(height: 25),
           const Divider(),
           const SizedBox(height: 25.0),
-          Center(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: FormReport(),
-              ),
-            ),
+          Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: FormReport(),
           ),
         ],
       ),
@@ -149,83 +165,87 @@ class reporteState extends ConsumerState<reporte> {
   Form FormReport() {
     return Form(
       key: _formkey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: DropdownButtonFormField(
-              value: selectedval,
-              items: typeAnomaly
-                  .map((e) => DropdownMenuItem(
-                        value: e,
-                        child: Text(e),
-                      ))
-                  .toList(),
-              onChanged: (val) {
-                setState(() {
-                  selectedval = val as String;
-                });
-              },
-              decoration: InputDecoration(
-                labelText: "Tipo",
-                enabledBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
+      child: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                child: DropdownButtonFormField(
+                  value: selectedval,
+                  items: typeAnomaly
+                      .map((e) => DropdownMenuItem(
+                            value: e,
+                            child: Text(e),
+                          ))
+                      .toList(),
+                  onChanged: (val) {
+                    setState(() {
+                      selectedval = val as String;
+                    });
+                  },
+                  decoration: InputDecoration(
+                    labelText: "Tipo",
+                    enabledBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey.shade400),
+                    ),
+                    fillColor: Colors.grey.shade200,
+                    filled: true,
+                  ),
+                  validator: (value) {
+                    if (value == typeAnomaly[0]) {
+                      return ("Debe seleccionar el tipo de anomalia");
+                    }
+                    return null;
+                  },
                 ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey.shade400),
-                ),
-                fillColor: Colors.grey.shade200,
-                filled: true,
               ),
-              validator: (value) {
-                if (value == typeAnomaly[0]) {
-                  return ("Debe seleccionar el tipo de anomalia");
-                }
-                return null;
-              },
-            ),
+              const SizedBox(height: 16.0),
+              MyTextField(
+                controller: subjectController,
+                //hintText: 'Asunto',
+                obscureText: false,
+                maxLines: 1,
+                labelText: "Asunto",
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return ("El asunto es requerido");
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 10.0),
+              MyTextField(
+                  controller: descriptionController,
+                  //hintText: 'Descripcion',
+                  obscureText: false,
+                  maxLines: 5,
+                  labelText: "Descripcion",
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return ("Se necesita una descripcion del problema");
+                    }
+                    return null;
+                  }),
+              const SizedBox(height: 10.0),
+              CustomElevatedButton(
+                onPressed: _pickImage,
+                title: const Text('Subir evidencia'),
+              ),
+              const SizedBox(height: 10.0),
+              listEvidences(),
+              const SizedBox(height: 10.0),
+              CustomElevatedButton(
+                onPressed: _submitReport,
+                title: const Text('Enviar'),
+              ),
+            ],
           ),
-          const SizedBox(height: 16.0),
-          MyTextField(
-            controller: subjectController,
-            //hintText: 'Asunto',
-            obscureText: false,
-            maxLines: 1,
-            labelText: "Asunto",
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return ("El asunto es requerido");
-              }
-              return null;
-            },
-          ),
-          const SizedBox(height: 10.0),
-          MyTextField(
-              controller: descriptionController,
-              //hintText: 'Descripcion',
-              obscureText: false,
-              maxLines: 5,
-              labelText: "Descripcion",
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return ("Se necesita una descripcion del problema");
-                }
-                return null;
-              }),
-          const SizedBox(height: 10.0),
-          CustomElevatedButton(
-            onPressed: _pickImage,
-            title: const Text('Subir evidencia'),
-          ),
-          const SizedBox(height: 10.0),
-          listEvidences(),
-          const SizedBox(height: 10.0),
-          CustomElevatedButton(
-            onPressed: _submitReport,
-            title: const Text('Enviar'),
-          ),
-        ],
+        ),
       ),
     );
   }

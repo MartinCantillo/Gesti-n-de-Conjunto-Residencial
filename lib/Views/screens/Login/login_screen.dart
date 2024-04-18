@@ -27,6 +27,7 @@ class LoginPage extends ConsumerStatefulWidget {
 class _LoginPageState extends ConsumerState<LoginPage> {
   final _formkey = GlobalKey<FormState>();
   final prefs = PrefernciaUsuario();
+  bool _isLoading = false;
 
   // text editing controllers
   final usernameController = TextEditingController();
@@ -34,6 +35,11 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   final passwordController = TextEditingController();
 
   Future<void> signUserIn(BuildContext context) async {
+    
+    setState(() {
+      _isLoading = true;
+    });
+    
     try {
       prefs.usuario = usernameController.text;
       prefs.contrasena = passwordController.text;
@@ -58,27 +64,10 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       }
     } catch (e) {
       // Almacenar el contexto antes de entrar en el área asincrónica
-      final currentContext = context;
-      // Mostrar alerta en caso de error de autenticación
-      showDialog(
-        context: currentContext,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text("Error de autenticación"),
-            content: const Text(
-                "Credenciales incorrectas. Por favor, inténtalo de nuevo."),
-            actions: <Widget>[
-              TextButton(
-                child: const Text("OK"),
-                onPressed: () {
-                  Navigator.of(currentContext)
-                      .pop(); // Cerrar el diálogo de alerta
-                },
-              ),
-            ],
-          );
-        },
-      );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 
@@ -105,8 +94,10 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     const SizedBox(height: 20),
                     CircleAvatar(
                       radius: 100.0,
-                      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                      backgroundImage: const AssetImage('assets/images/edificio.png'),
+                      backgroundColor:
+                          Theme.of(context).scaffoldBackgroundColor,
+                      backgroundImage:
+                          const AssetImage('assets/images/edificio.png'),
                     ),
                     const SizedBox(height: 20),
                     const Text(
@@ -126,6 +117,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return ("El campo está vacío");
+                        } else if (value.length < 6) {
+                          return 'El usuario es incorrecto';
                         }
                         return null;
                       },
@@ -139,6 +132,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return ("El campo está vacío");
+                        } else if (value.length < 6) {
+                          return "La contraseña es incorrecta";
                         }
                         return null;
                       },
@@ -164,6 +159,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                           signUserIn(context);
                         }
                       },
+                      isLoading: _isLoading,
                     ),
                     const SizedBox(height: 20),
                     Padding(
@@ -177,7 +173,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 10.0),
                             child: Text(
                               'o Continúa con',
                               style: TextStyle(color: Colors.grey[700]),
