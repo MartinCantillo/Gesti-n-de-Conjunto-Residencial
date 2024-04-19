@@ -87,27 +87,26 @@ class reporteState extends ConsumerState<reporte> {
   void _submitReport() async {
     if (_formkey.currentState!.validate()) {
       try {
-      String idUserGot = ref.read(pkUserProvider.notifier).state;
-      //  print("id user enviado a anomalia${idUserGot}");
-      AnomaliaModel anomalia = AnomaliaModel(
-          descripcionAnomalia: descriptionController.text,
-          fechaReporteAnomalia: DateTime.now().toString(),
-          tipoAnomalia: selectedval,
-          fotoAnomalia: 'img',
-          idEstadoAnomalia: 'pendiente',
-          idUser: idUserGot,
-          asuntoAnomalia: subjectController.text);
-      //Guardar anomalia
-      await ref.read(anomaliaProvider.notifier).save(anomalia);
-      Navigator.of(context).pushNamed(HistorialPage.nombre);
-    } catch (e) {
-      throw ('Error al enviar el reporte: $e');
+        String idUserGot = ref.read(pkUserProvider.notifier).state;
+        //  print("id user enviado a anomalia${idUserGot}");
+        AnomaliaModel anomalia = AnomaliaModel(
+            descripcionAnomalia: descriptionController.text,
+            fechaReporteAnomalia: DateTime.now().toString(),
+            tipoAnomalia: selectedval,
+            fotoAnomalia: 'img',
+            idEstadoAnomalia: 'Pendiente',
+            idUser: idUserGot,
+            asuntoAnomalia: subjectController.text);
+        //Guardar anomalia
+        await ref.read(anomaliaProvider.notifier).save(anomalia);
+        Navigator.of(context).pushNamed(HistorialPage.nombre);
+      } catch (e) {
+        throw ('Error al enviar el reporte: $e');
+      }
     }
   }
-    }
-    
 
-   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -128,8 +127,8 @@ class reporteState extends ConsumerState<reporte> {
                       child: const Text('No'),
                     ),
                     TextButton(
-                      onPressed: () =>
-                          Navigator.of(context).popAndPushNamed(HomePage.nombre),
+                      onPressed: () => Navigator.of(context)
+                          .popAndPushNamed(HomePage.nombre),
                       child: const Text('Si'),
                     ),
                   ],
@@ -140,52 +139,54 @@ class reporteState extends ConsumerState<reporte> {
           icon: const Icon(Icons.arrow_back_outlined),
         ),
       ),
-body: Builder(
-  builder: (context) {
-    final Color primaryColor = Theme.of(context).primaryColor;
-    return Stack(
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [primaryColor, Colors.white54],
-              stops: const [0.1, 0.4],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
-          ),
-        ),
-        SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+      body: Builder(
+        builder: (context) {
+          final Color primaryColor = Theme.of(context).primaryColor;
+          return Stack(
             children: [
-              const Column(
-                children: [
-                  Text(
-                    "Registro Reporte",
-                    
-                    textAlign: TextAlign.center,
-                    style: TextStyle(shadows: [
-                      Shadow(blurRadius: 0.5),
-                    ], fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold),
-                    
+              Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [primaryColor, Colors.white54],
+                    stops: const [0.1, 0.4],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
                   ),
-                ],
+                ),
               ),
-              const SizedBox(height: 25),
-              const Divider(),
-              const SizedBox(height: 25.0),
-              Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: FormReport(),
+              SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const Column(
+                      children: [
+                        Text(
+                          "Registro Reporte",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              shadows: [
+                                Shadow(blurRadius: 0.5),
+                              ],
+                              fontSize: 25,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 25),
+                    const Divider(),
+                    const SizedBox(height: 25.0),
+                    Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: FormReport(),
+                    ),
+                  ],
+                ),
               ),
             ],
-          ),
-        ),
-      ],
-    );
-  },
-),
+          );
+        },
+      ),
     );
   }
 

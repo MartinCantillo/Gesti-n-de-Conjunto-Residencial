@@ -66,9 +66,10 @@ class MyApp extends ConsumerWidget {
         HomeAdmin.nombre: (context) => const HomeAdmin(),
         HomePage.nombre: (context) => const HomePage(),
         DetalleReportes.nombre: (context) {
-        final AnomaliaModel anomalia = ModalRoute.of(context)!.settings.arguments as AnomaliaModel;
-        return DetalleReportes(anomalia: anomalia);
-      },
+          final AnomaliaModel anomalia =
+              ModalRoute.of(context)!.settings.arguments as AnomaliaModel;
+          return DetalleReportes(anomalia: anomalia);
+        },
         FormRegisterPage.nombre: (context) => const FormRegisterPage(),
         ListAnomalias.nombre: (context) => const ListAnomalias(),
       },

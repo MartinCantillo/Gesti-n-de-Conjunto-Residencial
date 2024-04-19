@@ -97,7 +97,7 @@ class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
     }
   }
 
-  Future<bool> update(String id ,AnomaliaModel data) async {
+  Future<bool> update(String id ,AnomaliaModel data, ) async {
     try {
        final url = '$endpoint/Anomalia/$id.json';
       final response = await http.put(Uri.parse(url), body: data.toJson());

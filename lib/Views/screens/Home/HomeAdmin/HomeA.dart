@@ -95,12 +95,13 @@ class _ReportListViewState extends ConsumerState<_ReportListView> {
                       return anomalia.idEstadoAnomalia == 'Pendiente';
                     case TodoFilter.rejected:
                       return anomalia.idEstadoAnomalia == 'Rechazado';
-                     case TodoFilter.process:
+                    case TodoFilter.process:
                       return anomalia.idEstadoAnomalia == 'Proceso';
-                      
-                    
+                    case TodoFilter.completed:
+                      return anomalia.idEstadoAnomalia == 'Completado';
+
                     default:
-                      return true; // Para el caso de 'Todos' y cualquier otro estado no definido
+                      return true;
                   }
                 }).toList();
 
@@ -122,6 +123,17 @@ class _ReportListViewState extends ConsumerState<_ReportListView> {
                             title: Text(datosA.asuntoAnomalia ?? ""),
                             subtitle: Text(datosA.descripcionAnomalia ?? ""),
                             trailing: Text(datosA.fechaReporteAnomalia ?? ""),
+                            // Botón para cambiar el estado de la anomalía
+                            leading: IconButton(
+                              icon: Icon(Icons.edit),
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) =>
+                                      _buildChangeStatusDialog(context, datosA),
+                                );
+                              },
+                            ),
                           ),
                         ),
                       );
@@ -145,29 +157,33 @@ class _ReportListViewState extends ConsumerState<_ReportListView> {
 
     return AlertDialog(
       title: Text(anomalia.asuntoAnomalia ?? ""),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Descripción: ${anomalia.descripcionAnomalia}'),
-          const SizedBox(height: 10),
-          const Text('Prioridad:'),
-          DropdownButton<String>(
-            value: selectedPrioridad,
-            onChanged: (String? newValue) {
-              setState(() {
-                selectedPrioridad = newValue;
-              });
-            },
-            items: <String?>['', 'Baja', 'Media', 'Alta']
-                .map<DropdownMenuItem<String>>((String? value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value ?? 'Sin prioridad'),
-              );
-            }).toList(),
-          ),
-        ],
+      content: StatefulBuilder(
+        builder: (BuildContext context, StateSetter setState) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Descripción: ${anomalia.descripcionAnomalia}'),
+              const SizedBox(height: 10),
+              const Text('Prioridad:'),
+              DropdownButton<String>(
+                value: selectedPrioridad,
+                onChanged: (String? newValue) {
+                  setState(() {
+                    selectedPrioridad = newValue;
+                  });
+                },
+                items: <String?>['', 'Baja', 'Media', 'Alta']
+                    .map<DropdownMenuItem<String>>((String? value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value ?? 'Sin prioridad'),
+                  );
+                }).toList(),
+              ),
+            ],
+          );
+        },
       ),
       actions: [
         TextButton(
@@ -179,7 +195,7 @@ class _ReportListViewState extends ConsumerState<_ReportListView> {
         ElevatedButton(
           onPressed: () async {
             if (selectedPrioridad != null) {
-              //actualizar el valor en la anomalía
+              //actualiza el valor en la anomalía
               anomalia.prioridad = selectedPrioridad;
               // Actualiza la anomalía en el proveedor
               await ref
@@ -194,10 +210,85 @@ class _ReportListViewState extends ConsumerState<_ReportListView> {
                 ),
               );
             }
+            // Cierra el diálogo
+            Navigator.of(context).pop();
           },
           child: const Text('Asignar Prioridad'),
         ),
       ],
     );
   }
+
+  Widget _buildChangeStatusDialog(BuildContext context, AnomaliaModel anomalia) {
+  String? nuevoEstado = anomalia.idEstadoAnomalia;
+  print(anomalia.id);
+
+  return StatefulBuilder(
+    builder: (context, setState) {
+      return AlertDialog(
+        title: Text('Cambiar Estado'),
+        content: DropdownButton<String>(
+          value: nuevoEstado,
+          onChanged: (String? newValue) {
+            setState(() {
+            
+              nuevoEstado = newValue?.toLowerCase();
+              if (nuevoEstado != null && nuevoEstado!.isNotEmpty) {
+                nuevoEstado = nuevoEstado![0].toUpperCase() + nuevoEstado!.substring(1);
+              }
+            });
+          },
+          items: <String?>['', 'Pendiente', 'Rechazado', 'Proceso', 'Completado']
+              .map<DropdownMenuItem<String>>((String? value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value ?? ''),
+            );
+          }).toList(),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(); // Cerrar el diálogo
+            },
+            child: const Text('Cancelar'),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              if (nuevoEstado != null) {
+                // Actualiza el estado de la anomalía en el proveedor
+                anomalia.idEstadoAnomalia = nuevoEstado!;
+                await ref
+                    .read(anomaliaProvider.notifier)
+                    .update(anomalia.id ?? "", anomalia);
+
+               
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Se ha cambiado el estado con éxito'),
+                    duration: Duration(seconds: 2), // Duración del SnackBar
+                  ),
+                );
+              } else {
+                // Si el nuevo estado es null, muestra un mensaje de error
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Error: Debes seleccionar un estado válido'),
+                    duration: Duration(seconds: 2), // Duración del SnackBar
+                  ),
+                );
+              }
+              // Cierra el diálogo
+              Navigator.of(context).pop();
+            },
+            child: const Text('Guardar'),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+
+
 }
