@@ -145,7 +145,10 @@ class _HistorialPageState extends ConsumerState<HistorialPage> {
                         backgroundImage: imagenUrl != null ? NetworkImage(imagenUrl): null,
                       ),
                         onTap: () {
-                          Navigator.of(context).pushNamed(DetalleReportes.nombre);
+                          Navigator.of(context).pushNamed(
+                            DetalleReportes.nombre,
+                            arguments: report,
+                          );
                         },
                       ),
                     ),

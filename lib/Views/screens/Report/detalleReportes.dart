@@ -10,7 +10,9 @@ import 'package:gestionresidencial/main.dart';
 class DetalleReportes extends ConsumerStatefulWidget {
   static String nombre = 'detallesScreen';
 
-  const DetalleReportes({Key? key}) : super(key: key);
+  final AnomaliaModel anomalia;
+
+  const DetalleReportes({Key? key, required this.anomalia}) : super(key: key);
 
   @override
   _DetalleReportesState createState() => _DetalleReportesState();
@@ -22,8 +24,7 @@ class _DetalleReportesState extends ConsumerState<DetalleReportes> {
   @override
   void initState() {
     super.initState();
-    String idUserGot = ref.read(pkUserProvider.notifier).state;
-    anomaliasList = ref.read(anomaliaProvider.notifier).getAnomaliaById(idUserGot);
+
   }
 
   @override
@@ -41,33 +42,19 @@ class _DetalleReportesState extends ConsumerState<DetalleReportes> {
         ],
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       ),
-      body: FutureBuilder(
-        future: anomaliasList,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (snapshot.hasError) {
-            return Center(
-              child: Text('Error: ${snapshot.error}'),
-            );
-          } else {
-            List<AnomaliaModel> data = snapshot.data as List<AnomaliaModel>;
-            return upload(data.isNotEmpty ? data.first : null);
-          }
-        },
-      ),
+      body: upload(widget.anomalia), // Usar el objeto anomalia del widget
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.chat),  
         onPressed: () {
           Navigator.of(context).pushNamed(ChatPage.nombre);
-      },),
+        },
+      ),
     );
   }
 
   Widget upload(AnomaliaModel? data) {
     if (data != null) {
+      print(data.id);
       return Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(

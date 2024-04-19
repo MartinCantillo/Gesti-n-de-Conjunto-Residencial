@@ -16,6 +16,7 @@ ThemeData getThemeData(AppTheme theme) {
   const List<Color> colorThemes = [
     Colors.deepPurple,
     Colors.blue,
+    Colors.blueAccent,
     Colors.teal,
     Colors.green,
     Colors.yellow,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gestionresidencial/Views/screens/Login/login_screen.dart';
 
 import 'package:gestionresidencial/localstore/sharepreference.dart';
 
@@ -21,8 +22,42 @@ class _settingsPageState extends ConsumerState<settingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed: () => Navigator.pop(context), icon:  Icon(Icons.arrow_back_rounded, color: Theme.of(context).secondaryHeaderColor,)),
+        leading: IconButton(onPressed: () => Navigator.pop(context), 
+        icon:  Icon(Icons.arrow_back_rounded, 
+        color: Theme.of(context).secondaryHeaderColor,
+          ),
+        ),
+        actions: [
+          IconButton(onPressed: (){
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: const Text('Confirmación'),
+                  content:
+                      const Text('¿Quieres cerrar la sesión?'),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: const Text('No'),
+                    ),
+                    TextButton(
+                      onPressed: () =>
+                          Navigator.pushReplacementNamed(context, LoginPage.nombre), child: Text('Si'),
+                    ),
+                  ],
+                );
+              },
+            );
+            
+          }, icon: Icon(
+            Icons.logout,
+            color: Theme.of(context).secondaryHeaderColor,
+          ),
+          ),
+        ],
         backgroundColor: Theme.of(context).primaryColor,
+        
       ),
       body: Center(
         child: Container(

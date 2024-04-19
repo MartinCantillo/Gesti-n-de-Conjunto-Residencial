@@ -117,8 +117,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return ("El campo está vacío");
-                        } else if (value.length < 6) {
-                          return 'El usuario es incorrecto';
                         }
                         return null;
                       },
@@ -132,8 +130,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return ("El campo está vacío");
-                        } else if (value.length < 6) {
-                          return "La contraseña es incorrecta";
                         }
                         return null;
                       },

@@ -85,8 +85,8 @@ class reporteState extends ConsumerState<reporte> {
   }
 
   void _submitReport() async {
-    if (_formkey.currentState!.validate()) {}
-    try {
+    if (_formkey.currentState!.validate()) {
+      try {
       String idUserGot = ref.read(pkUserProvider.notifier).state;
       //  print("id user enviado a anomalia${idUserGot}");
       AnomaliaModel anomalia = AnomaliaModel(
@@ -104,61 +104,88 @@ class reporteState extends ConsumerState<reporte> {
       throw ('Error al enviar el reporte: $e');
     }
   }
+    }
+    
 
-  @override
+   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
+        backgroundColor: Theme.of(context).primaryColor,
+        elevation: 0,
         leading: IconButton(
           onPressed: () {
             showDialog(
-              context: context, 
-              builder: (BuildContext context) { 
-                
+              context: context,
+              builder: (BuildContext context) {
                 return AlertDialog(
                   title: const Text('Confirmación'),
                   content:
                       const Text('¿Seguro que desea abandonar el reporte?'),
                   actions: [
                     TextButton(
-                      onPressed: () => Navigator.of(context).pop(), 
+                      onPressed: () => Navigator.of(context).pop(),
                       child: const Text('No'),
                     ),
                     TextButton(
-                      onPressed: () => Navigator.of(context).popAndPushNamed(HomePage.nombre), 
+                      onPressed: () =>
+                          Navigator.of(context).popAndPushNamed(HomePage.nombre),
                       child: const Text('Si'),
                     ),
                   ],
                 );
-               },
+              },
             );
           },
           icon: const Icon(Icons.arrow_back_outlined),
         ),
       ),
-      body: Column(
-        children: [
-          const Column(
+body: Builder(
+  builder: (context) {
+    final Color primaryColor = Theme.of(context).primaryColor;
+    return Stack(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [primaryColor, Colors.white54],
+              stops: const [0.2, 1],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
+        ),
+        SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(
-                "Registro Reporte",
-                textAlign: TextAlign.center,
-                style: TextStyle(shadows: [
-                  Shadow(blurRadius: 0.5),
-                ], fontSize: 25),
+              const Column(
+                children: [
+                  Text(
+                    "Registro Reporte",
+                    
+                    textAlign: TextAlign.center,
+                    style: TextStyle(shadows: [
+                      Shadow(blurRadius: 0.5),
+                    ], fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold),
+                    
+                  ),
+                ],
+              ),
+              const SizedBox(height: 25),
+              const Divider(),
+              const SizedBox(height: 25.0),
+              Padding(
+                padding: const EdgeInsets.all(2.0),
+                child: FormReport(),
               ),
             ],
           ),
-          const SizedBox(height: 25),
-          const Divider(),
-          const SizedBox(height: 25.0),
-          Padding(
-            padding: const EdgeInsets.all(2.0),
-            child: FormReport(),
-          ),
-        ],
-      ),
+        ),
+      ],
+    );
+  },
+),
     );
   }
 
@@ -166,85 +193,83 @@ class reporteState extends ConsumerState<reporte> {
     return Form(
       key: _formkey,
       child: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: DropdownButtonFormField(
-                  value: selectedval,
-                  items: typeAnomaly
-                      .map((e) => DropdownMenuItem(
-                            value: e,
-                            child: Text(e),
-                          ))
-                      .toList(),
-                  onChanged: (val) {
-                    setState(() {
-                      selectedval = val as String;
-                    });
-                  },
-                  decoration: InputDecoration(
-                    labelText: "Tipo",
-                    enabledBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey.shade400),
-                    ),
-                    fillColor: Colors.grey.shade200,
-                    filled: true,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              child: DropdownButtonFormField(
+                value: selectedval,
+                items: typeAnomaly
+                    .map((e) => DropdownMenuItem(
+                          value: e,
+                          child: Text(e),
+                        ))
+                    .toList(),
+                onChanged: (val) {
+                  setState(() {
+                    selectedval = val as String;
+                  });
+                },
+                decoration: InputDecoration(
+                  labelText: "Tipo",
+                  enabledBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
                   ),
-                  validator: (value) {
-                    if (value == typeAnomaly[0]) {
-                      return ("Debe seleccionar el tipo de anomalia");
-                    }
-                    return null;
-                  },
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey.shade400),
+                  ),
+                  fillColor: Colors.grey.shade200,
+                  filled: true,
                 ),
-              ),
-              const SizedBox(height: 16.0),
-              MyTextField(
-                controller: subjectController,
-                //hintText: 'Asunto',
-                obscureText: false,
-                maxLines: 1,
-                labelText: "Asunto",
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return ("El asunto es requerido");
+                  if (value == typeAnomaly[0]) {
+                    return ("Debe seleccionar el tipo de anomalia");
                   }
                   return null;
                 },
               ),
-              const SizedBox(height: 10.0),
-              MyTextField(
-                  controller: descriptionController,
-                  //hintText: 'Descripcion',
-                  obscureText: false,
-                  maxLines: 5,
-                  labelText: "Descripcion",
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return ("Se necesita una descripcion del problema");
-                    }
-                    return null;
-                  }),
-              const SizedBox(height: 10.0),
-              CustomElevatedButton(
-                onPressed: _pickImage,
-                title: const Text('Subir evidencia'),
-              ),
-              const SizedBox(height: 10.0),
-              listEvidences(),
-              const SizedBox(height: 10.0),
-              CustomElevatedButton(
-                onPressed: _submitReport,
-                title: const Text('Enviar'),
-              ),
-            ],
-          ),
+            ),
+            const SizedBox(height: 16.0),
+            MyTextField(
+              controller: subjectController,
+              //hintText: 'Asunto',
+              obscureText: false,
+              maxLines: 1,
+              labelText: "Asunto",
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return ("El asunto es requerido");
+                }
+                return null;
+              },
+            ),
+            const SizedBox(height: 10.0),
+            MyTextField(
+                controller: descriptionController,
+                //hintText: 'Descripcion',
+                obscureText: false,
+                maxLines: 5,
+                labelText: "Descripcion",
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return ("Se necesita una descripcion del problema");
+                  }
+                  return null;
+                }),
+            const SizedBox(height: 10.0),
+            CustomElevatedButton(
+              onPressed: _pickImage,
+              title: const Text('Subir evidencia'),
+            ),
+            const SizedBox(height: 10.0),
+            listEvidences(),
+            const SizedBox(height: 10.0),
+            CustomElevatedButton(
+              onPressed: _submitReport,
+              title: const Text('Enviar'),
+            ),
+          ],
         ),
       ),
     );

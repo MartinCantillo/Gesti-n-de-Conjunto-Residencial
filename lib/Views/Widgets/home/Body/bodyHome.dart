@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:gestionresidencial/Views/screens/Report/detalleReportes.dart';
 
 import 'package:intl/intl.dart';
 
@@ -141,9 +142,9 @@ class BodyHomeState extends ConsumerState<BodyHome> {
             ),
           ],
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 2),
         SizedBox(
-          height: MediaQuery.of(context).size.height * 0.3,
+          height: MediaQuery.of(context).size.height * 0.31,
           child: ListView.builder(
             itemCount: data.length > 3 ? 3 : data.length,
             itemBuilder: (context, index) {
@@ -154,6 +155,12 @@ class BodyHomeState extends ConsumerState<BodyHome> {
                   title: Text(anomalia.tipoAnomalia ?? ""),
                   trailing: const Text('Pendiente'),
                   subtitle: Text(anomalia.fechaReporteAnomalia ?? ""),
+                  onTap: () {
+                  Navigator.of(context).pushNamed(
+                    DetalleReportes.nombre,
+                    arguments: anomalia,
+                          );
+                        },
                 ),
               );
             },
