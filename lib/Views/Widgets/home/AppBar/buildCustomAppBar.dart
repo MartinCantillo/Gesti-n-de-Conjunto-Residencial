@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gestionresidencial/Models/Residente.dart';
 
 import 'package:gestionresidencial/localstore/sharepreference.dart';
+import 'package:gestionresidencial/main.dart';
 
 class BuildCustomAppBar extends ConsumerStatefulWidget {
   const BuildCustomAppBar({super.key});
@@ -12,6 +14,7 @@ class BuildCustomAppBar extends ConsumerStatefulWidget {
 }
 
 class _BuildCustomAppBarState extends ConsumerState<BuildCustomAppBar> {
+  late Future<List<ResidenteModel>> residenteList;
   final prefs = PrefernciaUsuario();
   String dropdownValue = '';
   List<String> address = [];
@@ -19,14 +22,29 @@ class _BuildCustomAppBarState extends ConsumerState<BuildCustomAppBar> {
   @override
   void initState() {
     super.initState();
-    dropdownValue = prefs.apartment;
-    address = [
-      prefs.apartment
-    ]; // Inicializar la lista con el valor del apartamento
+    String idUserGot = ref.read(pkUserProvider.notifier).state;
+    residenteList = ref.read(residenteProvider.notifier).getResidenteById(idUserGot);
   }
 
   @override
   Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: residenteList,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError || (snapshot.data as List).isEmpty) {
+          return buildbody(context, null); // Mostrar un cuerpo vacío o un mensaje de error
+        } else {
+          return buildbody(context, snapshot.data);
+        }
+      },
+    );
+  }
+  Widget buildbody(BuildContext context, List<ResidenteModel>? residenteData) {
+    final residente = residenteData?.first;
+    address = residenteData?.map((residente) => residente.numApartamento ??"").toList()??[];
+    dropdownValue = residente?.numApartamento ?? "";
     return Positioned(
       top: 0,
       left: 0,
@@ -63,7 +81,7 @@ class _BuildCustomAppBarState extends ConsumerState<BuildCustomAppBar> {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             height: kToolbarHeight, // Altura de la barra de aplicación
             child: Text(
-              prefs.nombreusuario,
+              residente?.nombreResidente ?? "",
               style: TextStyle(
                   fontSize: 40,
                   color: Theme.of(context).scaffoldBackgroundColor,

@@ -8,7 +8,14 @@ import 'package:gestionresidencial/Views/screens/Report/detalleReportes.dart';
 import 'package:gestionresidencial/Views/screens/Home/HomePage.dart';
 
 import 'package:gestionresidencial/main.dart';
-
+class Estadoanomaliacolor{
+  static final Map<String, Color> estadoColor = {
+    'Pendiente':Colors.orange,
+    'Proceso':  Colors.blue,
+    'Completado':Colors.green,
+    'Rechazado':Colors.red,
+  };
+}
 class HistorialPage extends ConsumerStatefulWidget {
   static const String nombre = 'historialPage';
   const HistorialPage({Key? key}) : super(key: key);
@@ -27,6 +34,7 @@ class _HistorialPageState extends ConsumerState<HistorialPage> {
     'Otro': 'https://static.vecteezy.com/system/resources/thumbnails/007/126/739/small/question-mark-icon-free-vector.jpg'
 
   };
+ 
 
   @override
   void initState() {
@@ -76,6 +84,7 @@ class _HistorialPageState extends ConsumerState<HistorialPage> {
               return const Center(child: Text('No hay reportes'));
             } else {
               return ListView.builder(
+                
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
                   final report = snapshot.data![index];
@@ -131,13 +140,13 @@ class _HistorialPageState extends ConsumerState<HistorialPage> {
                         color: Colors.white,
                       ),
                       child: ListTile(
+                        
                         title: Text('${report.tipoAnomalia}'),
                         subtitle: Text('${report.asuntoAnomalia}'),
                         trailing: Column(
                         children: [
                           Text('${report.idEstadoAnomalia}'
-                          ,style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),
-        
+                          ,style: TextStyle(color: Estadoanomaliacolor.estadoColor[report.idEstadoAnomalia],fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -162,3 +171,5 @@ class _HistorialPageState extends ConsumerState<HistorialPage> {
     );
   }
 }
+
+

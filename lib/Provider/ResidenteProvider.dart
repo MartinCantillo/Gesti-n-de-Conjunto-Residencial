@@ -44,6 +44,37 @@ class ResidenteProvider extends StateNotifier<List<ResidenteModel>> {
       throw Exception("Error $e");
     }
   }
+  Future<List<ResidenteModel>> getResidenteById(String idUser) async {
+    
+    try {
+      final url = '$endpoint/Residente.json';
+      final response = await http.get(Uri.parse(url));
+      
+      if (response.statusCode == 200) {
+        String body = utf8.decode(response.bodyBytes);
+        final jsonData = jsonDecode(body);
+        
+        // Verificar si el cuerpo de la respuesta está vacío
+        if (jsonData == null || jsonData.isEmpty) {
+          throw Exception("Respuesta null");
+        }
+
+        // Verificar si alguno de los documentos contiene el idUser
+        final listData = Residente.fromJsonListById(jsonData, idUser);
+
+        if (listData.residenteListbyUser.isEmpty) {
+          throw Exception(" No se encontraron anomalías para el idUser");
+        }
+        
+        state = listData.residenteListbyUser;
+        return listData.residenteListbyUser;
+      } else {
+        throw Exception("Ocurrió algo ${response.statusCode}");
+      }
+    } catch (e) {
+      throw Exception (e);
+    }
+  }
 
   Future<int> delete(String id) async {
     try {

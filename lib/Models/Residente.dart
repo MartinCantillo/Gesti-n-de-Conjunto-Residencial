@@ -2,6 +2,7 @@ import 'dart:convert';
 
 class Residente {
   List<ResidenteModel> residenteList = [];
+  List<ResidenteModel> residenteListbyUser = [];
 
   Residente.fromJsonList(json) {
     if (json == null) {
@@ -20,7 +21,27 @@ class Residente {
       });
     }
   }
+  Residente.fromJsonListById(jsonList, idUser) {
+    if (idUser == null) {
+      return;
+    } else {
+      jsonList.forEach((id, val) {
+          try {
+            final value = ResidenteModel.fromMap(val);
+            value.id = id;
+          if (value.idUser == idUser) {
+            residenteListbyUser.add(value);
+          }
+          } catch (e) {
+            throw Error();
+          }
+        }
+      );
+    }
+  }
 }
+ 
+
 
 class ResidenteModel {
   String? id;

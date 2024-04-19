@@ -55,6 +55,7 @@ class BodyHomeState extends ConsumerState<BodyHome> {
         }
       },
     );
+    
   }
 
   Widget buildBody(BuildContext context, dynamic data) {
@@ -153,14 +154,9 @@ class BodyHomeState extends ConsumerState<BodyHome> {
                 color: Theme.of(context).scaffoldBackgroundColor,
                 child: ListTile(
                   title: Text(anomalia.tipoAnomalia ?? ""),
-                  trailing: const Text('Pendiente'),
+                  trailing: Text(anomalia.idEstadoAnomalia ?? "",
+                  style: TextStyle(color: Estadoanomaliacolor.estadoColor[anomalia.idEstadoAnomalia]),),
                   subtitle: Text(anomalia.fechaReporteAnomalia ?? ""),
-                  onTap: () {
-                  Navigator.of(context).pushNamed(
-                    DetalleReportes.nombre,
-                    arguments: anomalia,
-                          );
-                        },
                 ),
               );
             },
