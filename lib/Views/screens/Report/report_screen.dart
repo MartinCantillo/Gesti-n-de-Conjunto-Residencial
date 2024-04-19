@@ -149,7 +149,7 @@ body: Builder(
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [primaryColor, Colors.white54],
-              stops: const [0.2, 1],
+              stops: const [0.1, 0.4],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),
@@ -212,7 +212,6 @@ body: Builder(
                   });
                 },
                 decoration: InputDecoration(
-                  labelText: "Tipo",
                   enabledBorder: const OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white),
                   ),
