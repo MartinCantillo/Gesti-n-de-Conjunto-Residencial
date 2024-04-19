@@ -92,15 +92,17 @@ class _ReportListViewState extends ConsumerState<_ReportListView> {
                     snapshot.data?.where((anomalia) {
                   switch (currentFilter) {
                     case TodoFilter.pending:
-                      return anomalia.idEstadoAnomalia == 'Pendiente';
+                      return anomalia.idEstadoAnomalia == 'pendiente';
                     case TodoFilter.rejected:
-                      return anomalia.idEstadoAnomalia == 'Rechazado';
-                     case TodoFilter.process:
-                      return anomalia.idEstadoAnomalia == 'Proceso';
-                      
-                    
+                      return anomalia.idEstadoAnomalia == 'rechazado';
+                    case TodoFilter.process:
+                      return anomalia.idEstadoAnomalia == 'proceso';
+                    case TodoFilter
+                          .completed: 
+                      return anomalia.idEstadoAnomalia == 'completado';
+
                     default:
-                      return true; // Para el caso de 'Todos' y cualquier otro estado no definido
+                      return true; 
                   }
                 }).toList();
 
