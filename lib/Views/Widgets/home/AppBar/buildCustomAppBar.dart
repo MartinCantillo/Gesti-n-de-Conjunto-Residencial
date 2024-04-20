@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:gestionresidencial/Models/Residente.dart';
 
+import 'package:gestionresidencial/Views/screens/Notification/notification_screen.dart';
+
 import 'package:gestionresidencial/localstore/sharepreference.dart';
+
 import 'package:gestionresidencial/main.dart';
 
 class BuildCustomAppBar extends ConsumerStatefulWidget {
@@ -71,7 +75,7 @@ class _BuildCustomAppBarState extends ConsumerState<BuildCustomAppBar> {
                   icon: const Icon(Icons.notifications_outlined),
                   color: Theme.of(context).secondaryHeaderColor,
                   onPressed: () {
-                    // Acción para mostrar las notificaciones
+                    Navigator.of(context).pushNamed(NotificationPage.nombre);
                   },
                 ),
               ],

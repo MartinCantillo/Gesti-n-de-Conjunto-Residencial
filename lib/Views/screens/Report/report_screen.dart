@@ -128,7 +128,7 @@ class reporteState extends ConsumerState<reporte> {
                     ),
                     TextButton(
                       onPressed: () => Navigator.of(context)
-                          .popAndPushNamed(HomePage.nombre),
+                          .pushReplacementNamed(HomePage.nombre),
                       child: const Text('Si'),
                     ),
                   ],

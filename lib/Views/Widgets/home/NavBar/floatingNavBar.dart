@@ -24,7 +24,10 @@ class FloatingNavBarState extends ConsumerState<FloatingNavBar> {
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
           color: Theme.of(context).primaryColor.withOpacity(0.3),
-          borderRadius: const BorderRadius.all(Radius.circular(20)),
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(20), 
+            topRight: Radius.circular(20),
+          ),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -35,9 +38,7 @@ class FloatingNavBarState extends ConsumerState<FloatingNavBar> {
                   color: _selectedIndex == 0
                       ? Theme.of(context).primaryColor
                       : null),
-                  () => _selectedIndex == 0
-                    ? null
-                    : () => Navigator.of(context).pushNamed(HomePage.nombre),
+                  () => Navigator.of(context).pushNamed(HomePage.nombre),
             ),
             iconButtonNavBar(
                 context,

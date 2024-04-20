@@ -21,20 +21,23 @@ final GlobalKey<NavigatorState> homeNavigatorKey = GlobalKey<NavigatorState>();
 class HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        // Bloquea la navegación hacia atrás
-        return false;
-      },
-      child: Scaffold(
-        body: const Stack(
-          children: [
-            BodyHome(),
-            BuildCustomAppBar(),
-          ],
+    return SafeArea(
+      child: WillPopScope(
+        onWillPop: () async {
+          // Bloquea la navegación hacia atrás
+          return false;
+        },
+        child: Scaffold(
+          appBar: null,
+          body: const Stack(
+            children: [
+              BodyHome(),
+              BuildCustomAppBar(),
+            ],
+          ),
+          bottomNavigationBar: const FloatingNavBar(),
+          floatingActionButton: addButton(context),
         ),
-        bottomNavigationBar: const FloatingNavBar(),
-        floatingActionButton: addButton(context),
       ),
     );
   }

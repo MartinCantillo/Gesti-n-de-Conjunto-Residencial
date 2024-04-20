@@ -22,7 +22,7 @@ class _settingsPageState extends ConsumerState<settingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed: () => Navigator.pop(context), 
+        leading: IconButton(onPressed: () => Navigator.of(context).pop(), 
         icon:  Icon(Icons.arrow_back_rounded, 
         color: Theme.of(context).secondaryHeaderColor,
           ),

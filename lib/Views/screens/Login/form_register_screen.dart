@@ -19,7 +19,7 @@ class FormRegisterPage extends ConsumerStatefulWidget {
   static String nombre = 'FormRegister';
 
   @override
-  _FormRegisterPageState createState() => _FormRegisterPageState();
+  ConsumerState createState() => _FormRegisterPageState();
 }
 
 class _FormRegisterPageState extends ConsumerState<FormRegisterPage> {
@@ -44,12 +44,14 @@ class _FormRegisterPageState extends ConsumerState<FormRegisterPage> {
             idUser: idUserGot);
         prefs.apartment = numberApartmentController.text;
         // Guardar el usuario usando UserProvider
+        // ignore: unused_local_variable
         String response =
             await ref.read(residenteProvider.notifier).save(residenteModel);
         //print('registro guardado con éxito: $response');
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text("¡Genial, se guardó correctamente!"),
+            content: Text("¡Guardado exitoxamente!"),
             duration: Duration(seconds: 2),
           ),
         );
@@ -145,7 +147,7 @@ class _FormRegisterPageState extends ConsumerState<FormRegisterPage> {
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return ("El campo está vacío");
-                          } else if (!RegExp(r'^\[0-9]+$').hasMatch(value)) {
+                          } else if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
                             return "Ingrese un número de teléfono válido";
                           } else if (value.length < 10) {
                             return "El número de teléfono debe tener al menos 10 dígitos";

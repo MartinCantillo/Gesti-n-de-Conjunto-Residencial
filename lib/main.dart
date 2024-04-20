@@ -31,6 +31,7 @@ import 'package:gestionresidencial/Views/screens/Report/detailsReport_screen.dar
 import 'package:gestionresidencial/Views/screens/Report/detalleReportes.dart';
 import 'package:gestionresidencial/Views/screens/Report/report_screen.dart';
 import 'package:gestionresidencial/Views/screens/Config/settings_screen.dart';
+import 'package:gestionresidencial/Views/screens/Notification/notification_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -72,6 +73,7 @@ class MyApp extends ConsumerWidget {
         },
         FormRegisterPage.nombre: (context) => const FormRegisterPage(),
         ListAnomalias.nombre: (context) => const ListAnomalias(),
+        NotificationPage.nombre: (context) => const NotificationPage(),
       },
     );
   }

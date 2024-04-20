@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:gestionresidencial/Models/Anomalia.dart';
+import 'package:gestionresidencial/Views/Widgets/home/NavBar/floatingNavBar.dart';
 
 import 'package:gestionresidencial/Views/screens/Report/detalleReportes.dart';
 import 'package:gestionresidencial/Views/screens/Home/HomePage.dart';
@@ -65,7 +66,7 @@ class _HistorialPageState extends ConsumerState<HistorialPage> {
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).popAndPushNamed(HomePage.nombre);
+            Navigator.of(context).pop();
           },
           icon: const Icon(Icons.arrow_back_outlined),
           
@@ -168,6 +169,7 @@ class _HistorialPageState extends ConsumerState<HistorialPage> {
           },
         ),
       ),
+      bottomNavigationBar: const FloatingNavBar(),
     );
   }
 }

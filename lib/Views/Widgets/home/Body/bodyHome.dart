@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:gestionresidencial/Views/screens/Report/detalleReportes.dart';
 
 import 'package:intl/intl.dart';
 
@@ -27,7 +26,6 @@ class BodyHome extends ConsumerStatefulWidget {
   @override
   BodyHomeState createState() => BodyHomeState();
 }
-
 class BodyHomeState extends ConsumerState<BodyHome> {
   late Future<List<AnomaliaModel>> anomaliasList;
   final prefs = PrefernciaUsuario();
@@ -55,7 +53,6 @@ class BodyHomeState extends ConsumerState<BodyHome> {
         }
       },
     );
-    
   }
 
   Widget buildBody(BuildContext context, dynamic data) {
@@ -63,6 +60,32 @@ class BodyHomeState extends ConsumerState<BodyHome> {
       children: [
         Column(
           children: [
+            Container(
+              padding: EdgeInsets.only(
+                top: MediaQuery.of(context).padding.top,
+                left: 16,
+                right: 16,
+              ),
+              height: 56 + MediaQuery.of(context).padding.top,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor, // Puedes cambiar el color según tus preferencias
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  
+                ],
+              ),
+            ),
             Expanded(
               flex: 1,
               child: Stack(
@@ -73,7 +96,7 @@ class BodyHomeState extends ConsumerState<BodyHome> {
                       clipper: ShapeClipperAppBar(),
                       child: Container(
                         color: Theme.of(context).primaryColor,
-                        height: MediaQuery.of(context).size.height * 0.35,
+                        height: MediaQuery.of(context).size.height * 0.31,
                         alignment: Alignment.center,
                       ),
                     ),
@@ -82,7 +105,7 @@ class BodyHomeState extends ConsumerState<BodyHome> {
                     clipper: ShapeClipperAppBar(),
                     child: Container(
                       color: Theme.of(context).primaryColor,
-                      height: MediaQuery.of(context).size.height * 0.33,
+                      height: MediaQuery.of(context).size.height * 0.29,
                     ),
                   ),
                 ],
@@ -154,8 +177,12 @@ class BodyHomeState extends ConsumerState<BodyHome> {
                 color: Theme.of(context).scaffoldBackgroundColor,
                 child: ListTile(
                   title: Text(anomalia.tipoAnomalia ?? ""),
-                  trailing: Text(anomalia.idEstadoAnomalia ?? "",
-                  style: TextStyle(color: Estadoanomaliacolor.estadoColor[anomalia.idEstadoAnomalia]),),
+                  trailing: Text(
+                    anomalia.idEstadoAnomalia ?? "",
+                    style: TextStyle(
+                        color: Estadoanomaliacolor
+                            .estadoColor[anomalia.idEstadoAnomalia]),
+                  ),
                   subtitle: Text(anomalia.fechaReporteAnomalia ?? ""),
                 ),
               );
@@ -222,12 +249,13 @@ class BodyHomeState extends ConsumerState<BodyHome> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 15.0),
               child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Opacity(
-                opacity: 0.9,
-                child: Image.asset("assets/images/new.png",
-                  fit: BoxFit.fill,
-                ),
+                borderRadius: BorderRadius.circular(20),
+                child: Opacity(
+                  opacity: 0.9,
+                  child: Image.asset(
+                    "assets/images/new.png",
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
             ),
@@ -237,7 +265,7 @@ class BodyHomeState extends ConsumerState<BodyHome> {
                 color: Theme.of(context).scaffoldBackgroundColor,
                 elevation: 2,
                 child: Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
