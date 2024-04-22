@@ -71,7 +71,7 @@ class _HistorialPageState extends ConsumerState<HistorialPage> {
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.of(context).pushReplacementNamed(HomePage.nombre);
           },
           icon: const Icon(Icons.arrow_back_outlined),
         ),

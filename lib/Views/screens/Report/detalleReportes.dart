@@ -61,26 +61,26 @@ class _DetalleReportesState extends ConsumerState<DetalleReportes> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'Asunto:',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              'Tipo:',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
-            Text('${data.asuntoAnomalia}'),
+            Text('${data.tipoAnomalia}',style: TextStyle(fontSize: 18),),
             const SizedBox(height: 20), // Añade un espacio entre los textos
             const Text(
-              'Tipo:',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              'Asunto:',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
-            Text('${data.tipoAnomalia}'),
+            Text('${data.asuntoAnomalia}',style: TextStyle(fontSize: 18)),
             const SizedBox(height: 20), // Añade un espacio entre los textos
             const Text(
               'Descripción:',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
-            Text('${data.descripcionAnomalia}'),
+            Text('${data.descripcionAnomalia}',style: TextStyle(fontSize: 18)),
             const SizedBox(height: 20), // Añade un espacio entre los textos
             const Text(
               'Evidencia:',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),
             ),
             const SizedBox(height: 10), // Añade un espacio entre los textos
             Container(

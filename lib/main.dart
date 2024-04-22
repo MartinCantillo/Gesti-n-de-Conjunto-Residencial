@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gestionresidencial/Models/Banner.dart';
+import 'package:gestionresidencial/Provider/BannerProvider.dart';
+import 'package:gestionresidencial/Views/screens/Historial/historialbanner_screen.dart';
+import 'package:gestionresidencial/Views/screens/Report/BannerReport.dart';
 
 import 'package:gestionresidencial/config/themes/app_themes.dart';
 
@@ -74,6 +78,8 @@ class MyApp extends ConsumerWidget {
         FormRegisterPage.nombre: (context) => const FormRegisterPage(),
         ListAnomalias.nombre: (context) => const ListAnomalias(),
         NotificationPage.nombre: (context) => const NotificationPage(),
+        BannerReport.nombre: (context) => const BannerReport(),
+        BannerScreen.nombre: (context) => const BannerScreen()
       },
     );
   }
@@ -110,7 +116,11 @@ final userAuthenticatedProviderr =
 final themeProvider = StateProvider<AppTheme>((ref) {
   return AppTheme.Light;
 });
-
+final bannerProvider =
+    StateNotifierProvider<BannerProvider, List<BannerModel>>((ref) {
+  return BannerProvider([]);
+});
+final pkBannerProvider =StateProvider<String>((ref) => "");
 final pkAdminProvider = StateProvider<String>((ref) => "");
 final pkAnomaliaProvider = StateProvider<String>((ref) => "");
 final pkEstadoAnomaliaProvider = StateProvider<String>((ref) => "");

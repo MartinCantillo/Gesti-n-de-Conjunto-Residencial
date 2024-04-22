@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gestionresidencial/Models/Anomalia.dart';
 import 'package:gestionresidencial/Provider/todoProvider/todoProvider.dart';
 import 'package:gestionresidencial/Views/screens/Chat/chat_screen.dart';
+import 'package:gestionresidencial/Views/screens/Report/BannerReport.dart';
 import 'package:gestionresidencial/main.dart';
 
 class HomeAdmin extends ConsumerStatefulWidget {
@@ -23,9 +24,9 @@ class _HomeAdminState extends ConsumerState<HomeAdmin> {
       ),
       body: const _ReportListView(),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.message),
+        child: const Icon(Icons.add),
         onPressed: () {
-          Navigator.pushNamed(context, ChatPage.nombre);
+          Navigator.pushReplacementNamed(context, BannerReport.nombre);
         },
       ),
     );
@@ -60,12 +61,11 @@ class _ReportListViewState extends ConsumerState<_ReportListView> {
         ),
         SegmentedButton(
           segments: const [
-            ButtonSegment(value: TodoFilter.all, icon: Text('Todos')),
             ButtonSegment(
-                value: TodoFilter.completed, icon: Text('Completados')),
-            ButtonSegment(value: TodoFilter.pending, icon: Text('Pendientes')),
-            ButtonSegment(value: TodoFilter.process, icon: Text('Proceso')),
-            ButtonSegment(value: TodoFilter.rejected, icon: Text('Rechazado')),
+                value: TodoFilter.completed, icon: Text('Completados',style: TextStyle(fontSize: 12),)),
+            ButtonSegment(value: TodoFilter.pending, icon: Text('Pendientes',style: TextStyle(fontSize: 12))),
+            ButtonSegment(value: TodoFilter.process, icon: Text('Proceso',style: TextStyle(fontSize: 12))),
+            ButtonSegment(value: TodoFilter.rejected, icon: Text('Rechazado',style: TextStyle(fontSize: 12))),
           ],
           selected: <TodoFilter>{currentFilter},
           onSelectionChanged: (value) {

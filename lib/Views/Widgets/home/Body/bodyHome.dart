@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:gestionresidencial/Models/Banner.dart';
 
 import 'package:intl/intl.dart';
 
@@ -28,6 +29,7 @@ class BodyHome extends ConsumerStatefulWidget {
 }
 class BodyHomeState extends ConsumerState<BodyHome> {
   late Future<List<AnomaliaModel>> anomaliasList;
+  late Future<List<BannerModel>>  bannersList;
   final prefs = PrefernciaUsuario();
 
   @override
@@ -35,8 +37,8 @@ class BodyHomeState extends ConsumerState<BodyHome> {
     super.initState();
     String idUserGot = ref.read(pkUserProvider.notifier).state;
     // String idUserGot = "123";
-    anomaliasList =
-        ref.read(anomaliaProvider.notifier).getAnomaliaById(idUserGot);
+    anomaliasList =ref.read(anomaliaProvider.notifier).getAnomaliaById(idUserGot);
+    bannersList = ref.read(bannerProvider.notifier).getAll();
   }
 
   @override
@@ -47,15 +49,16 @@ class BodyHomeState extends ConsumerState<BodyHome> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError || (snapshot.data as List).isEmpty) {
-          return buildBody(context, dataVacia);
+          return buildBody(context, dataVacia, []);
         } else {
-          return buildBody(context, snapshot.data);
+          return buildBody(context, snapshot.data, bannersList);
         }
       },
     );
   }
+  
 
-  Widget buildBody(BuildContext context, dynamic data) {
+  Widget buildBody(BuildContext context, dynamic data, dynamic bannerList) {
     return Stack(
       children: [
         Column(
@@ -126,7 +129,7 @@ class BodyHomeState extends ConsumerState<BodyHome> {
                   child: dateCardWidget(),
                 ),
                 Expanded(
-                  child: buildBannerNotification(),
+                  child: build2(context),
                 ),
               ],
             ),
@@ -142,6 +145,7 @@ class BodyHomeState extends ConsumerState<BodyHome> {
       ],
     );
   }
+  
 
   Column listMisReportes(data) {
     return Column(
@@ -237,81 +241,94 @@ class BodyHomeState extends ConsumerState<BodyHome> {
       ],
     );
   }
+  Widget build2(BuildContext context) {
+  return FutureBuilder(
+    future: bannersList,
+    builder: (context, snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return const Center(child: CircularProgressIndicator());
+      } else if (snapshot.hasError || (snapshot.data as List).isEmpty) {
+        return Container(); // Podemos devolver un widget vacío si no hay banners
+      } else {
+        return buildBannerCarousel(snapshot.data!); // Pasamos snapshot.data directamente
+      }
+    },
+  );
+}
 
   final List<AnomaliaModel> dataVacia = [];
 
-  Widget buildBannerNotification() {
-    return Column(
-      children: [
-        CarouselSlider(
-          options: CarouselOptions(viewportFraction: 1, autoPlay: true),
-          items: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 15.0),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Opacity(
-                  opacity: 0.9,
-                  child: Image.asset(
-                    "assets/images/new.png",
-                    fit: BoxFit.fill,
-                  ),
-                ),
-              ),
+   Widget buildBannerCarousel(List<BannerModel> banners) {
+  return CarouselSlider(
+    options: CarouselOptions(viewportFraction: 1, autoPlay: true,height: MediaQuery.of(context).size.height * 0.2),
+    items: [
+      // Agregar la imagen como primer elemento
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: 15.0),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Opacity(
+            opacity: 0.9,
+            child: Image.asset(
+              "assets/images/new.png",
+              fit: BoxFit.fill,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 15.0),
-              child: Card(
-                color: Theme.of(context).scaffoldBackgroundColor,
-                elevation: 2,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+          ),
+        ),
+      ),
+      ...banners.map((banner) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 15.0),
+          child: Card(
+            color: Theme.of(context).scaffoldBackgroundColor,
+            elevation: 2,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            'Administración',
-                            style: TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                          Text(
-                            DateFormat.Hm().format(DateTime.now()),
-                            style: const TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 8),
                       const Text(
-                        'Mantenimiento del Lobby',
+                        'Administración',
                         style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                          fontSize: 10,
+                          fontWeight: FontWeight.normal,
                         ),
                       ),
-                      const SizedBox(height: 8),
-                      const Text(
-                        'Lorem ipsum dolor',
-                        style: TextStyle(
+                      Text(
+                        banner.fecha ?? "",
+                        style: const TextStyle(
                           fontSize: 12,
+                          color: Colors.grey,
                         ),
                       ),
-                      const SizedBox(height: 8),
                     ],
                   ),
-                ),
+                  const SizedBox(height: 8),
+                  Text(
+                    banner.titulo ?? "",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    banner.descripcion ?? "",
+                    style: TextStyle(
+                      fontSize: 12,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                ],
               ),
             ),
-          ],
-        ),
-      ],
-    );
-  }
+          ),
+        );
+      }).toList(),
+    ],
+  );
+}
 }

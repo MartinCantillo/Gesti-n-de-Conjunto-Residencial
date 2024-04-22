@@ -93,7 +93,7 @@ class reporteState extends ConsumerState<reporte> {
         //  print("id user enviado a anomalia${idUserGot}");
         AnomaliaModel anomalia = AnomaliaModel(
             descripcionAnomalia: descriptionController.text,
-            fechaReporteAnomalia: DateFormat('dd/MM/yyyy HH:mm').format(DateTime.now()),
+            fechaReporteAnomalia: DateFormat('dd/MM/yyyy H:m').format(DateTime.now()),
             tipoAnomalia: selectedval,
             fotoAnomalia: 'img',
             idEstadoAnomalia: 'Pendiente',
