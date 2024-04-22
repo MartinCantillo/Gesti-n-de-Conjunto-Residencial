@@ -60,7 +60,7 @@ class FloatingNavBarState extends ConsumerState<FloatingNavBar> {
                     color: _selectedIndex == 3
                         ? Theme.of(context).primaryColor
                         : null),
-                () => Navigator.of(context).pushNamed(settingsPage.nombre)),
+                () => Navigator.of(context).pushNamed(SettingsPage.nombre)),
           ],
         ),
       ),

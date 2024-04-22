@@ -62,7 +62,7 @@ class MyApp extends ConsumerWidget {
         MyHomePage.nombre: (context) => const MyHomePage(),
         HistorialPage.nombre: (context) => const HistorialPage(),
         ChatPage.nombre: (context) => const ChatPage(),
-        settingsPage.nombre: (context) => const settingsPage(),
+        SettingsPage.nombre: (context) => const SettingsPage(),
         reporte.nombre: (context) => const reporte(),
         HomeAdmin.nombre: (context) => const HomeAdmin(),
         HomePage.nombre: (context) => const HomePage(),

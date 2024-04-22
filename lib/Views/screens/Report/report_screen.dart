@@ -18,6 +18,8 @@ import 'package:gestionresidencial/main.dart';
 
 import 'package:image_picker/image_picker.dart';
 
+import 'package:intl/intl.dart';
+
 class ReportPage {
   final String subject;
   final String description;
@@ -91,7 +93,7 @@ class reporteState extends ConsumerState<reporte> {
         //  print("id user enviado a anomalia${idUserGot}");
         AnomaliaModel anomalia = AnomaliaModel(
             descripcionAnomalia: descriptionController.text,
-            fechaReporteAnomalia: DateTime.now().toString(),
+            fechaReporteAnomalia: DateFormat('dd/MM/yyyy HH:mm').format(DateTime.now()),
             tipoAnomalia: selectedval,
             fotoAnomalia: 'img',
             idEstadoAnomalia: 'Pendiente',

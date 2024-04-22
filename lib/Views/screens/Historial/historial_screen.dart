@@ -9,14 +9,16 @@ import 'package:gestionresidencial/Views/screens/Report/detalleReportes.dart';
 import 'package:gestionresidencial/Views/screens/Home/HomePage.dart';
 
 import 'package:gestionresidencial/main.dart';
-class Estadoanomaliacolor{
+
+class Estadoanomaliacolor {
   static final Map<String, Color> estadoColor = {
-    'Pendiente':Colors.orange,
-    'Proceso':  Colors.blue,
-    'Completado':Colors.green,
-    'Rechazado':Colors.red,
+    'Pendiente': Colors.orange,
+    'Proceso': Colors.blue,
+    'Completado': Colors.green,
+    'Rechazado': Colors.red,
   };
 }
+
 class HistorialPage extends ConsumerStatefulWidget {
   static const String nombre = 'historialPage';
   const HistorialPage({Key? key}) : super(key: key);
@@ -28,14 +30,16 @@ class HistorialPage extends ConsumerStatefulWidget {
 class _HistorialPageState extends ConsumerState<HistorialPage> {
   late Future<List<AnomaliaModel>> anomaliasList;
   final Map<String, String> _tipoAnomaliaImagenes = {
-    'Infraestructura': 'https://cdn-icons-png.flaticon.com/512/9147/9147877.png',
+    'Infraestructura':
+        'https://cdn-icons-png.flaticon.com/512/9147/9147877.png',
     'Seguridad': 'https://cdn-icons-png.flaticon.com/512/8631/8631499.png',
-    'Incidente Médico': 'https://media.istockphoto.com/id/1321617070/es/vector/logotipo-m%C3%A9dico-de-salud.jpg?s=612x612&w=0&k=20&c=BsQIM8iPSDMgR8eQZNOjpd0Q2JuuhyM9dMOC7fFgHC4=',
-    'Servicios Públicos': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2rvBncx8szJO-kyRfk7t6Pgxfx5YKrPzVHisfCG-DIhbsbOQ4XBlfyJ4p09hYS8pOECo&usqp=CAU',
-    'Otro': 'https://static.vecteezy.com/system/resources/thumbnails/007/126/739/small/question-mark-icon-free-vector.jpg'
-
+    'Incidente Médico':
+        'https://media.istockphoto.com/id/1321617070/es/vector/logotipo-m%C3%A9dico-de-salud.jpg?s=612x612&w=0&k=20&c=BsQIM8iPSDMgR8eQZNOjpd0Q2JuuhyM9dMOC7fFgHC4=',
+    'Servicios Públicos':
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2rvBncx8szJO-kyRfk7t6Pgxfx5YKrPzVHisfCG-DIhbsbOQ4XBlfyJ4p09hYS8pOECo&usqp=CAU',
+    'Otro':
+        'https://static.vecteezy.com/system/resources/thumbnails/007/126/739/small/question-mark-icon-free-vector.jpg'
   };
- 
 
   @override
   void initState() {
@@ -60,6 +64,7 @@ class _HistorialPageState extends ConsumerState<HistorialPage> {
 
   @override
   Widget build(BuildContext context) {
+    int _selectedIndex = 1;
     // Obtenemos los datos de anomalías del provider
     return Scaffold(
       appBar: AppBar(
@@ -69,7 +74,6 @@ class _HistorialPageState extends ConsumerState<HistorialPage> {
             Navigator.of(context).pop();
           },
           icon: const Icon(Icons.arrow_back_outlined),
-          
         ),
       ),
       body: Padding(
@@ -85,7 +89,6 @@ class _HistorialPageState extends ConsumerState<HistorialPage> {
               return const Center(child: Text('No hay reportes'));
             } else {
               return ListView.builder(
-                
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
                   final report = snapshot.data![index];
@@ -98,16 +101,16 @@ class _HistorialPageState extends ConsumerState<HistorialPage> {
                     background: Positioned(
                       right: 0,
                       child: Container(
-                      padding: const EdgeInsets.only(left: 150),
-                      margin: const EdgeInsets.symmetric(horizontal:20, vertical: 4),
-                      color: Colors.red,
-                      child: const Icon(
-                        Icons.delete,
-                        color: Colors.white,
-                        size: 30,
-                                      ),
-                            
-                                    ),
+                        padding: const EdgeInsets.only(left: 150),
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 4),
+                        color: Colors.red,
+                        child: const Icon(
+                          Icons.delete,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                      ),
                     ),
                     onDismissed: (direction) async {
                       if (direction == DismissDirection.endToStart) {
@@ -141,19 +144,24 @@ class _HistorialPageState extends ConsumerState<HistorialPage> {
                         color: Colors.white,
                       ),
                       child: ListTile(
-                        
                         title: Text('${report.tipoAnomalia}'),
                         subtitle: Text('${report.asuntoAnomalia}'),
                         trailing: Column(
-                        children: [
-                          Text('${report.idEstadoAnomalia}'
-                          ,style: TextStyle(color: Estadoanomaliacolor.estadoColor[report.idEstadoAnomalia],fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                      leading: CircleAvatar(
-                        backgroundImage: imagenUrl != null ? NetworkImage(imagenUrl): null,
-                      ),
+                          children: [
+                            Text(
+                              '${report.idEstadoAnomalia}',
+                              style: TextStyle(
+                                  color: Estadoanomaliacolor
+                                      .estadoColor[report.idEstadoAnomalia],
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                        leading: CircleAvatar(
+                          backgroundImage: imagenUrl != null
+                              ? NetworkImage(imagenUrl)
+                              : null,
+                        ),
                         onTap: () {
                           Navigator.of(context).pushNamed(
                             DetalleReportes.nombre,
@@ -169,9 +177,7 @@ class _HistorialPageState extends ConsumerState<HistorialPage> {
           },
         ),
       ),
-      bottomNavigationBar: const FloatingNavBar(),
+      bottomNavigationBar: FloatingNavBar(),
     );
   }
 }
-
-

@@ -5,6 +5,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gestionresidencial/Views/Widgets/home/AppBar/buildCustomAppBar.dart';
 import 'package:gestionresidencial/Views/Widgets/home/Body/bodyHome.dart';
 import 'package:gestionresidencial/Views/Widgets/home/NavBar/floatingNavBar.dart';
+import 'package:gestionresidencial/Views/screens/Chat/chat_screen.dart';
+import 'package:gestionresidencial/Views/screens/Config/settings_screen.dart';
+import 'package:gestionresidencial/Views/screens/Historial/historial_screen.dart';
 
 import 'package:gestionresidencial/Views/screens/Report/report_screen.dart';
 
@@ -18,9 +21,11 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 final GlobalKey<NavigatorState> homeNavigatorKey = GlobalKey<NavigatorState>();
+
 class HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
+    int _selectedIndex = 0;
     return SafeArea(
       child: WillPopScope(
         onWillPop: () async {
@@ -29,13 +34,21 @@ class HomePageState extends ConsumerState<HomePage> {
         },
         child: Scaffold(
           appBar: null,
-          body: const Stack(
-            children: [
-              BodyHome(),
-              BuildCustomAppBar(),
+          body: IndexedStack(
+            index: _selectedIndex,
+            children: const [
+              Stack(
+                children: [
+                  BodyHome(),
+                  BuildCustomAppBar(),
+                ],
+              ),
+              HistorialPage(),
+              ChatPage(),
+              SettingsPage(),
             ],
           ),
-          bottomNavigationBar: const FloatingNavBar(),
+          bottomNavigationBar: FloatingNavBar(),
           floatingActionButton: addButton(context),
         ),
       ),
