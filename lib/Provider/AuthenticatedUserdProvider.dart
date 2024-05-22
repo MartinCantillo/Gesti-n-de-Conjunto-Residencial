@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:riverpod/riverpod.dart';
 
 class AuthenticatedUserdProvider extends StateNotifier<List<UserModel>> {
-  final String endpoint = "https://backendmovil2-default-rtdb.firebaseio.com/";
+  final String endpoint = "https://georgx12.pythonanywhere.com/api/";
 
   AuthenticatedUserdProvider(List<UserModel> state) : super(state);
 

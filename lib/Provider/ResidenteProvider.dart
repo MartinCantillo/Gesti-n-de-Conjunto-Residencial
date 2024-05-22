@@ -7,12 +7,12 @@ import 'package:http/http.dart' as http;
 import 'package:riverpod/riverpod.dart';
 
 class ResidenteProvider extends StateNotifier<List<ResidenteModel>> {
-  final String endpoint = "https://backendmovil2-default-rtdb.firebaseio.com/";
+  final String endpoint = "https://georgx12.pythonanywhere.com/api/";
   ResidenteProvider(List<ResidenteModel> state) : super(state);
 
   Future<String> save(ResidenteModel data) async {
     try {
-      final url = "$endpoint/Residente.json";
+      final url = "$endpoint/saveResidente";
       final response = await http.post(Uri.parse(url), body: data.toJson());
       if (response.statusCode == 200) {
         String body = utf8.decode(response.bodyBytes);
@@ -29,7 +29,7 @@ class ResidenteProvider extends StateNotifier<List<ResidenteModel>> {
 
   Future<List<ResidenteModel>> getAll() async {
     try {
-      final url = "$endpoint/Residente.json";
+      final url = "$endpoint/GetAllresidentes";
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         String body = utf8.decode(response.bodyBytes);
@@ -47,7 +47,7 @@ class ResidenteProvider extends StateNotifier<List<ResidenteModel>> {
   Future<List<ResidenteModel>> getResidenteById(String idUser) async {
     
     try {
-      final url = '$endpoint/Residente.json';
+      final url = '$endpoint/GetResidenteById';
       final response = await http.get(Uri.parse(url));
       
       if (response.statusCode == 200) {
@@ -78,7 +78,7 @@ class ResidenteProvider extends StateNotifier<List<ResidenteModel>> {
 
   Future<int> delete(String id) async {
     try {
-      final url = '$endpoint/Residente/$id.json';
+      final url = '$endpoint/deleteResidente';
 
       final response = await http.delete(Uri.parse(url));
 
@@ -95,7 +95,7 @@ class ResidenteProvider extends StateNotifier<List<ResidenteModel>> {
 
   Future<bool> update(ResidenteModel data) async {
     try {
-      final url = "$endpoint/Residente.json";
+      final url = "$endpoint/updateResidente";
       final response = await http.put(Uri.parse(url), body: data.toJson());
       if (response.statusCode == 200) {
         //final decodeData = jsonDecode(response.body);

@@ -7,23 +7,24 @@ import 'package:http/http.dart' as http;
 import 'package:riverpod/riverpod.dart';
 
 class UserProvider extends StateNotifier<List<UserModel>> {
-  final String endpoint = "https://backendmovil2-default-rtdb.firebaseio.com";
+  final String endpoint = "https://georgx12.pythonanywhere.com/api/";
   UserProvider(List<UserModel> state) : super(state);
 
-  Future<String> save(UserModel data) async {
+  Future<String> saveUser(UserModel data) async {
     try {
-      final url = "$endpoint/Usuario.json";
-      final response = await http.post(Uri.parse(url), body: data.toJson());
-      
+      final url = "$endpoint/saveUser";
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(data.toJson()),
+      );
+      print(response.body);
       if (response.statusCode == 200) {
-      
-        String body = utf8.decode(response.bodyBytes);
-        final jsonData = jsonDecode(body);
-       
-        state = [...state, data];
-        return jsonData['name'];
+        return "saved";
       } else {
-        throw ("Error ${response.statusCode}");
+        throw ("Error ${response.statusCode}: ${response.body}");
       }
     } catch (e) {
       throw Exception("Error $e");
@@ -32,7 +33,7 @@ class UserProvider extends StateNotifier<List<UserModel>> {
 
   Future<List<UserModel>> getAll() async {
     try {
-      final url = "$endpoint/Usuario.json";
+      final url = "$endpoint/GetAllUsers";
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         String body = utf8.decode(response.bodyBytes);
@@ -50,7 +51,7 @@ class UserProvider extends StateNotifier<List<UserModel>> {
 
   Future<int> delete(String id) async {
     try {
-      final url = '$endpoint/Usuario/$id.json';
+      final url = '$endpoint/deleteUser';
 
       final response = await http.delete(Uri.parse(url));
 
@@ -67,7 +68,7 @@ class UserProvider extends StateNotifier<List<UserModel>> {
 
   Future<bool> update(UserModel data) async {
     try {
-      final url = "$endpoint/Usuario.json";
+      final url = "$endpoint/updateUser";
       final response = await http.put(Uri.parse(url), body: data.toJson());
       if (response.statusCode == 200) {
         //final decodeData = jsonDecode(response.body);

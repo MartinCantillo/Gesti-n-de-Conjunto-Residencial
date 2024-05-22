@@ -8,12 +8,12 @@ import 'package:http/http.dart' as http;
 import 'package:riverpod/riverpod.dart';
 
 class BannerProvider extends StateNotifier<List<BannerModel>> {
-  final String endpoint = "https://backendmovil2-default-rtdb.firebaseio.com/";
+  final String endpoint = "https://georgx12.pythonanywhere.com/api/";
   BannerProvider(List<BannerModel> state) : super(state);
 
   Future<String> save(BannerModel data) async {
     try {
-      final url = "$endpoint/Banner.json";
+      final url = "$endpoint/saveBanner";
       final response = await http.post(Uri.parse(url), body: data.toJson());
       if (response.statusCode == 200) {
         String body = utf8.decode(response.bodyBytes);
@@ -30,7 +30,7 @@ class BannerProvider extends StateNotifier<List<BannerModel>> {
 
   Future<List<BannerModel>> getAll() async {
     try {
-      final url = "$endpoint/Banner.json";
+      final url = "$endpoint/GetAllBanners";
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         String body = utf8.decode(response.bodyBytes);
@@ -48,7 +48,7 @@ class BannerProvider extends StateNotifier<List<BannerModel>> {
 
   Future<int> delete(String id) async {
     try {
-      final url = '$endpoint/Banner/$id.json';
+      final url = '$endpoint/deleteBanner';
 
       final response = await http.delete(Uri.parse(url));
 
@@ -65,7 +65,7 @@ class BannerProvider extends StateNotifier<List<BannerModel>> {
 
   Future<bool> update(BannerModel data) async {
     try {
-      final url = "$endpoint/Banner.json";
+      final url = "$endpoint/updateBanner";
       final response = await http.put(Uri.parse(url), body: data.toJson());
       if (response.statusCode == 200) {
         //final decodeData = jsonDecode(response.body);

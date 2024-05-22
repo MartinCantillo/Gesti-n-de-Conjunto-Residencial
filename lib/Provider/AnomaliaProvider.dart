@@ -9,11 +9,12 @@ import 'package:riverpod/riverpod.dart';
 
 
 class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
-  final String endpoint = "https://backendmovil2-default-rtdb.firebaseio.com/";
+  final String endpoint = "https://georgx12.pythonanywhere.com/api/";
   AnomaliaProvider(List<AnomaliaModel> state) : super(state);
+
   Future<String> save(AnomaliaModel data) async {
     try {
-      final url = "$endpoint/Anomalia.json";
+      final url = "$endpoint/saveAnomalia";
       final response = await http.post(Uri.parse(url), body: data.toJson());
       if (response.statusCode == 200) {
         String body = utf8.decode(response.bodyBytes);
@@ -31,7 +32,7 @@ class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
   Future<List<AnomaliaModel>> getAll() async {
    // print("getallaentro");
     try {
-      final url = "$endpoint/Anomalia.json";
+      final url = "$endpoint/GetAllAnomalias";
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         String body = utf8.decode(response.bodyBytes);
@@ -51,7 +52,7 @@ class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
   Future<List<AnomaliaModel>> getAnomaliaById(String idUser) async {
     
     try {
-      final url = '$endpoint/Anomalia.json';
+      final url = '$endpoint/getAnomaliasByUserId';
       final response = await http.get(Uri.parse(url));
       
       if (response.statusCode == 200) {
@@ -82,7 +83,7 @@ class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
 
   Future<int> delete(String id) async {
     try {
-      final url = '$endpoint/Anomalia/$id.json';
+      final url = '$endpoint/deleteAnomalia';
 
       final response = await http.delete(Uri.parse(url));
 
@@ -99,7 +100,7 @@ class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
 
   Future<bool> update(String id ,AnomaliaModel data, ) async {
     try {
-       final url = '$endpoint/Anomalia/$id.json';
+       final url = '$endpoint/updateAnomalia';
       final response = await http.put(Uri.parse(url), body: data.toJson());
       if (response.statusCode == 200) {
         //final decodeData = jsonDecode(response.body);

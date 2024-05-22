@@ -7,12 +7,12 @@ import 'package:http/http.dart' as http;
 import 'package:riverpod/riverpod.dart';
 
 class AdministradorProvider extends StateNotifier<List<AdministradorModel>> {
-  final String endpoint = "https://backendmovil2-default-rtdb.firebaseio.com/";
+  final String endpoint = "https://georgx12.pythonanywhere.com/api/";
   AdministradorProvider(List<AdministradorModel> state) : super(state);
 
   Future<String> save(AdministradorModel data) async {
     try {
-      final url = "$endpoint/Administrador.json";
+      final url = "$endpoint/saveAdmin";
       final response = await http.post(Uri.parse(url), body: data.toJson());
       if (response.statusCode == 200) {
         String body = utf8.decode(response.bodyBytes);
