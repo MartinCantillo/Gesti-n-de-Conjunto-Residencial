@@ -13,7 +13,9 @@ class ResidenteProvider extends StateNotifier<List<ResidenteModel>> {
   Future<String> save(ResidenteModel data) async {
     try {
       final url = "$endpoint/saveResidente";
-      final response = await http.post(Uri.parse(url), body: data.toJson());
+      final response = await http.post(Uri.parse(url), headers: {
+          'Content-Type': 'application/json',
+        }, body: data.toJson());
       if (response.statusCode == 200) {
         String body = utf8.decode(response.bodyBytes);
         final jsonData = jsonDecode(body);

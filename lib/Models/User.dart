@@ -43,10 +43,12 @@ class User {
     }
   }
 }
+
 class UserModel {
   String? id;
   String? username;
   String? password;
+
   UserModel({
     this.id,
     this.username,
@@ -54,9 +56,8 @@ class UserModel {
   });
 
   Map<String, dynamic> toMap() {
-    return {
-      'idUsuario': id,
-      'Username': username,
+    return {  
+      'username': username,
       'password': password,
     };
   }
@@ -64,7 +65,7 @@ class UserModel {
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
       id: map['id'],
-      username: map['Username'],
+      username: map['username'],
       password: map['password'],
     );
   }
@@ -75,5 +76,6 @@ class UserModel {
       UserModel.fromMap(json.decode(source));
 
   @override
-  String toString() => 'UserModel(id: $id, username: $username, password: $password)';
+  String toString() =>
+      'UserModel(id: $id, username: $username, password: $password)';
 }

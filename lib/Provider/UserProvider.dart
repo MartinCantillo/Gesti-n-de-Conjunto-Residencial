@@ -12,19 +12,34 @@ class UserProvider extends StateNotifier<List<UserModel>> {
 
   Future<String> saveUser(UserModel data) async {
     try {
+      // print(data.toMap());
       final url = "$endpoint/saveUser";
+
       final response = await http.post(
         Uri.parse(url),
         headers: {
-          'Content-Type': 'application/json',
+          'content-type': 'application/json',
         },
-        body: jsonEncode(data.toJson()),
+        body: data.toJson(),
       );
-      print(response.body);
+
       if (response.statusCode == 200) {
+      
+        final responseData = jsonDecode(response.body);
+        final String userId = responseData['user_id'];
+       
+
+        final newUser = UserModel(
+          id: userId,
+          username: data.username,
+          password: data.password,
+        );
+
+        state = [...state, newUser];
+
         return "saved";
       } else {
-        throw ("Error ${response.statusCode}: ${response.body}");
+        throw Exception("Error ${response.statusCode}: ${response.body}");
       }
     } catch (e) {
       throw Exception("Error $e");
