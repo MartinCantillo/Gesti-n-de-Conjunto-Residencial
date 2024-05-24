@@ -47,6 +47,15 @@ Future<void> main() async {
     ),
   );
 }
+String _getInitialRoute() {
+    final prefs = PrefernciaUsuario();
+    final token = prefs.token; // Asume que tienes un getter para obtener el token
+    if (token != null && token.isNotEmpty) {
+      return HomePage.nombre;
+    } else {
+      return LoginPage.nombre;
+    }
+  }
 
 class MyApp extends ConsumerWidget {
   const MyApp({super.key});
@@ -120,6 +129,7 @@ final bannerProvider =
     StateNotifierProvider<BannerProvider, List<BannerModel>>((ref) {
   return BannerProvider([]);
 });
+
 final pkBannerProvider =StateProvider<String>((ref) => "");
 final pkAdminProvider = StateProvider<String>((ref) => "");
 final pkAnomaliaProvider = StateProvider<String>((ref) => "");

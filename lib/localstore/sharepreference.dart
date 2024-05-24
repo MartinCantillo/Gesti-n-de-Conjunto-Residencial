@@ -14,6 +14,14 @@ class PrefernciaUsuario {
   initPrefs() async {
     _prefs = await SharedPreferences.getInstance();
   }
+  
+  String get token {
+    return _prefs.getString('auth_token') ?? "";
+  }
+
+  set token(String value) {
+    _prefs.setString('auth_token', value);
+  }
 
   String get usuario {
     return _prefs.getString('usuario') ?? "usuario no encontrado";

@@ -35,41 +35,42 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   final passwordController = TextEditingController();
 
   Future<void> signUserIn(BuildContext context) async {
-    
-    setState(() {
-      _isLoading = true;
-    });
-    
-    try {
-      prefs.usuario = usernameController.text;
-      prefs.contrasena = passwordController.text;
+  setState(() {
+    _isLoading = true;
+  });
 
-      final resp = await ref
-          .read(userAuthenticatedProviderr.notifier)
-          .authenticate(prefs.usuario, prefs.contrasena);
-      //final List<UserModel> users =  ref.watch(userAuthenticatedProviderr);
-      if (resp != Null) {
-        for (var element in resp) {
-          if (element.username == "Admin" && element.password == "Admin") {
-            // print(element.username );
-            Navigator.of(context).pushNamed(HomeAdmin.nombre);
-          } else {
-            //print(element.username );
-            ref.read(pkUserProvider.notifier).state = element.id!;
-            Navigator.of(context).pushNamed(HomePage.nombre);
-          }
-        }
+  try {
+    prefs.usuario = usernameController.text;
+    prefs.contrasena = passwordController.text;
+
+    final resp = await ref
+        .read(userAuthenticatedProviderr.notifier)
+        .authenticateUser(prefs.usuario, prefs.contrasena);
+
+    if (resp != null && resp.isNotEmpty) { // Comprobar si la respuesta no es nula y no está vacía
+      final element = resp[0]; // Solo tomamos el primer elemento de la lista, si la hay
+
+      if (element.username == "Admin" && element.password == "Admin") {
+        Navigator.of(context).pushNamed(HomeAdmin.nombre);
       } else {
-        print("lista vacia");
+        if (element.id != null) { // Comprobar si el ID no es nulo
+          ref.read(pkUserProvider.notifier).state = element.id!;
+          Navigator.of(context).pushNamed(HomePage.nombre);
+        } else {
+          print("ID de usuario es nulo");
+        }
       }
-    } catch (e) {
-      // Almacenar el contexto antes de entrar en el área asincrónica
-    } finally {
-      setState(() {
-        _isLoading = false;
-      });
+    } else {
+      print("Lista de respuesta vacía");
     }
+  } catch (e) {
+    print("Error: $e");
+  } finally {
+    setState(() {
+      _isLoading = false;
+    });
   }
+}
 
   void registerNow(BuildContext context) {
     Navigator.of(context).pushNamed(RegisterPage.nombre);

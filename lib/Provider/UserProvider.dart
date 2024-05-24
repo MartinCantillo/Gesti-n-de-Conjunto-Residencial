@@ -6,14 +6,16 @@ import 'package:http/http.dart' as http;
 
 import 'package:riverpod/riverpod.dart';
 
+
 class UserProvider extends StateNotifier<List<UserModel>> {
-  final String endpoint = "https://georgx12.pythonanywhere.com/api/";
+  final String endpoint = "https://georgx12.pythonanywhere.com/api";
   UserProvider(List<UserModel> state) : super(state);
 
   Future<String> saveUser(UserModel data) async {
     try {
-      // print(data.toMap());
       final url = "$endpoint/saveUser";
+      print("Request URL: $url");
+      print("Request Body: ${data.toJson()}");
 
       final response = await http.post(
         Uri.parse(url),
@@ -23,28 +25,31 @@ class UserProvider extends StateNotifier<List<UserModel>> {
         body: data.toJson(),
       );
 
+      print("Response status: ${response.statusCode}");
+      print("Response body: ${response.body}");
+
       if (response.statusCode == 200) {
-      
         final responseData = jsonDecode(response.body);
-        final String userId = responseData['user_id'];
-       
+        final String userId = responseData['user_id'].toString();
 
-        final newUser = UserModel(
-          id: userId,
-          username: data.username,
-          password: data.password,
-        );
+          final newUser = UserModel(
+            id: userId,
+            username: data.username,
+            password: data.password,
+          );
 
-        state = [...state, newUser];
+          state = [...state, newUser];
+          return "saved";
 
-        return "saved";
       } else {
         throw Exception("Error ${response.statusCode}: ${response.body}");
       }
     } catch (e) {
+      print("Error: $e");
       throw Exception("Error $e");
     }
   }
+
 
   Future<List<UserModel>> getAll() async {
     try {
@@ -96,4 +101,5 @@ class UserProvider extends StateNotifier<List<UserModel>> {
       throw Exception("Error $e");
     }
   }
+ 
 }
