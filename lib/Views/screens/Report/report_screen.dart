@@ -110,14 +110,11 @@ class reporteState extends ConsumerState<reporte> {
         await ref.read(anomaliaProvider.notifier).saveAnomalia(anomalia, token);
         Navigator.of(context).pushNamed(HistorialPage.nombre);
       } else {
-        // Maneja el caso en el que no se pudo obtener el token
         print("Error: No se pudo obtener el token");
       }
     } catch (e) {
-      // Maneja la excepción aquí
       print("Ocurrió un error durante el envío del reporte: $e");
-      // No es necesario lanzar la excepción nuevamente aquí
-      // Puedes simplemente mostrar un mensaje de error al usuario
+
     }
   }
 }

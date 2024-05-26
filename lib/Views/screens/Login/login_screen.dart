@@ -50,7 +50,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     if (resp != null && resp.isNotEmpty) { // Comprobar si la respuesta no es nula y no está vacía
       final element = resp[0]; // Solo tomamos el primer elemento de la lista, si la hay
 
-      if (element.username == "Admin" && element.password == "Admin") {
+      if (element.username == "Admin@gmail.com" && element.password == "Admin123") {
         Navigator.of(context).pushNamed(HomeAdmin.nombre);
       } else {
         if (element.id != null) { // Comprobar si el ID no es nulo
