@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:gestionresidencial/Models/Anomalia.dart';
+import 'package:gestionresidencial/localstore/sharepreference.dart';
 
 import 'package:http/http.dart' as http;
 
@@ -9,7 +11,8 @@ import 'package:riverpod/riverpod.dart';
 
 
 class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
-  final String endpoint = "https://georgx12.pythonanywhere.com/api/";
+  final PrefernciaUsuario prefs = PrefernciaUsuario();
+  final String endpoint = "https://georgx12.pythonanywhere.com/api";
   AnomaliaProvider(List<AnomaliaModel> state) : super(state);
 
   Future<String> save(AnomaliaModel data) async {
@@ -28,6 +31,41 @@ class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
       throw Exception("Error $e");
     }
   }
+  Future<String> getToken() async {
+    await prefs.initPrefs();
+    return prefs.token;
+  }
+
+  Future<void> saveAnomalia(AnomaliaModel anomalia, String token) async {
+    try {
+      final url = "$endpoint/saveAnomalia";
+      final anomaliaJson = jsonEncode(anomalia.toMap());
+
+      print("Token de autenticación: $token");
+
+      final response = await http.post(
+        Uri.parse(url),
+        body: anomaliaJson, // Asegurarse de que los datos están en formato JSON
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
+      
+      print("Código de estado de la respuesta: ${response.statusCode}");
+
+
+      if (response.statusCode == 200) {
+        state = [...state, anomalia];
+      } else {
+        throw Exception("Error ${response.statusCode}: ${response.body}");
+      }
+    } catch (e) {
+      
+      throw Exception("Error $e");
+    }
+  }
+
 
   Future<List<AnomaliaModel>> getAll() async {
    // print("getallaentro");
@@ -49,70 +87,81 @@ class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
     }
   }
 
-  Future<List<AnomaliaModel>> getAnomaliaById(String idUser) async {
-    
-    try {
-      final url = '$endpoint/getAnomaliasByUserId';
-      final response = await http.get(Uri.parse(url));
-      
-      if (response.statusCode == 200) {
-        String body = utf8.decode(response.bodyBytes);
-        final jsonData = jsonDecode(body);
-        
-        // Verificar si el cuerpo de la respuesta está vacío
-        if (jsonData == null || jsonData.isEmpty) {
-          throw Exception("Respuesta null");
-        }
 
-        // Verificar si alguno de los documentos contiene el idUser
-        final listData = Anomalia.fromJsonListById(jsonData, idUser);
+  Future<List<AnomaliaModel>> getAnomaliaById(String idUser, String token) async {
+  try {
+    final url = '$endpoint/getAnomaliasByUserId?idUser=$idUser';
+    print("URL de getAnomaliaById: $url");
+    print("Datos enviados: idUser=$idUser, token=$token");
 
-        if (listData.anomaliaListByUser.isEmpty) {
-          throw Exception(" No se encontraron anomalías para el idUser");
-        }
-        
-        state = listData.anomaliaListByUser;
-        return listData.anomaliaListByUser;
-      } else {
-        throw Exception("Ocurrió algo ${response.statusCode}");
-      }
-    } catch (e) {
-      throw Exception (e);
+    final response = await http.get(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    print("Código de estado de la respuesta: ${response.statusCode}");
+
+    if (response.statusCode == 200) {
+      String body = utf8.decode(response.bodyBytes);
+      final jsonData = jsonDecode(body);
+
+      final listData = Anomalia.fromJsonList(jsonData);
+      return listData.anomaliaList; // Cambiar para devolver la lista correcta
+    } else {
+      throw Exception("Ocurrió algo ${response.statusCode}");
     }
+  } catch (e) {
+    print("Excepción en getAnomaliaById: $e");
+    throw Exception("Error $e");
   }
+}
+
+
 
   Future<int> delete(String id) async {
-    try {
-      final url = '$endpoint/deleteAnomalia';
+  try {
+    final url = '$endpoint/deleteAnomalia';
 
-      final response = await http.delete(Uri.parse(url));
+    final response = await http.delete(
+      Uri.parse(url),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'id': id}), // Asegurarse de que los datos están en formato JSON
+    );
 
-      if (response.statusCode == 200) {
-        state.removeWhere((anomalia) => anomalia.id == id);
-        return 1;
-      } else {
-        throw Exception("Error ${response.statusCode}");
-      }
-    } catch (e) {
-      throw Exception("Error $e");
+    if (response.statusCode == 200) {
+      state.removeWhere((anomalia) => anomalia.id == id);
+      return 1;
+    } else {
+      throw Exception("Error ${response.statusCode}");
     }
+  } catch (e) {
+    throw Exception("Error $e");
   }
+}
 
-  Future<bool> update(String id ,AnomaliaModel data, ) async {
-    try {
-       final url = '$endpoint/updateAnomalia';
-      final response = await http.put(Uri.parse(url), body: data.toJson());
-      if (response.statusCode == 200) {
-        //final decodeData = jsonDecode(response.body);
-        state[state.indexWhere((anomalia) => anomalia.id == data.id)] = data;
-        return true;
-      } else {
-        throw ("Error ${response.statusCode}");
-      }
-    } catch (e) {
-      throw Exception("Error $e");
+  Future<bool> update(String id, AnomaliaModel data) async {
+  try {
+    final url = '$endpoint/updateAnomalia';
+    final response = await http.put(
+      Uri.parse(url),
+      body: jsonEncode(data.toMap()), // Asegurarse de que los datos están en formato JSON
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
+    if (response.statusCode == 200) {
+      state[state.indexWhere((anomalia) => anomalia.id == data.id)] = data;
+      return true;
+    } else {
+      throw Exception("Error ${response.statusCode}");
     }
+  } catch (e) {
+    throw Exception("Error $e");
   }
+}
 
   
 }

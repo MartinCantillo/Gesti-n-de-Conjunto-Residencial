@@ -51,6 +51,8 @@ class AuthenticatedUserdProvider extends StateNotifier<List<UserModel>> {
       final token = responseData['token'];
       final userId = responseData['user_id'].toString(); // Obtener el ID del usuario de la respuesta
 
+      print(token);
+
 
       final prefs = PrefernciaUsuario();
       prefs.token = token; // Guardar el token en SharedPreferences

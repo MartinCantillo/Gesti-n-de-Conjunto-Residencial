@@ -19,10 +19,10 @@ class _ListAnomaliasState extends ConsumerState<ListAnomalias> {
   @override
   void initState() {
     String idUserGot = ref.read(pkUserProvider.notifier).state;
-    anomaliasList =
-        ref.read(anomaliaProvider.notifier).getAnomaliaById(idUserGot);
+    // anomaliasList =
+        // ref.read(anomaliaProvider.notifier).getAnomaliaById(idUserGot);
 
-    super.initState();
+    // super.initState();
   }
 
   @override

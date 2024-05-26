@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-class Banner {
+class BannerList {
   List<BannerModel> bannerList = [];
 
-  Banner.fromJsonList(json) {
+  BannerList.fromJsonList(json) {
     if (json == null) {
       return;
     } else {

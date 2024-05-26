@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -28,7 +30,7 @@ class HistorialPage extends ConsumerStatefulWidget {
 }
 
 class _HistorialPageState extends ConsumerState<HistorialPage> {
-  late Future<List<AnomaliaModel>> anomaliasList;
+  late Future<List<AnomaliaModel>> anomaliasList = Future.value([]);
   final Map<String, String> _tipoAnomaliaImagenes = {
     'Infraestructura':
         'https://cdn-icons-png.flaticon.com/512/9147/9147877.png',
@@ -44,9 +46,18 @@ class _HistorialPageState extends ConsumerState<HistorialPage> {
   @override
   void initState() {
     super.initState();
-    String idUserGot = ref.read(pkUserProvider.notifier).state;
-    anomaliasList =
-        ref.read(anomaliaProvider.notifier).getAnomaliaById(idUserGot);
+    fetchData();
+  }
+
+  Future<void> fetchData() async {
+    try {
+      String idUserGot = ref.read(pkUserProvider.notifier).state;
+      String token = await ref.read(anomaliaProvider.notifier).getToken();
+      anomaliasList = ref.read(anomaliaProvider.notifier).getAnomaliaById(idUserGot, token);
+      setState(() {});
+    } catch (e) {
+      print("Error fetchData: $e");
+    }
   }
 
   Future<void> _deleteAnomalia(String id) async {
@@ -65,7 +76,6 @@ class _HistorialPageState extends ConsumerState<HistorialPage> {
   @override
   Widget build(BuildContext context) {
     int _selectedIndex = 1;
-    // Obtenemos los datos de anomalías del provider
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -98,24 +108,20 @@ class _HistorialPageState extends ConsumerState<HistorialPage> {
                   return Dismissible(
                     key: Key(reportId ?? ''),
                     direction: DismissDirection.endToStart,
-                    background: Positioned(
-                      right: 0,
-                      child: Container(
-                        padding: const EdgeInsets.only(left: 150),
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 4),
-                        color: Colors.red,
-                        child: const Icon(
-                          Icons.delete,
-                          color: Colors.white,
-                          size: 30,
-                        ),
+                    background: Container(
+                      padding: const EdgeInsets.only(left: 150),
+                      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                      color: Colors.red,
+                      child: const Icon(
+                        Icons.delete,
+                        color: Colors.white,
+                        size: 30,
                       ),
                     ),
                     onDismissed: (direction) async {
                       if (direction == DismissDirection.endToStart) {
                         if (reportId != null && reportId.isNotEmpty) {
-                          _deleteAnomalia(reportId);
+                          await _deleteAnomalia(reportId);
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text("Anomalia eliminada"),
@@ -151,9 +157,9 @@ class _HistorialPageState extends ConsumerState<HistorialPage> {
                             Text(
                               '${report.idEstadoAnomalia}',
                               style: TextStyle(
-                                  color: Estadoanomaliacolor
-                                      .estadoColor[report.idEstadoAnomalia],
-                                  fontWeight: FontWeight.bold),
+                                color: Estadoanomaliacolor.estadoColor[report.idEstadoAnomalia],
+                                fontWeight: FontWeight.bold
+                              ),
                             ),
                           ],
                         ),

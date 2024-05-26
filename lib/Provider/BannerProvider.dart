@@ -35,13 +35,13 @@ class BannerProvider extends StateNotifier<List<BannerModel>> {
       if (response.statusCode == 200) {
         String body = utf8.decode(response.bodyBytes);
         final jsonData = jsonDecode(body);
-        final listData = Banner.fromJsonList(jsonData);
+        final listData = BannerList.fromJsonList(jsonData);
         state = listData.bannerList;
         return listData.bannerList;
       } else {
         throw Exception("Ocurrió algo ${response.statusCode}");
       }
-    } catch (e) {
+    } catch (e) { 
       throw Exception("Error $e");
     }
   }

@@ -28,7 +28,7 @@ class BodyHome extends ConsumerStatefulWidget {
   BodyHomeState createState() => BodyHomeState();
 }
 class BodyHomeState extends ConsumerState<BodyHome> {
-  late Future<List<AnomaliaModel>> anomaliasList;
+  late Future<List<AnomaliaModel>> anomaliasList = Future.value([]);
   late Future<List<BannerModel>>  bannersList;
   final prefs = PrefernciaUsuario();
 
@@ -37,7 +37,7 @@ class BodyHomeState extends ConsumerState<BodyHome> {
     super.initState();
     String idUserGot = ref.read(pkUserProvider.notifier).state;
     // String idUserGot = "123";
-    anomaliasList =ref.read(anomaliaProvider.notifier).getAnomaliaById(idUserGot);
+    // anomaliasList =ref.read(anomaliaProvider.notifier).getAnomaliaById(idUserGot);
     bannersList = ref.read(bannerProvider.notifier).getAll();
   }
 

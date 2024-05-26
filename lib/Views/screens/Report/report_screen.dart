@@ -87,26 +87,42 @@ class reporteState extends ConsumerState<reporte> {
   }
 
   void _submitReport() async {
-    if (_formkey.currentState!.validate()) {
-      try {
-        String idUserGot = ref.read(pkUserProvider.notifier).state;
-        //  print("id user enviado a anomalia${idUserGot}");
-        AnomaliaModel anomalia = AnomaliaModel(
-            descripcionAnomalia: descriptionController.text,
-            fechaReporteAnomalia: DateFormat('dd/MM/yyyy H:m').format(DateTime.now()),
-            tipoAnomalia: selectedval,
-            fotoAnomalia: 'img',
-            idEstadoAnomalia: 'Pendiente',
-            idUser: idUserGot,
-            asuntoAnomalia: subjectController.text);
-        //Guardar anomalia
-        await ref.read(anomaliaProvider.notifier).save(anomalia);
+  if (_formkey.currentState!.validate()) {
+    try {
+      String idUserGot = ref.read(pkUserProvider.notifier).state;
+      print("ID de usuario obtenido: $idUserGot");
+      
+      AnomaliaModel anomalia = AnomaliaModel(
+        descripcionAnomalia: descriptionController.text,
+        fechaReporteAnomalia: DateFormat('dd/MM/yyyy H:m').format(DateTime.now()),
+        tipoAnomalia: selectedval,
+        fotoAnomalia: 'img',
+        idEstadoAnomalia: 'Pendiente',
+        IdUser: idUserGot,
+        asuntoAnomalia: subjectController.text,
+      );
+
+      print("Creando objeto AnomaliaModel");
+      
+      final token = await ref.read(anomaliaProvider.notifier).getToken();
+      if (token.isNotEmpty) {
+        print("Guardando anomalía");
+        await ref.read(anomaliaProvider.notifier).saveAnomalia(anomalia, token);
         Navigator.of(context).pushNamed(HistorialPage.nombre);
-      } catch (e) {
-        throw ('Error al enviar el reporte: $e');
+      } else {
+        // Maneja el caso en el que no se pudo obtener el token
+        print("Error: No se pudo obtener el token");
       }
+    } catch (e) {
+      // Maneja la excepción aquí
+      print("Ocurrió un error durante el envío del reporte: $e");
+      // No es necesario lanzar la excepción nuevamente aquí
+      // Puedes simplemente mostrar un mensaje de error al usuario
     }
   }
+}
+
+
 
   @override
   Widget build(BuildContext context) {
