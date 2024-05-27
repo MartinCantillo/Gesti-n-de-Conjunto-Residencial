@@ -90,10 +90,11 @@ class ResidenteProvider extends StateNotifier<List<ResidenteModel>> {
     print(response.body);
     if (response.statusCode == 200) {
       String body = utf8.decode(response.bodyBytes);
-    
+      final jsonData = jsonDecode(body);
+      
       try {
-        final residente = ResidenteModel.fromJson(body);
-        return [residente]; // aqui es para que retorne la lista con ese objeto
+        final residente = ResidenteModel.fromJson(body); // Convierte el JSON a un objeto
+        return [residente]; // Retorna una lista con un solo elemento
       } catch (e) {
         throw Exception("Error al procesar los datos: $e");
       }
@@ -104,6 +105,7 @@ class ResidenteProvider extends StateNotifier<List<ResidenteModel>> {
     throw Exception("Error $e");
   }
 }
+
 
 
   Future<int> delete(String id) async {
