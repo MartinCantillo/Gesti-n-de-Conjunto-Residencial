@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:gestionresidencial/Views/screens/Chat/chat_screen.dart';
 import 'package:gestionresidencial/Views/screens/Config/settings_screen.dart';
 import 'package:gestionresidencial/Views/screens/Historial/historial_screen.dart';
 import 'package:gestionresidencial/Views/screens/Home/HomePage.dart';
@@ -47,13 +46,6 @@ class FloatingNavBarState extends ConsumerState<FloatingNavBar> {
                         ? Theme.of(context).primaryColor
                         : null),
                 () => Navigator.of(context).pushNamed(HistorialPage.nombre)),
-            iconButtonNavBar(
-                context,
-                Icon(Icons.chat,
-                    color: _selectedIndex == 2
-                        ? Theme.of(context).primaryColor
-                        : null),
-                () => Navigator.of(context).pushNamed(ChatPage.nombre)),
             iconButtonNavBar(
                 context,
                 Icon(Icons.person,
