@@ -75,6 +75,7 @@ class ResidenteProvider extends StateNotifier<List<ResidenteModel>> {
       throw Exception("Error $e");
     }
   }
+  
   Future<List<ResidenteModel>> getResidenteById(String idUser, String token) async {
   try {
     final url = '$endpoint/GetResidenteById?id=$idUser';  // Parámetro como query parameter

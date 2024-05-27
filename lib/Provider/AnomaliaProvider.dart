@@ -31,6 +31,7 @@ class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
       throw Exception("Error $e");
     }
   }
+  
   Future<String> getToken() async {
     await prefs.initPrefs();
     return prefs.token;
