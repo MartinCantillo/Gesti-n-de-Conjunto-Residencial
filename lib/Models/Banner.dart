@@ -1,22 +1,23 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+
 class BannerList {
   List<BannerModel> bannerList = [];
 
-  BannerList.fromJsonList(json) {
+  BannerList.fromJsonList(List<dynamic> json) {
     if (json == null) {
       return;
     } else {
-      //print(json);
-      json.forEach((id, val) {
+      for (var item in json) {
         try {
-          final value = BannerModel.fromMap(val);
-          value.id = id;
+          final value = BannerModel.fromMap(item);
           bannerList.add(value);
         } catch (e) {
-          throw Error();
+          // Cambiar Error() a Exception()
+          throw Exception("Error al mapear AnomaliaModel: $e");
         }
-      });
+      }
     }
   }
 }
@@ -36,18 +37,18 @@ class BannerModel {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'estado': titulo,
-      'idEstadoBanner': descripcion,
-      'fecha': fecha
+      'titulo': titulo,
+      'descripcion': descripcion,
+      'fecha': fecha,
     };
   }
 
   factory BannerModel.fromMap(Map<String, dynamic> map) {
     return BannerModel(
-      id: map['id'],
-      titulo: map['estado'],
-      descripcion: map['idEstadoBanner'],
-      fecha: map['fecha'],
+      id: map['id'].toString(),
+      titulo: map['titulo'],
+      descripcion: map['descripcion'],
+      fecha: map['fecha'].toString(),
     );
   }
 

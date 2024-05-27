@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gestionresidencial/Views/screens/Login/login_screen.dart';
-
 import 'package:gestionresidencial/localstore/sharepreference.dart';
 
 class SettingsPage extends ConsumerStatefulWidget {
@@ -45,27 +43,6 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                 accountName: Text(prefs.nombreusuario),
                 accountEmail: Text(prefs.usuario),
               ),
-              
-              ListTile(
-                title: const Text('Cambiar nombre de usuario'),
-                onTap: () {
-                  // Lógica para cambiar el nombre de usuario
-                },
-              ),
-              const Divider(),
-              ListTile(
-                title: const Text('Cambiar número de teléfono'),
-                onTap: () {
-                  // Lógica para cambiar el número de teléfono
-                },
-              ),
-              const Divider(),
-              ListTile(
-                title: const Text('Cambiar correo electrónico'),
-                onTap: () {
-                  // Lógica para cambiar el correo electrónico
-                },
-              ),
               const Divider(),
               ListTile(
                 title: const Text('Cerrar sesión'),
@@ -82,9 +59,16 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                             child: const Text('No'),
                           ),
                           TextButton(
-                            onPressed: () => Navigator.pushReplacementNamed(
-                                context, LoginPage.nombre),
-                            child: const Text('Si'),
+                            onPressed: () {
+                              // Aquí se usa Navigator.pushAndRemoveUntil para eliminar todas las rutas anteriores
+                              Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                  builder: (context) => const LoginPage(),
+                                ),
+                                (Route<dynamic> route) => false,
+                              );
+                            },
+                            child: const Text('Sí'),
                           ),
                         ],
                       );

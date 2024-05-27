@@ -52,8 +52,9 @@ class _ReportListViewState extends ConsumerState<_ReportListView> {
   Future<void> fetchData() async {
     try {
       String token = await ref.read(anomaliaProvider.notifier).getToken();
-      anomaliasList = ref.read(anomaliaProvider.notifier).getAll(token);
-      setState(() {});
+      setState(() {
+        anomaliasList = ref.read(anomaliaProvider.notifier).getAll(token);
+      });
     } catch (e) {
       print("Error fetchData: $e");
     }
@@ -73,7 +74,7 @@ class _ReportListViewState extends ConsumerState<_ReportListView> {
           segments: const [
             ButtonSegment(
                 value: TodoFilter.completed, icon: Text('Completados',style: TextStyle(fontSize: 12),)),
-            ButtonSegment(value: TodoFilter.pending, icon: Text('Pendientes',style: TextStyle(fontSize: 12))),
+            ButtonSegment(value: TodoFilter.pending, icon: Text('Pendiente',style: TextStyle(fontSize: 12))),
             ButtonSegment(value: TodoFilter.process, icon: Text('Proceso',style: TextStyle(fontSize: 12))),
             ButtonSegment(value: TodoFilter.rejected, icon: Text('Rechazado',style: TextStyle(fontSize: 12))),
           ],
@@ -98,17 +99,20 @@ class _ReportListViewState extends ConsumerState<_ReportListView> {
                   child: Text('Error: ${snapshot.error}'),
                 );
               } else {
+                print(snapshot.data.toString());
                 List<AnomaliaModel>? filteredList =
                     snapshot.data?.where((anomalia) {
+                      print(anomalia.toString());
+                      print(anomalia.toMap());
                   switch (currentFilter) {
                     case TodoFilter.pending:
-                      return anomalia.idEstadoAnomalia == 'Pendiente';
+                      return anomalia.idEstadoAnomalia == "Pendiente";
                     case TodoFilter.rejected:
-                      return anomalia.idEstadoAnomalia == 'Rechazado';
+                      return anomalia.idEstadoAnomalia == "rechazado";
                     case TodoFilter.process:
-                      return anomalia.idEstadoAnomalia == 'Proceso';
+                      return anomalia.idEstadoAnomalia == "Proceso";
                     case TodoFilter.completed:
-                      return anomalia.idEstadoAnomalia == 'Completado';
+                      return anomalia.idEstadoAnomalia == "Completado";
 
                     default:
                       return true;

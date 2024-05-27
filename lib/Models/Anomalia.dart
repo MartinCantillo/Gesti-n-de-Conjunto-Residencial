@@ -87,8 +87,8 @@ class AnomaliaModel {
         descripcionAnomalia: map['descripcionAnomalia'] ?? "",
         fechaReporteAnomalia: map['FechaReporteAnomalia'] ?? "",
         fotoAnomalia: map['FotoAnomalia'] ?? "",
-        idEstadoAnomalia: map['IDEstadoAnomalia'] ?? "",
-        IdUser: map['idUser']?.toString() ?? "",
+        idEstadoAnomalia: map['idEstadoAnomalia'] ?? "",
+        IdUser: map['IdUser']?.toString() ?? "",
         prioridad: map['prioridad']?.toString() ?? "",
       );
     } catch (e) {

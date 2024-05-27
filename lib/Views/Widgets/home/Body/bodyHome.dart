@@ -45,7 +45,7 @@ class BodyHomeState extends ConsumerState<BodyHome> {
       String token = await ref.read(anomaliaProvider.notifier).getToken();
       anomaliasList =
           ref.read(anomaliaProvider.notifier).getAnomaliaById(idUserGot, token);
-      // bannersList = ref.read(bannerProvider.notifier).getAll();
+          bannersList = ref.read(bannerProvider.notifier).getAll(token);
       setState(() {});
     } catch (e) {
       print("Error fetchData: $e");
@@ -257,6 +257,7 @@ class BodyHomeState extends ConsumerState<BodyHome> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError || (snapshot.data as List).isEmpty) {
+          print("esta vacio nose");
           return Container(); // Podemos devolver un widget vacío si no hay banners
         } else {
           return buildBannerCarousel(

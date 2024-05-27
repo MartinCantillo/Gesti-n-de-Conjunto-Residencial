@@ -75,6 +75,7 @@ class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
         'Authorization': 'Bearer $token', // Agregar el token en los encabezados de la solicitud
       },
     );
+    print(response.body);
     if (response.statusCode == 200) {
       String body = utf8.decode(response.bodyBytes);
       final jsonData = jsonDecode(body);
@@ -159,6 +160,7 @@ class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
       },
     );
     print(response.body);
+    print("Request Body: ${data.toJson()}");
     if (response.statusCode == 200) {
       state[state.indexWhere((anomalia) => anomalia.id == data.id)] = data;
       return true;

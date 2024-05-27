@@ -13,7 +13,7 @@ class BannerProvider extends StateNotifier<List<BannerModel>> {
   Future<String> save(BannerModel data, String token) async {
     try {
       final url = "$endpoint/saveBanner";
-      print("Request Body: ${jsonEncode(data.toJson())}");
+      // print("Request Body: ${jsonEncode(data.toJson())}");
       final response = await http.post(
         Uri.parse(url),
         headers: {
@@ -23,7 +23,7 @@ class BannerProvider extends StateNotifier<List<BannerModel>> {
         body: data.toJson(),
       );
 
-      if (response.statusCode == 201) { // Cambié a 201 para creación exitosa
+      if (response.statusCode == 200) { // Cambié a 201 para creación exitosa
         final responseData = jsonDecode(response.body);
         final String bannerId = responseData['banner_id'].toString();
 
@@ -40,28 +40,38 @@ class BannerProvider extends StateNotifier<List<BannerModel>> {
         throw ("Error ${response.statusCode}");
       }
     } catch (e) {
-      print('Error: $e');
       throw Exception("Error $e");
     }
   }
 
-  Future<List<BannerModel>> getAll() async {
-    try {
-      final url = "$endpoint/GetAllBanners";
-      final response = await http.get(Uri.parse(url));
-      if (response.statusCode == 200) {
-        String body = utf8.decode(response.bodyBytes);
-        final jsonData = jsonDecode(body);
-        final listData = BannerList.fromJsonList(jsonData);
-        state = listData.bannerList;
-        return listData.bannerList;
-      } else {
-        throw Exception("Ocurrió algo ${response.statusCode}");
-      }
-    } catch (e) { 
-      throw Exception("Error $e");
+  Future<List<BannerModel>> getAll(String token) async {
+  final String url = "$endpoint/GetAllBanners";
+
+  try {
+    final response = await http.get(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      
+      String body = utf8.decode(response.bodyBytes);
+      
+      final List<dynamic> jsonData = jsonDecode(body);
+      final List<BannerModel> listData = jsonData.map((banner) => BannerModel.fromMap(banner)).toList();
+      // Asegúrate de que 'state' esté definido y pueda ser actualizado correctamente
+      // state = listData; // Descomenta y ajusta según sea necesario
+      return listData;
+    } else {
+      throw Exception("Ocurrió algo ${response.statusCode}");
     }
+  } catch (e) {
+    throw Exception("Error $e");
   }
+}
 
   Future<int> delete(String id) async {
     try {

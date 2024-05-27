@@ -21,7 +21,18 @@ class _BannerScreenState extends ConsumerState<BannerScreen> {
   @override
   void initState() {
     super.initState();
-    bannersList = ref.read(bannerProvider.notifier).getAll();
+    fetchData();
+  }
+
+  Future<void> fetchData() async {
+    try {
+      String token = await ref.read(anomaliaProvider.notifier).getToken();
+      setState(() {
+        bannersList = ref.read(bannerProvider.notifier).getAll(token);
+      });
+    } catch (e) {
+      print("Error fetchData: $e");
+    }
   }
 
   Future<void> _deleteBanner(String id) async {
