@@ -46,13 +46,13 @@ class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
 
       final response = await http.post(
         Uri.parse(url),
-        body: anomaliaJson, // Asegurarse de que los datos están en formato JSON
+        body: anomaliaJson, 
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer $token',
         },
       );
-      print("Código de estado de la respuesta: ${response.statusCode}");
+     // print("Código de estado de la respuesta: ${response.statusCode}");
       if (response.statusCode == 200) {
         state = [...state, anomalia];
       } else {
@@ -75,7 +75,7 @@ class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
         'Authorization': 'Bearer $token', // Agregar el token en los encabezados de la solicitud
       },
     );
-    print(response.body);
+  //  print(response.body);
     if (response.statusCode == 200) {
       String body = utf8.decode(response.bodyBytes);
       final jsonData = jsonDecode(body);
@@ -95,7 +95,7 @@ class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
   Future<List<AnomaliaModel>> getAnomaliaById(String idUser, String token) async {
   try {
     final url = '$endpoint/getAnomaliasByUserId?idUser=$idUser';
-    print("URL de getAnomaliaById: $url");
+   // print("URL de getAnomaliaById: $url");
     print("Datos enviados: idUser=$idUser, token=$token");
 
     final response = await http.get(
@@ -106,7 +106,7 @@ class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
       },
     );
 
-    print("Código de estado de la respuesta: ${response.statusCode}");
+   // print("Código de estado de la respuesta: ${response.statusCode}");
 
     if (response.statusCode == 200) {
       String body = utf8.decode(response.bodyBytes);
@@ -118,7 +118,7 @@ class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
       throw Exception("Ocurrió algo ${response.statusCode}");
     }
   } catch (e) {
-    print("Excepción en getAnomaliaById: $e");
+   // print("Excepción en getAnomaliaById: $e");
     throw Exception("Error $e");
   }
 }

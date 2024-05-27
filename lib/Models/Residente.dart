@@ -20,23 +20,26 @@ class Residente {
     }
   }
 
-  Residente.fromJsonListById(List<dynamic> jsonList, String idUser) {
-    if (jsonList == null || idUser == null) {
-      return;
-    } else {
-      for (var item in jsonList) {
-        try {
-          final value = ResidenteModel.fromMap(item);
-          if (value.idUser == idUser) {
-            residenteListbyUser.add(value);
-          }
-        } catch (e) {
-          print('Error processing JSON: $e');
-          throw Exception("Error al mapear ResidenteModel");
+Residente.fromJsonListById(Map<String, dynamic> json) {
+  if (json == null) {
+    return;
+  } else {
+    try {
+      json.forEach((key, value) {
+        print(value);
+        if (value is Map<String, dynamic>) {
+          final val = ResidenteModel.fromMap(json);
+          residenteListbyUser.add(val);
+        } else {
+          throw Exception("Error al deserializar los datos");
         }
-      }
+      });
+    } catch (e) {
+      throw Exception(e);
     }
   }
+}
+
 }
 
 class ResidenteModel {
@@ -68,13 +71,14 @@ class ResidenteModel {
   }
 
   factory ResidenteModel.fromMap(Map<String, dynamic> map) {
+  
     return ResidenteModel(
-      id: map['id']?.toString(),
-      nombreResidente: map['nombreResidente'],
-      apellidoResidente: map['apellidoResidente'],
-      numApartamento: map['numApartamento']?.toString(),
-      numTelefono: map['numTelefono']?.toString(),
-      idUser: map['idUser']?.toString(),
+      id: map['id']?.toString()??"",
+      nombreResidente: map['nombreResidente']??"",
+      apellidoResidente: map['apellidoResidente']??"",
+      numApartamento: map['numApartamento']?.toString()??"",
+      numTelefono: map['numTelefono']?.toString()??"",
+      idUser: map['IdUser']?.toString()??"",
     );
   }
 

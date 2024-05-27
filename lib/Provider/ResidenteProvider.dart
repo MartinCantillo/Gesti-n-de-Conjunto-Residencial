@@ -75,8 +75,8 @@ class ResidenteProvider extends StateNotifier<List<ResidenteModel>> {
       throw Exception("Error $e");
     }
   }
-  
-  Future<List<ResidenteModel>> getResidenteById(String idUser, String token) async {
+
+ Future<List<ResidenteModel>> getResidenteById(String idUser, String token) async {
   try {
     final url = '$endpoint/GetResidenteById';
     final response = await http.post(
@@ -85,24 +85,18 @@ class ResidenteProvider extends StateNotifier<List<ResidenteModel>> {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
       },
-      body: jsonEncode({'idUser': idUser}),
+      body: jsonEncode({'IdUser': idUser}),
     );
-
+    print(response.body);
     if (response.statusCode == 200) {
       String body = utf8.decode(response.bodyBytes);
-      final Map<String, dynamic> jsonData = jsonDecode(body); // Cambiado a Map
-
-      if (jsonData == null || jsonData.isEmpty) {
-        throw Exception("Respuesta null");
+    
+      try {
+        final residente = ResidenteModel.fromJson(body);
+        return [residente]; // aqui es para que retorne la lista con ese objeto
+      } catch (e) {
+        throw Exception("Error al procesar los datos: $e");
       }
-
-      final listData = Residente.fromJsonListById(jsonData as List, idUser); // Pasar jsonData directamente
-
-      if (listData.residenteListbyUser.isEmpty) {
-        throw Exception("No se encontraron residentes para el idUser");
-      }
-
-      return listData.residenteListbyUser;
     } else {
       throw Exception("Ocurrió algo ${response.statusCode}");
     }
@@ -110,6 +104,7 @@ class ResidenteProvider extends StateNotifier<List<ResidenteModel>> {
     throw Exception("Error $e");
   }
 }
+
 
   Future<int> delete(String id) async {
     try {
