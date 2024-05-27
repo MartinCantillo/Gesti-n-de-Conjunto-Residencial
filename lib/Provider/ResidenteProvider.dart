@@ -134,6 +134,7 @@ class ResidenteProvider extends StateNotifier<List<ResidenteModel>> {
       if (response.statusCode == 200) {
         //final decodeData = jsonDecode(response.body);
         state[state.indexWhere((residente) => residente.id == data.id)] = data;
+        state[state.indexWhere((residente) => residente.id == data.id)] = data;
         return true;
       } else {
         throw ("Error ${response.statusCode}");
