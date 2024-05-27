@@ -71,7 +71,7 @@ class ResidenteModel {
     return ResidenteModel(
       id: map['id'],
       nombreResidente: map['nombreResidente'],
-      apellidoResidente: map['apellidoResidente'],
+      apellidoResidente: map['apellidoResidente'], 
       numApartamento: map['numApartamento'],
       numTelefono: map['numTelefono'],
       idUser: map['idUser'],

@@ -39,7 +39,7 @@ class UserProvider extends StateNotifier<List<UserModel>> {
           );
 
           state = [...state, newUser];
-          return "saved";
+          return userId;
 
       } else {
         throw Exception("Error ${response.statusCode}: ${response.body}");
