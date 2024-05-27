@@ -146,16 +146,18 @@ class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
   }
 }
 
-  Future<bool> update(String id, AnomaliaModel data) async {
+  Future<bool> update(String id, AnomaliaModel data, String token) async {
   try {
     final url = '$endpoint/updateAnomalia';
-    final response = await http.put(
+    final response = await http.post(
       Uri.parse(url),
       body: jsonEncode(data.toMap()), // Asegurarse de que los datos están en formato JSON
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token'
       },
     );
+    print(response.body);
     if (response.statusCode == 200) {
       state[state.indexWhere((anomalia) => anomalia.id == data.id)] = data;
       return true;

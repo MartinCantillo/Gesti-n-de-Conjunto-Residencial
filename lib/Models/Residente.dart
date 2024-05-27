@@ -32,6 +32,7 @@ class Residente {
             residenteListbyUser.add(value);
           }
         } catch (e) {
+          print('Error processing JSON: $e');
           throw Error();
         }
       });

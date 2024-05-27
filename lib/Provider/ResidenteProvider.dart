@@ -76,38 +76,38 @@ class ResidenteProvider extends StateNotifier<List<ResidenteModel>> {
     }
   }
   Future<List<ResidenteModel>> getResidenteById(String idUser, String token) async {
-    try {
-      final url = '$endpoint/GetResidenteById?id=$idUser';  // Añade el id como query parameter
-      final response = await http.get(
-        Uri.parse(url),
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer $token',  // Añade el token en el header
-        },
-      );
-      
-      if (response.statusCode == 200) {
-        String body = utf8.decode(response.bodyBytes);
-        final jsonData = jsonDecode(body);
+  try {
+    final url = '$endpoint/GetResidenteById?id=$idUser';  // Parámetro como query parameter
+    final response = await http.get(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
 
-        if (jsonData == null || jsonData.isEmpty) {
-          throw Exception("Respuesta null");
-        }
+    if (response.statusCode == 200) {
+      String body = utf8.decode(response.bodyBytes);
+      final jsonData = jsonDecode(body);
 
-        final listData = Residente.fromJsonListById(jsonData, idUser);
-
-        if (listData.residenteListbyUser.isEmpty) {
-          throw Exception("No se encontraron anomalías para el idUser");
-        }
-
-        return listData.residenteListbyUser;
-      } else {
-        throw Exception("Ocurrió algo ${response.statusCode}");
+      if (jsonData == null || jsonData.isEmpty) {
+        throw Exception("Respuesta null");
       }
-    } catch (e) {
-      throw Exception(e);
+
+      final listData = Residente.fromJsonListById(jsonData, idUser);
+
+      if (listData.residenteListbyUser.isEmpty) {
+        throw Exception("No se encontraron anomalías para el idUser");
+      }
+
+      return listData.residenteListbyUser;
+    } else {
+      throw Exception("Ocurrió algo ${response.statusCode}");
     }
+  } catch (e) {
+    throw Exception(e);
   }
+}
 
   Future<int> delete(String id) async {
     try {

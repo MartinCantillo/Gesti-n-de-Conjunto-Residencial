@@ -44,6 +44,7 @@ class _BuildCustomAppBarState extends ConsumerState<BuildCustomAppBar> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError || (snapshot.data as List).isEmpty) {
+          print("Snapshot error: ${snapshot.error}");
           return buildbody(context, null); // Mostrar un cuerpo vacío o un mensaje de error
         } else {
           return buildbody(context, snapshot.data);

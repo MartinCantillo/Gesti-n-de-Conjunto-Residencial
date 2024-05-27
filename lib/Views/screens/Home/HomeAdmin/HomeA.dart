@@ -41,7 +41,7 @@ class _ReportListView extends ConsumerStatefulWidget {
 }
 
 class _ReportListViewState extends ConsumerState<_ReportListView> {
-  late Future<List<AnomaliaModel>> anomaliasList;
+  late Future<List<AnomaliaModel>> anomaliasList = Future.value([]);
 
   @override
   void initState() {
@@ -208,9 +208,10 @@ class _ReportListViewState extends ConsumerState<_ReportListView> {
               //actualiza el valor en la anomalía
               anomalia.prioridad = selectedPrioridad;
               // Actualiza la anomalía en el proveedor
+              String token = await ref.read(anomaliaProvider.notifier).getToken();
               await ref
                   .read(anomaliaProvider.notifier)
-                  .update(anomalia.id ?? "", anomalia);
+                  .update(anomalia.id ?? "", anomalia, token);
 
               // Muestra un SnackBar con el mensaje de éxito
               ScaffoldMessenger.of(context).showSnackBar(
@@ -268,9 +269,10 @@ class _ReportListViewState extends ConsumerState<_ReportListView> {
               if (nuevoEstado != null) {
                 // Actualiza el estado de la anomalía en el proveedor
                 anomalia.idEstadoAnomalia = nuevoEstado!;
+                String token = await ref.read(anomaliaProvider.notifier).getToken();
                 await ref
                     .read(anomaliaProvider.notifier)
-                    .update(anomalia.id ?? "", anomalia);
+                    .update(anomalia.id ?? "", anomalia, token);
 
                
                 ScaffoldMessenger.of(context).showSnackBar(
