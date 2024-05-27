@@ -27,9 +27,10 @@ class BodyHome extends ConsumerStatefulWidget {
   @override
   BodyHomeState createState() => BodyHomeState();
 }
+
 class BodyHomeState extends ConsumerState<BodyHome> {
   late Future<List<AnomaliaModel>> anomaliasList = Future.value([]);
-  late Future<List<BannerModel>>  bannersList = Future.value([]);
+  late Future<List<BannerModel>> bannersList = Future.value([]);
   final prefs = PrefernciaUsuario();
 
   @override
@@ -42,13 +43,13 @@ class BodyHomeState extends ConsumerState<BodyHome> {
     try {
       String idUserGot = ref.read(pkUserProvider.notifier).state;
       String token = await ref.read(anomaliaProvider.notifier).getToken();
-      anomaliasList = ref.read(anomaliaProvider.notifier).getAnomaliaById(idUserGot, token);
+      anomaliasList =
+          ref.read(anomaliaProvider.notifier).getAnomaliaById(idUserGot, token);
       // bannersList = ref.read(bannerProvider.notifier).getAll();
       setState(() {});
     } catch (e) {
       print("Error fetchData: $e");
     }
-    
   }
 
   @override
@@ -66,7 +67,6 @@ class BodyHomeState extends ConsumerState<BodyHome> {
       },
     );
   }
-  
 
   Widget buildBody(BuildContext context, dynamic data, dynamic bannerList) {
     return Stack(
@@ -82,7 +82,8 @@ class BodyHomeState extends ConsumerState<BodyHome> {
               height: 56 + MediaQuery.of(context).padding.top,
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor, // Puedes cambiar el color según tus preferencias
+                color: Theme.of(context)
+                    .primaryColor, // Puedes cambiar el color según tus preferencias
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.5),
@@ -94,9 +95,7 @@ class BodyHomeState extends ConsumerState<BodyHome> {
               ),
               child: const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  
-                ],
+                children: [],
               ),
             ),
             Expanded(
@@ -155,7 +154,6 @@ class BodyHomeState extends ConsumerState<BodyHome> {
       ],
     );
   }
-  
 
   Column listMisReportes(data) {
     return Column(
@@ -251,94 +249,99 @@ class BodyHomeState extends ConsumerState<BodyHome> {
       ],
     );
   }
+
   Widget build2(BuildContext context) {
-  return FutureBuilder(
-    future: bannersList,
-    builder: (context, snapshot) {
-      if (snapshot.connectionState == ConnectionState.waiting) {
-        return const Center(child: CircularProgressIndicator());
-      } else if (snapshot.hasError || (snapshot.data as List).isEmpty) {
-        return Container(); // Podemos devolver un widget vacío si no hay banners
-      } else {
-        return buildBannerCarousel(snapshot.data!); // Pasamos snapshot.data directamente
-      }
-    },
-  );
-}
+    return FutureBuilder(
+      future: bannersList,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError || (snapshot.data as List).isEmpty) {
+          return Container(); // Podemos devolver un widget vacío si no hay banners
+        } else {
+          return buildBannerCarousel(
+              snapshot.data!); // Pasamos snapshot.data directamente
+        }
+      },
+    );
+  }
 
   final List<AnomaliaModel> dataVacia = [];
 
-   Widget buildBannerCarousel(List<BannerModel> banners) {
-  return CarouselSlider(
-    options: CarouselOptions(viewportFraction: 1, autoPlay: true,height: MediaQuery.of(context).size.height * 0.2),
-    items: [
-      // Agregar la imagen como primer elemento
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 15.0),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-          child: Opacity(
-            opacity: 0.9,
-            child: Image.asset(
-              "assets/images/new.png",
-              fit: BoxFit.fill,
-            ),
-          ),
-        ),
-      ),
-      ...banners.map((banner) {
-        return Padding(
+  Widget buildBannerCarousel(List<BannerModel> banners) {
+    return CarouselSlider(
+      options: CarouselOptions(
+          viewportFraction: 1,
+          autoPlay: true,
+          height: MediaQuery.of(context).size.height * 0.2),
+      items: [
+        // Agregar la imagen como primer elemento
+        Padding(
           padding: const EdgeInsets.symmetric(vertical: 15.0),
-          child: Card(
-            color: Theme.of(context).scaffoldBackgroundColor,
-            elevation: 2,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Administración',
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                      Text(
-                        banner.fecha ?? "",
-                        style: const TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    banner.titulo ?? "",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    banner.descripcion ?? "",
-                    style: TextStyle(
-                      fontSize: 12,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                ],
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Opacity(
+              opacity: 0.9,
+              child: Image.asset(
+                "assets/images/new.png",
+                fit: BoxFit.fill,
               ),
             ),
           ),
-        );
-      }).toList(),
-    ],
-  );
-}
+        ),
+        ...banners.map((banner) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 15.0),
+            child: Card(
+              color: Theme.of(context).scaffoldBackgroundColor,
+              elevation: 2,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Administración',
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                        Text(
+                          banner.fecha ?? "",
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      banner.titulo ?? "",
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      banner.descripcion ?? "",
+                      style: const TextStyle(
+                        fontSize: 12,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                  ],
+                ),
+              ),
+            ),
+          );
+        }).toList(),
+      ],
+    );
+  }
 }

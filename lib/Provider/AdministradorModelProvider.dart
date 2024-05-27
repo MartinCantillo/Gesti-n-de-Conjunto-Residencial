@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:riverpod/riverpod.dart';
 
 class AdministradorProvider extends StateNotifier<List<AdministradorModel>> {
-  final String endpoint = "https://georgx12.pythonanywhere.com/api/";
+  final String endpoint = "https://georgx12.pythonanywhere.com/api";
   AdministradorProvider(List<AdministradorModel> state) : super(state);
 
   Future<String> save(AdministradorModel data) async {

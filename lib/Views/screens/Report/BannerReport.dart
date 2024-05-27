@@ -1,7 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gestionresidencial/Models/Banner.dart';
 import 'package:gestionresidencial/Views/Components/mytextfield_component.dart';
+import 'package:gestionresidencial/Views/screens/Historial/historial_screen.dart';
 import 'package:gestionresidencial/Views/screens/Historial/historialbanner_screen.dart';
 
 import 'package:gestionresidencial/localstore/sharepreference.dart';
@@ -33,9 +36,14 @@ class _BannerReportState extends ConsumerState<BannerReport> {
             descripcion: _descripcionController.text,
             fecha: DateFormat('dd/MM/yyyy HH:m').format(DateTime.now()),
             );
-        //Guardar anomalia
-        await ref.read(bannerProvider.notifier).save(banner);
+        print("Creando objeto bannerModel");
+      
+      final token = await ref.read(anomaliaProvider.notifier).getToken();
+      if (token.isNotEmpty) {
+        print("Guardando banner");
+        await ref.read(bannerProvider.notifier).save(banner, token);
         Navigator.pushReplacementNamed(context, BannerReport.nombre);
+        }
       } catch (e) {
         throw ('Error al enviar el reporte: $e');
       }
@@ -46,13 +54,13 @@ class _BannerReportState extends ConsumerState<BannerReport> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Nuevo Banner'),
+        title: const Text('Nuevo Banner'),
         actions: [
           IconButton(
             onPressed: () {
               Navigator.pushNamed(context, BannerScreen.nombre);
             },
-            icon: Icon(Icons.settings), // Cambia el icono según tu preferencia
+            icon: const Icon(Icons.settings), // Cambia el icono según tu preferencia
           ),
         ],
       ),
@@ -87,7 +95,7 @@ class _BannerReportState extends ConsumerState<BannerReport> {
                     }, obscureText: false, labelText: 'Descripcion',
                   ),
                   const SizedBox(height: 10.0),
-                  Expanded(child: SizedBox(height: 10.0)),
+                  const Expanded(child: SizedBox(height: 10.0)),
                   // Agrega aquí campos adicionales para el banner si es necesario
                   ElevatedButton(
                     onPressed: () {
@@ -95,7 +103,7 @@ class _BannerReportState extends ConsumerState<BannerReport> {
                         _submitReport();
                       }
                     },
-                    child: Text('Guardar'),
+                    child: const Text('Guardar'),
                   ),
                 ],
               ),

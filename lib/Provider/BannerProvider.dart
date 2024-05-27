@@ -2,28 +2,45 @@ import 'dart:convert';
 
 import 'package:gestionresidencial/Models/Banner.dart';
 
-
 import 'package:http/http.dart' as http;
 
 import 'package:riverpod/riverpod.dart';
 
 class BannerProvider extends StateNotifier<List<BannerModel>> {
-  final String endpoint = "https://georgx12.pythonanywhere.com/api/";
+  final String endpoint = "https://georgx12.pythonanywhere.com/api";
   BannerProvider(List<BannerModel> state) : super(state);
 
-  Future<String> save(BannerModel data) async {
+  Future<String> save(BannerModel data, String token) async {
     try {
       final url = "$endpoint/saveBanner";
-      final response = await http.post(Uri.parse(url), body: data.toJson());
-      if (response.statusCode == 200) {
-        String body = utf8.decode(response.bodyBytes);
-        final jsonData = jsonDecode(body);
-        state = [...state, data];
-        return jsonData['name'];
+      print("Request Body: ${jsonEncode(data.toJson())}");
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        body: data.toJson(),
+      );
+
+      if (response.statusCode == 201) { // Cambié a 201 para creación exitosa
+        final responseData = jsonDecode(response.body);
+        final String bannerId = responseData['banner_id'].toString();
+
+        final newBanner = BannerModel(
+          id: bannerId,
+          titulo: data.titulo,
+          descripcion: data.descripcion,
+          fecha: data.fecha,
+        );
+
+        state = [...state, newBanner];
+        return bannerId;
       } else {
         throw ("Error ${response.statusCode}");
       }
     } catch (e) {
+      print('Error: $e');
       throw Exception("Error $e");
     }
   }

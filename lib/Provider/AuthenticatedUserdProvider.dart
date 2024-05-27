@@ -9,7 +9,7 @@ import 'package:riverpod/riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthenticatedUserdProvider extends StateNotifier<List<UserModel>> {
-  final String endpoint = "https://georgx12.pythonanywhere.com/api/";
+  final String endpoint = "https://georgx12.pythonanywhere.com/api";
 
   AuthenticatedUserdProvider(List<UserModel> state) : super(state);
 
