@@ -16,7 +16,7 @@ class BannerScreen extends ConsumerStatefulWidget {
 }
 
 class _BannerScreenState extends ConsumerState<BannerScreen> {
-  late Future<List<BannerModel>> bannersList;
+  late Future<List<BannerModel>> bannersList = Future.value([]);
 
   @override
   void initState() {
@@ -38,7 +38,8 @@ class _BannerScreenState extends ConsumerState<BannerScreen> {
   Future<void> _deleteBanner(String id) async {
     if (id != null && id.isNotEmpty) {
       try {
-        await ref.read(bannerProvider.notifier).delete(id);
+        String token = await ref.read(anomaliaProvider.notifier).getToken();
+        await ref.read(bannerProvider.notifier).delete(id, token);
         print("Se ha eliminado el banner");
       } catch (e) {
         print(e);

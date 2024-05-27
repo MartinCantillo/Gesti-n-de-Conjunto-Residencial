@@ -4,38 +4,37 @@ class Residente {
   List<ResidenteModel> residenteList = [];
   List<ResidenteModel> residenteListbyUser = [];
 
-  Residente.fromJsonList(json) {
-    if (json == null) {
+  Residente.fromJsonList(List<dynamic> jsonList) {
+    if (jsonList == null) {
       return;
     } else {
-      json.forEach((key, val) {
+      for (var item in jsonList) {
         try {
-          final value = ResidenteModel.fromMap(val);
-          value.id = key;
+          final value = ResidenteModel.fromMap(item);
           residenteList.add(value);
         } catch (e) {
-          throw Error();
+          print('Error processing JSON: $e');
+          throw Exception("Error al mapear ResidenteModel");
         }
-      });
+      }
     }
   }
 
-  Residente.fromJsonListById(jsonList, idUser) {
-    if (idUser == null) {
+  Residente.fromJsonListById(List<dynamic> jsonList, String idUser) {
+    if (jsonList == null || idUser == null) {
       return;
     } else {
-      jsonList.forEach((id, val) {
+      for (var item in jsonList) {
         try {
-          final value = ResidenteModel.fromMap(val);
-          value.id = id;
+          final value = ResidenteModel.fromMap(item);
           if (value.idUser == idUser) {
             residenteListbyUser.add(value);
           }
         } catch (e) {
           print('Error processing JSON: $e');
-          throw Error();
+          throw Exception("Error al mapear ResidenteModel");
         }
-      });
+      }
     }
   }
 }
@@ -70,12 +69,12 @@ class ResidenteModel {
 
   factory ResidenteModel.fromMap(Map<String, dynamic> map) {
     return ResidenteModel(
-      id: map['id'],
+      id: map['id']?.toString(),
       nombreResidente: map['nombreResidente'],
-      apellidoResidente: map['apellidoResidente'], 
-      numApartamento: map['numApartamento'],
-      numTelefono: map['numTelefono'],
-      idUser: map['idUser'],
+      apellidoResidente: map['apellidoResidente'],
+      numApartamento: map['numApartamento']?.toString(),
+      numTelefono: map['numTelefono']?.toString(),
+      idUser: map['idUser']?.toString(),
     );
   }
 

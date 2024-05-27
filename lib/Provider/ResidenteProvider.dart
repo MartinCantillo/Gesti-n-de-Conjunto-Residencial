@@ -78,27 +78,28 @@ class ResidenteProvider extends StateNotifier<List<ResidenteModel>> {
   
   Future<List<ResidenteModel>> getResidenteById(String idUser, String token) async {
   try {
-    final url = '$endpoint/GetResidenteById?id=$idUser';  // Parámetro como query parameter
-    final response = await http.get(
+    final url = '$endpoint/GetResidenteById';
+    final response = await http.post(
       Uri.parse(url),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
       },
+      body: jsonEncode({'idUser': idUser}),
     );
 
     if (response.statusCode == 200) {
       String body = utf8.decode(response.bodyBytes);
-      final jsonData = jsonDecode(body);
+      final Map<String, dynamic> jsonData = jsonDecode(body); // Cambiado a Map
 
       if (jsonData == null || jsonData.isEmpty) {
         throw Exception("Respuesta null");
       }
 
-      final listData = Residente.fromJsonListById(jsonData, idUser);
+      final listData = Residente.fromJsonListById(jsonData as List, idUser); // Pasar jsonData directamente
 
       if (listData.residenteListbyUser.isEmpty) {
-        throw Exception("No se encontraron anomalías para el idUser");
+        throw Exception("No se encontraron residentes para el idUser");
       }
 
       return listData.residenteListbyUser;
@@ -106,7 +107,7 @@ class ResidenteProvider extends StateNotifier<List<ResidenteModel>> {
       throw Exception("Ocurrió algo ${response.statusCode}");
     }
   } catch (e) {
-    throw Exception(e);
+    throw Exception("Error $e");
   }
 }
 

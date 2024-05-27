@@ -172,6 +172,7 @@ class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
   }
 }
 
+
   
 }
 

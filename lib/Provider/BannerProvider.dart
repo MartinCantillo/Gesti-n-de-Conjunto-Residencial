@@ -73,14 +73,21 @@ class BannerProvider extends StateNotifier<List<BannerModel>> {
   }
 }
 
-  Future<int> delete(String id) async {
+  Future<int> delete(String id, String token) async {
     try {
       final url = '$endpoint/deleteBanner';
 
-      final response = await http.delete(Uri.parse(url));
+      final response = await http.delete(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        body: jsonEncode({'id': id}),
+      );
 
       if (response.statusCode == 200) {
-        state.removeWhere((residente) => residente.id == id);
+        state = state.where((banner) => banner.id != id).toList();
         return 1;
       } else {
         throw Exception("Error ${response.statusCode}");
