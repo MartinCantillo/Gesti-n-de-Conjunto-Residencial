@@ -45,8 +45,18 @@ class _ReportListViewState extends ConsumerState<_ReportListView> {
 
   @override
   void initState() {
-    anomaliasList = ref.read(anomaliaProvider.notifier).getAll();
     super.initState();
+    fetchData();
+  }
+
+  Future<void> fetchData() async {
+    try {
+      String token = await ref.read(anomaliaProvider.notifier).getToken();
+      anomaliasList = ref.read(anomaliaProvider.notifier).getAll(token);
+      setState(() {});
+    } catch (e) {
+      print("Error fetchData: $e");
+    }
   }
 
   @override

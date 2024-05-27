@@ -18,16 +18,22 @@ class BuildCustomAppBar extends ConsumerStatefulWidget {
 }
 
 class _BuildCustomAppBarState extends ConsumerState<BuildCustomAppBar> {
-  late Future<List<ResidenteModel>> residenteList;
+  late Future<List<ResidenteModel>> residenteList = Future.value([]);
   final prefs = PrefernciaUsuario();
   String dropdownValue = '';
   List<String> address = [];
 
-  @override
+    @override
   void initState() {
     super.initState();
+    loadData();
+  }
+
+  Future<void> loadData() async {
     String idUserGot = ref.read(pkUserProvider.notifier).state;
-    residenteList = ref.read(residenteProvider.notifier).getResidenteById(idUserGot);
+    String token = await ref.read(anomaliaProvider.notifier).getToken(); // Obtén el token
+    residenteList = ref.read(residenteProvider.notifier).getResidenteById(idUserGot, token);  // Pasa el token a la función
+    setState(() {});  // Actualiza el estado
   }
 
   @override

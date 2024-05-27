@@ -6,9 +6,17 @@ import 'package:http/http.dart' as http;
 
 import 'package:riverpod/riverpod.dart';
 
+import 'package:gestionresidencial/localstore/sharepreference.dart';
+
 class ResidenteProvider extends StateNotifier<List<ResidenteModel>> {
   final String endpoint = "https://georgx12.pythonanywhere.com/api/";
   ResidenteProvider(List<ResidenteModel> state) : super(state);
+  final PrefernciaUsuario prefs = PrefernciaUsuario();
+
+  Future<String> getToken() async {
+    await prefs.initPrefs();
+    return prefs.token;
+  }
 
   Future<String> save(ResidenteModel data) async {
     try {
@@ -46,35 +54,37 @@ class ResidenteProvider extends StateNotifier<List<ResidenteModel>> {
       throw Exception("Error $e");
     }
   }
-  Future<List<ResidenteModel>> getResidenteById(String idUser) async {
-    
+  Future<List<ResidenteModel>> getResidenteById(String idUser, String token) async {
     try {
-      final url = '$endpoint/GetResidenteById';
-      final response = await http.get(Uri.parse(url));
+      final url = '$endpoint/GetResidenteById?id=$idUser';  // Añade el id como query parameter
+      final response = await http.get(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',  // Añade el token en el header
+        },
+      );
       
       if (response.statusCode == 200) {
         String body = utf8.decode(response.bodyBytes);
         final jsonData = jsonDecode(body);
         
-        // Verificar si el cuerpo de la respuesta está vacío
         if (jsonData == null || jsonData.isEmpty) {
           throw Exception("Respuesta null");
         }
 
-        // Verificar si alguno de los documentos contiene el idUser
         final listData = Residente.fromJsonListById(jsonData, idUser);
 
         if (listData.residenteListbyUser.isEmpty) {
-          throw Exception(" No se encontraron anomalías para el idUser");
+          throw Exception("No se encontraron anomalías para el idUser");
         }
         
-        state = listData.residenteListbyUser;
         return listData.residenteListbyUser;
       } else {
         throw Exception("Ocurrió algo ${response.statusCode}");
       }
     } catch (e) {
-      throw Exception (e);
+      throw Exception(e);
     }
   }
 

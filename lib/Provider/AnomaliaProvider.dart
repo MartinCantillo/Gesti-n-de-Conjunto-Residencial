@@ -51,10 +51,7 @@ class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
           'Authorization': 'Bearer $token',
         },
       );
-      
       print("Código de estado de la respuesta: ${response.statusCode}");
-
-
       if (response.statusCode == 200) {
         state = [...state, anomalia];
       } else {
@@ -67,25 +64,30 @@ class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
   }
 
 
-  Future<List<AnomaliaModel>> getAll() async {
-   // print("getallaentro");
-    try {
-      final url = "$endpoint/GetAllAnomalias";
-      final response = await http.get(Uri.parse(url));
-      if (response.statusCode == 200) {
-        String body = utf8.decode(response.bodyBytes);
-        final jsonData = jsonDecode(body);
+  Future<List<AnomaliaModel>> getAll(String token) async {
+  try {
+    final url = "$endpoint/GetAllAnomalias"; // Endpoint correcto para obtener todas las anomalías
+    final response = await http.get(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token', // Agregar el token en los encabezados de la solicitud
+      },
+    );
+    if (response.statusCode == 200) {
+      String body = utf8.decode(response.bodyBytes);
+      final jsonData = jsonDecode(body);
 
-        final listData = Anomalia.fromJsonList(jsonData);
-        state = listData.anomaliaList;
-        return listData.anomaliaList;
-      } else {
-        throw Exception("Ocurrió algo ${response.statusCode}");
-      }
-    } catch (e) {
-      throw Exception("Error $e");
+      final listData = Anomalia.fromJsonList(jsonData);
+      state = listData.anomaliaList;
+      return listData.anomaliaList;
+    } else {
+      throw Exception("Ocurrió algo ${response.statusCode}");
     }
+  } catch (e) {
+    throw Exception("Error $e");
   }
+}
 
 
   Future<List<AnomaliaModel>> getAnomaliaById(String idUser, String token) async {
@@ -121,13 +123,15 @@ class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
 
 
 
-  Future<int> delete(String id) async {
+  Future<int> delete(String id, String token) async {
   try {
     final url = '$endpoint/deleteAnomalia';
 
     final response = await http.delete(
       Uri.parse(url),
-      headers: {'Content-Type': 'application/json'},
+      headers: {'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'},
+      
       body: jsonEncode({'id': id}), // Asegurarse de que los datos están en formato JSON
     );
 

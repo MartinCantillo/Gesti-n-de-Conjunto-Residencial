@@ -8,40 +8,36 @@ class Residente {
     if (json == null) {
       return;
     } else {
-      json.list.forEach((key, val) {
-        if (json is Map<String, dynamic>) {
-          try {
-            final value = ResidenteModel.fromJson(json as String);
-            value.id = key;
-            residenteList.add(value);
-          } catch (e) {
-            throw Error();
-          }
+      json.forEach((key, val) {
+        try {
+          final value = ResidenteModel.fromMap(val);
+          value.id = key;
+          residenteList.add(value);
+        } catch (e) {
+          throw Error();
         }
       });
     }
   }
+
   Residente.fromJsonListById(jsonList, idUser) {
     if (idUser == null) {
       return;
     } else {
       jsonList.forEach((id, val) {
-          try {
-            final value = ResidenteModel.fromMap(val);
-            value.id = id;
+        try {
+          final value = ResidenteModel.fromMap(val);
+          value.id = id;
           if (value.idUser == idUser) {
             residenteListbyUser.add(value);
           }
-          } catch (e) {
-            throw Error();
-          }
+        } catch (e) {
+          throw Error();
         }
-      );
+      });
     }
   }
 }
- 
-
 
 class ResidenteModel {
   String? id;
@@ -50,6 +46,7 @@ class ResidenteModel {
   String? numApartamento;
   String? numTelefono;
   String? idUser;
+
   ResidenteModel({
     this.id,
     this.nombreResidente,
@@ -62,10 +59,10 @@ class ResidenteModel {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'NombreResidente': nombreResidente,
-      'ApellidoResidente': apellidoResidente,
-      'NumApartamento': numApartamento,
-      'NumTelefono': numTelefono,
+      'nombreResidente': nombreResidente,
+      'apellidoResidente': apellidoResidente,
+      'numApartamento': numApartamento,
+      'numTelefono': numTelefono,
       'idUser': idUser,
     };
   }
@@ -73,10 +70,10 @@ class ResidenteModel {
   factory ResidenteModel.fromMap(Map<String, dynamic> map) {
     return ResidenteModel(
       id: map['id'],
-      nombreResidente: map['NombreResidente'],
-      apellidoResidente: map['ApellidoResidente'], 
-      numApartamento: map['NumApartamento'],
-      numTelefono: map['NumTelefono'],
+      nombreResidente: map['nombreResidente'],
+      apellidoResidente: map['apellidoResidente'],
+      numApartamento: map['numApartamento'],
+      numTelefono: map['numTelefono'],
       idUser: map['idUser'],
     );
   }

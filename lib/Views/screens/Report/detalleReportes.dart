@@ -55,6 +55,8 @@ class _DetalleReportesState extends ConsumerState<DetalleReportes> {
   Widget upload(AnomaliaModel? data) {
     if (data != null) {
       print(data.id);
+      print(data.descripcionAnomalia);
+      print(data.tipoAnomalia);
       return Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(

@@ -84,7 +84,7 @@ class AnomaliaModel {
         id: map['id']?.toString() ?? "",
         tipoAnomalia: map['tipoAnomalia'] ?? "",
         asuntoAnomalia: map['asuntoAnomalia'] ?? "",
-        descripcionAnomalia: map['DescripcionAnomalia'] ?? "",
+        descripcionAnomalia: map['descripcionAnomalia'] ?? "",
         fechaReporteAnomalia: map['FechaReporteAnomalia'] ?? "",
         fotoAnomalia: map['FotoAnomalia'] ?? "",
         idEstadoAnomalia: map['IDEstadoAnomalia'] ?? "",

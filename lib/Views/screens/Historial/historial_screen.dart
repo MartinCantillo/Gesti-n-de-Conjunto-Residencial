@@ -63,7 +63,8 @@ class _HistorialPageState extends ConsumerState<HistorialPage> {
   Future<void> _deleteAnomalia(String id) async {
     if (id != null && id.isNotEmpty) {
       try {
-        await ref.read(anomaliaProvider.notifier).delete(id);
+        String token = await ref.read(anomaliaProvider.notifier).getToken();
+        await ref.read(anomaliaProvider.notifier).delete(id, token);
         print("Se ha eliminado la anomalia");
       } catch (e) {
         print(e);

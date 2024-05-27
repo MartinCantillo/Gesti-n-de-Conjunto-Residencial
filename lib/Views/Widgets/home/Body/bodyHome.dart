@@ -29,16 +29,26 @@ class BodyHome extends ConsumerStatefulWidget {
 }
 class BodyHomeState extends ConsumerState<BodyHome> {
   late Future<List<AnomaliaModel>> anomaliasList = Future.value([]);
-  late Future<List<BannerModel>>  bannersList;
+  late Future<List<BannerModel>>  bannersList = Future.value([]);
   final prefs = PrefernciaUsuario();
 
   @override
   void initState() {
     super.initState();
-    String idUserGot = ref.read(pkUserProvider.notifier).state;
-    // String idUserGot = "123";
-    // anomaliasList =ref.read(anomaliaProvider.notifier).getAnomaliaById(idUserGot);
-    bannersList = ref.read(bannerProvider.notifier).getAll();
+    fetchData();
+  }
+
+  Future<void> fetchData() async {
+    try {
+      String idUserGot = ref.read(pkUserProvider.notifier).state;
+      String token = await ref.read(anomaliaProvider.notifier).getToken();
+      anomaliasList = ref.read(anomaliaProvider.notifier).getAnomaliaById(idUserGot, token);
+      // bannersList = ref.read(bannerProvider.notifier).getAll();
+      setState(() {});
+    } catch (e) {
+      print("Error fetchData: $e");
+    }
+    
   }
 
   @override
