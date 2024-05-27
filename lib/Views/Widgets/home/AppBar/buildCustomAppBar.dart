@@ -78,13 +78,6 @@ class _BuildCustomAppBarState extends ConsumerState<BuildCustomAppBar> {
                     backgroundColor: Colors.transparent,
                   ),
                 ),
-                IconButton(
-                  icon: const Icon(Icons.notifications_outlined),
-                  color: Theme.of(context).secondaryHeaderColor,
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(NotificationPage.nombre);
-                  },
-                ),
               ],
             ),
           ),
