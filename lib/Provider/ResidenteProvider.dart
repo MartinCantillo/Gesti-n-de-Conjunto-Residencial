@@ -106,7 +106,6 @@ class ResidenteProvider extends StateNotifier<List<ResidenteModel>> {
       }
     } catch (e) {
       throw Exception(e);
-      throw Exception(e);
     }
   }
 
@@ -133,7 +132,6 @@ class ResidenteProvider extends StateNotifier<List<ResidenteModel>> {
       final response = await http.put(Uri.parse(url), body: data.toJson());
       if (response.statusCode == 200) {
         //final decodeData = jsonDecode(response.body);
-        state[state.indexWhere((residente) => residente.id == data.id)] = data;
         state[state.indexWhere((residente) => residente.id == data.id)] = data;
         return true;
       } else {
