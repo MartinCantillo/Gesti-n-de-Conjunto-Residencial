@@ -90,13 +90,13 @@ class ResidenteProvider extends StateNotifier<List<ResidenteModel>> {
 
     if (response.statusCode == 200) {
       String body = utf8.decode(response.bodyBytes);
-      final Map<String, dynamic> jsonData = jsonDecode(body); // Cambiado a Map
+      final jsonData = jsonDecode(body);
 
       if (jsonData == null || jsonData.isEmpty) {
         throw Exception("Respuesta null");
       }
 
-      final listData = Residente.fromJsonListById(jsonData as List, idUser); // Pasar jsonData directamente
+      final listData = Residente.fromJsonListById(jsonData, idUser); // Pasar jsonData directamente
 
       if (listData.residenteListbyUser.isEmpty) {
         throw Exception("No se encontraron residentes para el idUser");

@@ -20,20 +20,19 @@ class Residente {
     }
   }
 
-  Residente.fromJsonListById(List<dynamic> jsonList, String idUser) {
-    if (jsonList == null || idUser == null) {
+Residente.fromJsonListById(Map<String, dynamic> json, String idUser) {
+    if (json == null || idUser == null) {
       return;
     } else {
-      for (var item in jsonList) {
-        try {
-          final value = ResidenteModel.fromMap(item);
-          if (value.idUser == idUser) {
-            residenteListbyUser.add(value);
-          }
-        } catch (e) {
-          print('Error processing JSON: $e');
-          throw Exception("Error al mapear ResidenteModel");
+      try {
+        final value = ResidenteModel.fromMap(json);
+        print(json);
+        if (value.idUser == idUser) {
+          residenteListbyUser.add(value);
         }
+      } catch (e) {
+        print('Error processing JSON: $e');
+        throw Exception("Error al mapear ResidenteModel");
       }
     }
   }

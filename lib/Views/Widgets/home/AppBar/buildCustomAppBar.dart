@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:gestionresidencial/Models/Residente.dart';
-
-import 'package:gestionresidencial/Views/screens/Notification/notification_screen.dart';
-
 import 'package:gestionresidencial/localstore/sharepreference.dart';
-
 import 'package:gestionresidencial/main.dart';
 
 class BuildCustomAppBar extends ConsumerStatefulWidget {
@@ -23,7 +17,7 @@ class _BuildCustomAppBarState extends ConsumerState<BuildCustomAppBar> {
   String dropdownValue = '';
   List<String> address = [];
 
-    @override
+  @override
   void initState() {
     super.initState();
     loadData();
@@ -31,9 +25,9 @@ class _BuildCustomAppBarState extends ConsumerState<BuildCustomAppBar> {
 
   Future<void> loadData() async {
     String idUserGot = ref.read(pkUserProvider.notifier).state;
-    String token = await ref.read(anomaliaProvider.notifier).getToken(); // Obtén el token
-    residenteList = ref.read(residenteProvider.notifier).getResidenteById(idUserGot, token);  // Pasa el token a la función
-    setState(() {});  // Actualiza el estado
+    String token = await ref.read(anomaliaProvider.notifier).getToken();
+    residenteList = ref.read(residenteProvider.notifier).getResidenteById(idUserGot, token);
+    setState(() {});
   }
 
   @override
@@ -45,16 +39,17 @@ class _BuildCustomAppBarState extends ConsumerState<BuildCustomAppBar> {
           return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError || (snapshot.data as List).isEmpty) {
           print("Snapshot error: ${snapshot.error}");
-          return buildbody(context, null); // Mostrar un cuerpo vacío o un mensaje de error
+          return buildBody(context, null); // Mostrar un cuerpo vacío o un mensaje de error
         } else {
-          return buildbody(context, snapshot.data);
+          return buildBody(context, snapshot.data);
         }
       },
     );
   }
-  Widget buildbody(BuildContext context, List<ResidenteModel>? residenteData) {
+
+  Widget buildBody(BuildContext context, List<ResidenteModel>? residenteData) {
     final residente = residenteData?.first;
-    address = residenteData?.map((residente) => residente.numApartamento ??"").toList()??[];
+    address = residenteData?.map((residente) => residente.numApartamento ?? "").toList() ?? [];
     dropdownValue = residente?.numApartamento ?? "";
     return Positioned(
       top: 0,
@@ -65,8 +60,7 @@ class _BuildCustomAppBarState extends ConsumerState<BuildCustomAppBar> {
         children: [
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            height: kToolbarHeight, // Altura de la barra de aplicación
-
+            height: kToolbarHeight,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -83,13 +77,14 @@ class _BuildCustomAppBarState extends ConsumerState<BuildCustomAppBar> {
           ),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            height: kToolbarHeight, // Altura de la barra de aplicación
+            height: kToolbarHeight,
             child: Text(
               residente?.nombreResidente ?? "",
               style: TextStyle(
-                  fontSize: 40,
-                  color: Theme.of(context).scaffoldBackgroundColor,
-                  fontWeight: FontWeight.bold),
+                fontSize: 40,
+                color: Theme.of(context).scaffoldBackgroundColor,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           const SizedBox(height: 10),
@@ -120,14 +115,9 @@ class _BuildCustomAppBarState extends ConsumerState<BuildCustomAppBar> {
                     );
                   }).toList(),
                   elevation: 8,
-                  style: TextStyle(
-                      color: Theme.of(context).scaffoldBackgroundColor),
-                  // Cambia el color del botón cuando está en foco
-                  dropdownColor:
-                      Theme.of(context).primaryColor.withOpacity(0.8),
-                  // Aumenta el tamaño del ícono cuando está en foco
+                  style: TextStyle(color: Theme.of(context).scaffoldBackgroundColor),
+                  dropdownColor: Theme.of(context).primaryColor.withOpacity(0.8),
                   iconSize: 30,
-                  // Ajusta el borde del botón cuando está en foco
                   borderRadius: BorderRadius.circular(25),
                   underline: const SizedBox(),
                   onChanged: (value) {
