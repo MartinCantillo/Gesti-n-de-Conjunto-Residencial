@@ -47,8 +47,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
 
       try {
         // Guardar el usuario usando UserProvider
-        String pkUsuario =
-            await ref.watch(userProvider.notifier).saveUser(userModel);
+        String pkUsuario = await ref.watch(userProvider.notifier).saveUser(userModel);
 
         //Actualizar estado pkUser
         ref.watch(pkUserProvider.notifier).state = pkUsuario;

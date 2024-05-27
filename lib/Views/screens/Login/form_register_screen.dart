@@ -6,6 +6,7 @@ import 'package:gestionresidencial/Models/Residente.dart';
 
 import 'package:gestionresidencial/Views/Components/mybutton_component.dart';
 import 'package:gestionresidencial/Views/Components/mytextfield_component.dart';
+import 'package:gestionresidencial/Views/screens/Home/HomePage.dart';
 
 import 'package:gestionresidencial/Views/screens/Login/login_screen.dart';
 
@@ -31,37 +32,42 @@ class _FormRegisterPageState extends ConsumerState<FormRegisterPage> {
   final numberApartmentController = TextEditingController();
 
   void signUp(BuildContext context) async {
-    if (_formkey.currentState!.validate()) {
-      String idUserGot = ref.read(pkUserProvider.notifier).state;
-      try {
-        prefs.nombreusuario = nameController.text;
-        ResidenteModel residenteModel = ResidenteModel(
-            // Asignar los valores del usuario desde los controladores
-            nombreResidente: nameController.text,
-            apellidoResidente: lastnameController.text,
-            numApartamento: numberApartmentController.text,
-            numTelefono: numberController.text,
-            idUser: idUserGot);
-        prefs.apartment = numberApartmentController.text;
-        // Guardar el usuario usando UserProvider
-        // ignore: unused_local_variable
-        String response =
-            await ref.read(residenteProvider.notifier).save(residenteModel);
-        //print('registro guardado con éxito: $response');
-        // ignore: use_build_context_synchronously
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("¡Guardado exitoxamente!"),
-            duration: Duration(seconds: 2),
-          ),
-        );
-        Navigator.of(context).pushNamed(LoginPage.nombre);
-      } catch (e) {
-        print('Error al guardar el registro: $e');
-        // Aquí puedes manejar el error, mostrar un mensaje al usuario, etc.
-      }
+  if (_formkey.currentState!.validate()) {
+    String idUserGot = ref.read(pkUserProvider);
+    try {
+      prefs.nombreusuario = nameController.text;
+      ResidenteModel residenteModel = ResidenteModel(
+        nombreResidente: nameController.text,
+        apellidoResidente: lastnameController.text,
+        numApartamento: numberApartmentController.text,
+        numTelefono: numberController.text,
+        idUser: idUserGot,
+      );
+      prefs.apartment = numberApartmentController.text;
+
+      // Guardar el usuario usando ResidenteProvider
+      String response = await ref.read(residenteProvider.notifier).save(residenteModel);
+      print('Registro guardado con éxito: $response');
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("¡Guardado exitoxamente!"),
+          duration: Duration(seconds: 2),
+        ),
+      );
+      Navigator.of(context).pushNamed(HomePage.nombre);
+    } catch (e) {
+      print('Error al guardar el registro: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error al guardar el registro: $e'),
+          duration: Duration(seconds: 2),
+        ),
+      );
     }
   }
+}
+
 
   @override
   Widget build(BuildContext context) {

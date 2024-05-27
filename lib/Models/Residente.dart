@@ -62,10 +62,10 @@ class ResidenteModel {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'NombreResidente': nombreResidente,
-      'ApellidoResidente': apellidoResidente,
-      'NumApartamento': numApartamento,
-      'NumTelefono': numTelefono,
+      'nombreResidente': nombreResidente,
+      'apellidoResidente': apellidoResidente,
+      'numApartamento': numApartamento,
+      'numTelefono': numTelefono,
       'idUser': idUser,
     };
   }
@@ -73,10 +73,10 @@ class ResidenteModel {
   factory ResidenteModel.fromMap(Map<String, dynamic> map) {
     return ResidenteModel(
       id: map['id'],
-      nombreResidente: map['NombreResidente'],
-      apellidoResidente: map['ApellidoResidente'], 
-      numApartamento: map['NumApartamento'],
-      numTelefono: map['NumTelefono'],
+      nombreResidente: map['nombreResidente'],
+      apellidoResidente: map['apellidoResidente'], 
+      numApartamento: map['numApartamento'],
+      numTelefono: map['numTelefono'],
       idUser: map['idUser'],
     );
   }

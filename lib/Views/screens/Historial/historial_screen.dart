@@ -69,7 +69,7 @@ class _HistorialPageState extends ConsumerState<HistorialPage> {
         print(e);
       }
     } else {
-      print("el id esta vacio");
+      print("El id esta vacio");
     }
   }
 

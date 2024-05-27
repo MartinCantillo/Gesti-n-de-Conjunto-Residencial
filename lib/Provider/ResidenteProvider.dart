@@ -7,25 +7,46 @@ import 'package:http/http.dart' as http;
 import 'package:riverpod/riverpod.dart';
 
 class ResidenteProvider extends StateNotifier<List<ResidenteModel>> {
-  final String endpoint = "https://georgx12.pythonanywhere.com/api/";
+  final String endpoint = "https://georgx12.pythonanywhere.com/api";
   ResidenteProvider(List<ResidenteModel> state) : super(state);
 
   Future<String> save(ResidenteModel data) async {
     try {
       final url = "$endpoint/saveResidente";
-      final response = await http.post(Uri.parse(url), headers: {
+      print("Request Body: ${data.toJson()}");
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {
           'Content-Type': 'application/json',
-        }, body: data.toJson());
+        },
+        body: data.toJson(),
+      );
+
+      print("Response status: ${response.statusCode}");
+      print("Response body: ${response.body}");
+
       if (response.statusCode == 200) {
-        String body = utf8.decode(response.bodyBytes);
-        final jsonData = jsonDecode(body);
-        state = [...state, data];
-        return jsonData['name'];
+        final responseData = jsonDecode(response.body);
+        final String residenteId = responseData['residente_id'].toString();
+        final String idUser = responseData['idUser'].toString();
+
+        final newResidente = ResidenteModel(
+          id: residenteId,
+          nombreResidente: data.nombreResidente,
+          apellidoResidente: data.apellidoResidente,
+          numApartamento: data.numApartamento,
+          numTelefono: data.numTelefono,
+          idUser: idUser,
+        );
+
+        state = [...state, newResidente];
+        return residenteId;
       } else {
-        throw ("Error ${response.statusCode}");
+        throw Exception("Error ${response.statusCode}: ${response.body}");
       }
     } catch (e) {
-      throw Exception("Error $e");
+      print('Error: $e');
+      throw Exception("Error: $e");
     }
   }
 
@@ -46,16 +67,16 @@ class ResidenteProvider extends StateNotifier<List<ResidenteModel>> {
       throw Exception("Error $e");
     }
   }
+
   Future<List<ResidenteModel>> getResidenteById(String idUser) async {
-    
     try {
       final url = '$endpoint/GetResidenteById';
       final response = await http.get(Uri.parse(url));
-      
+
       if (response.statusCode == 200) {
         String body = utf8.decode(response.bodyBytes);
         final jsonData = jsonDecode(body);
-        
+
         // Verificar si el cuerpo de la respuesta está vacío
         if (jsonData == null || jsonData.isEmpty) {
           throw Exception("Respuesta null");
@@ -67,14 +88,14 @@ class ResidenteProvider extends StateNotifier<List<ResidenteModel>> {
         if (listData.residenteListbyUser.isEmpty) {
           throw Exception(" No se encontraron anomalías para el idUser");
         }
-        
+
         state = listData.residenteListbyUser;
         return listData.residenteListbyUser;
       } else {
         throw Exception("Ocurrió algo ${response.statusCode}");
       }
     } catch (e) {
-      throw Exception (e);
+      throw Exception(e);
     }
   }
 
@@ -101,8 +122,7 @@ class ResidenteProvider extends StateNotifier<List<ResidenteModel>> {
       final response = await http.put(Uri.parse(url), body: data.toJson());
       if (response.statusCode == 200) {
         //final decodeData = jsonDecode(response.body);
-        state[state.indexWhere(
-            (residente) => residente.id == data.id)] = data;
+        state[state.indexWhere((residente) => residente.id == data.id)] = data;
         return true;
       } else {
         throw ("Error ${response.statusCode}");
@@ -112,4 +132,3 @@ class ResidenteProvider extends StateNotifier<List<ResidenteModel>> {
     }
   }
 }
-
