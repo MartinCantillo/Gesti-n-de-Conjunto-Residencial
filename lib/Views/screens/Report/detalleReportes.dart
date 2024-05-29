@@ -33,22 +33,22 @@ class _DetalleReportesState extends ConsumerState<DetalleReportes> {
       appBar: AppBar(
         title: const Text('Detalles del Reporte'),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.share),
-            onPressed: () {
-              // Acción para compartir
-            },
-          ),
+          // IconButton(
+          //   icon: const Icon(Icons.share),
+          //   onPressed: () {
+          //     // Acción para compartir
+          //   },
+          // ),
         ],
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       ),
       body: upload(widget.anomalia), // Usar el objeto anomalia del widget
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.chat),  
-        onPressed: () {
-          Navigator.of(context).pushNamed(ChatPage.nombre);
-        },
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   child: const Icon(Icons.chat),  
+      //   onPressed: () {
+      //     Navigator.of(context).pushNamed(ChatPage.nombre);
+      //   },
+      // ),
     );
   }
 
@@ -80,17 +80,17 @@ class _DetalleReportesState extends ConsumerState<DetalleReportes> {
             ),
             Text('${data.descripcionAnomalia}',style: TextStyle(fontSize: 18)),
             const SizedBox(height: 20), // Añade un espacio entre los textos
-            const Text(
-              'Evidencia:',
-              style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),
-            ),
-            const SizedBox(height: 10), // Añade un espacio entre los textos
-            Container(
-              height: 200, // Altura reservada para la imagen
-              color: Colors.grey[200], // Color de fondo
-              alignment: Alignment.center,
-              child: const Icon(Icons.photo),
-            ),
+            // const Text(
+            //   'Evidencia:',
+            //   style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),
+            // ),
+            // const SizedBox(height: 10), // Añade un espacio entre los textos
+            // Container(
+            //   height: 200, // Altura reservada para la imagen
+            //   color: Colors.grey[200], // Color de fondo
+            //   alignment: Alignment.center,
+            //   child: const Icon(Icons.photo),
+            // ),
           ],
         ),
       );

@@ -108,7 +108,7 @@ class _ReportListViewState extends ConsumerState<_ReportListView> {
                     case TodoFilter.pending:
                       return anomalia.idEstadoAnomalia == "Pendiente";
                     case TodoFilter.rejected:
-                      return anomalia.idEstadoAnomalia == "rechazado";
+                      return anomalia.idEstadoAnomalia == "Rechazado";
                     case TodoFilter.process:
                       return anomalia.idEstadoAnomalia == "Proceso";
                     case TodoFilter.completed:

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:gestionresidencial/Models/Anomalia.dart';
@@ -114,6 +115,8 @@ class AnomaliaProvider extends StateNotifier<List<AnomaliaModel>> {
 
       final listData = Anomalia.fromJsonList(jsonData);
       return listData.anomaliaList; // Cambiar para devolver la lista correcta
+    } else if (response.statusCode == 404) {
+      return [];
     } else {
       throw Exception("Ocurrió algo ${response.statusCode}");
     }

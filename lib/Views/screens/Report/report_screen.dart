@@ -275,13 +275,13 @@ class reporteState extends ConsumerState<reporte> {
                   return null;
                 }),
             const SizedBox(height: 10.0),
-            CustomElevatedButton(
-              onPressed: _pickImage,
-              title: const Text('Subir evidencia'),
-            ),
-            const SizedBox(height: 10.0),
-            listEvidences(),
-            const SizedBox(height: 10.0),
+            // CustomElevatedButton(
+            //   onPressed: _pickImage,
+            //   title: const Text('Subir evidencia'),
+            // ),
+            // const SizedBox(height: 10.0),
+            // listEvidences(),
+            // const SizedBox(height: 10.0),
             CustomElevatedButton(
               onPressed: _submitReport,
               title: const Text('Enviar'),
