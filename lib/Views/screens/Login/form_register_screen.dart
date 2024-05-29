@@ -55,7 +55,7 @@ class _FormRegisterPageState extends ConsumerState<FormRegisterPage> {
           duration: Duration(seconds: 2),
         ),
       );
-      Navigator.of(context).pushNamed(HomePage.nombre);
+      Navigator.of(context).pushNamed(LoginPage.nombre);
     } catch (e) {
       print('Error al guardar el registro: $e');
       ScaffoldMessenger.of(context).showSnackBar(
