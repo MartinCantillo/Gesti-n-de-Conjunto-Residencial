@@ -108,7 +108,7 @@ class _ReportListViewState extends ConsumerState<_ReportListView> {
                     case TodoFilter.pending:
                       return anomalia.idEstadoAnomalia == "Pendiente";
                     case TodoFilter.rejected:
-                      return anomalia.idEstadoAnomalia == "Rechazado";
+                      return anomalia.idEstadoAnomalia == "rechazado";
                     case TodoFilter.process:
                       return anomalia.idEstadoAnomalia == "Proceso";
                     case TodoFilter.completed:
@@ -167,72 +167,73 @@ class _ReportListViewState extends ConsumerState<_ReportListView> {
   }
 
   Widget _buildAnomaliaDialog(AnomaliaModel anomalia) {
-    String? selectedPrioridad = anomalia.prioridad;
+  String? selectedPrioridad = anomalia.prioridad ?? '';
 
-    return AlertDialog(
-      title: Text(anomalia.asuntoAnomalia ?? ""),
-      content: StatefulBuilder(
-        builder: (BuildContext context, StateSetter setState) {
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Descripción: ${anomalia.descripcionAnomalia}'),
-              const SizedBox(height: 10),
-              const Text('Prioridad:'),
-              DropdownButton<String>(
-                value: selectedPrioridad,
-                onChanged: (String? newValue) {
-                  setState(() {
-                    selectedPrioridad = newValue;
-                  });
-                },
-                items: <String?>['', 'Baja', 'Media', 'Alta']
-                    .map<DropdownMenuItem<String>>((String? value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value ?? 'Sin prioridad'),
-                  );
-                }).toList(),
-              ),
-            ],
-          );
+  return AlertDialog(
+    title: Text(anomalia.asuntoAnomalia ?? ""),
+    content: StatefulBuilder(
+      builder: (BuildContext context, StateSetter setState) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Descripción: ${anomalia.descripcionAnomalia}'),
+            const SizedBox(height: 10),
+            const Text('Prioridad:'),
+            DropdownButton<String>(
+              value: selectedPrioridad,
+              onChanged: (String? newValue) {
+                setState(() {
+                  selectedPrioridad = newValue;
+                });
+              },
+              items: <String?>['', 'Baja', 'Media', 'Alta']
+                  .map<DropdownMenuItem<String>>((String? value) {
+                return DropdownMenuItem<String>(
+                  value: value ?? '',
+                  child: Text(value ?? 'Sin prioridad'),
+                );
+              }).toList(),
+            ),
+          ],
+        );
+      },
+    ),
+    actions: [
+      TextButton(
+        onPressed: () {
+          Navigator.of(context).pop(); // Cerrar el diálogo
         },
+        child: const Text('Cerrar'),
       ),
-      actions: [
-        TextButton(
-          onPressed: () {
-            Navigator.of(context).pop(); // Cerrar el diálogo
-          },
-          child: const Text('Cerrar'),
-        ),
-        ElevatedButton(
-          onPressed: () async {
-            if (selectedPrioridad != null) {
-              //actualiza el valor en la anomalía
-              anomalia.prioridad = selectedPrioridad;
-              // Actualiza la anomalía en el proveedor
-              String token = await ref.read(anomaliaProvider.notifier).getToken();
-              await ref
-                  .read(anomaliaProvider.notifier)
-                  .update(anomalia.id ?? "", anomalia, token);
+      ElevatedButton(
+        onPressed: () async {
+          if (selectedPrioridad != null) {
+            // Actualiza el valor en la anomalía
+            anomalia.prioridad = selectedPrioridad;
+            // Actualiza la anomalía en el proveedor
+            String token = await ref.read(anomaliaProvider.notifier).getToken();
+            await ref
+                .read(anomaliaProvider.notifier)
+                .update(anomalia.id ?? "", anomalia, token);
 
-              // Muestra un SnackBar con el mensaje de éxito
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Se ha actualizado la prioridad con éxito'),
-                  duration: Duration(seconds: 2), // Duración del SnackBar
-                ),
-              );
-            }
-            // Cierra el diálogo
-            Navigator.of(context).pop();
-          },
-          child: const Text('Asignar Prioridad'),
-        ),
-      ],
-    );
-  }
+            // Muestra un SnackBar con el mensaje de éxito
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Se ha actualizado la prioridad con éxito'),
+                duration: Duration(seconds: 2), // Duración del SnackBar
+              ),
+            );
+          }
+          // Cierra el diálogo
+          Navigator.of(context).pop();
+        },
+        child: const Text('Asignar Prioridad'),
+      ),
+    ],
+  );
+}
+
 
   Widget _buildChangeStatusDialog(BuildContext context, AnomaliaModel anomalia) {
   String? nuevoEstado = anomalia.idEstadoAnomalia;

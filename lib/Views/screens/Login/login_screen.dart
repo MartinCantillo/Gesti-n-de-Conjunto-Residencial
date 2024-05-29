@@ -140,12 +140,12 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       padding: const EdgeInsets.symmetric(horizontal: 25.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text(
-                            '¿Olvidaste tu contraseña?',
-                            style: TextStyle(color: Colors.grey[600]),
-                          ),
-                        ],
+                        // children: [
+                        //   Text(
+                        //     '¿Olvidaste tu contraseña?',
+                        //     style: TextStyle(color: Colors.grey[600]),
+                        //   ),
+                        // ],
                       ),
                     ),
                     const SizedBox(height: 15),
@@ -187,14 +187,14 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SquareTile(imagePath: 'assets/images/google.png'),
-                        SizedBox(width: 25),
-                        SquareTile(imagePath: 'assets/images/apple.png'),
-                      ],
-                    ),
+                    // const Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+                    //     SquareTile(imagePath: 'assets/images/google.png'),
+                    //     SizedBox(width: 25),
+                    //     SquareTile(imagePath: 'assets/images/apple.png'),
+                    //   ],
+                    // ),
                     const SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,

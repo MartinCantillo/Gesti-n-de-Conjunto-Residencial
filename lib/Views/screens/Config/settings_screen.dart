@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gestionresidencial/Models/Residente.dart';
 import 'package:gestionresidencial/Views/screens/Login/login_screen.dart';
 import 'package:gestionresidencial/localstore/sharepreference.dart';
+import 'package:gestionresidencial/main.dart';
 
 class SettingsPage extends ConsumerStatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -13,7 +15,21 @@ class SettingsPage extends ConsumerStatefulWidget {
 }
 
 class _SettingsPageState extends ConsumerState<SettingsPage> {
+  late Future<List<ResidenteModel>> residenteList = Future.value([]);
   final prefs = PrefernciaUsuario();
+
+  @override
+  void initState() {
+    super.initState();
+    loadData();
+  }
+
+  Future<void> loadData() async {
+    String idUserGot = ref.read(pkUserProvider.notifier).state;
+    String token = await ref.read(anomaliaProvider.notifier).getToken();
+    residenteList = ref.read(residenteProvider.notifier).getResidenteById(idUserGot, token);
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +55,23 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
           ),
           child: ListView(
             children: [
-              UserAccountsDrawerHeader(
-                accountName: Text(prefs.nombreusuario),
-                accountEmail: Text(prefs.usuario),
+              FutureBuilder<List<ResidenteModel>>(
+                future: residenteList,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const CircularProgressIndicator();
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                    final residente = snapshot.data!.first;
+                    return UserAccountsDrawerHeader(
+                      accountName: Text(residente.nombreResidente??""),
+                      accountEmail: Text(prefs.usuario),
+                    );
+                  } else {
+                    return const Text('No se encontró el residente');
+                  }
+                },
               ),
               const Divider(),
               ListTile(

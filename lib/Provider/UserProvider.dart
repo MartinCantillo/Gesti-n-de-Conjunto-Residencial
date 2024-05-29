@@ -26,11 +26,14 @@ class UserProvider extends StateNotifier<List<UserModel>> {
       );
 
       print("Response status: ${response.statusCode}");
+
       print("Response body: ${response.body}");
 
       if (response.statusCode == 200) {
         final responseData = jsonDecode(response.body);
         final String userId = responseData['user_id'].toString();
+        
+        
 
           final newUser = UserModel(
             id: userId,
